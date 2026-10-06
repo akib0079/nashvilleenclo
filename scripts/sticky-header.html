@@ -68,12 +68,22 @@
     for (var i = 0; i < imgs.length; i++) {
       var img = imgs[i];
       if (img.complete && img.currentSrc) continue;
-      var w = Math.ceil(img.getBoundingClientRect().width);
-      if (w > 0 && w < 2000) img.sizes = w + 'px';
+      var r = img.getBoundingClientRect(), w = r.width;
+      if (!w) continue;
+      // object-fit: cover crops the image, so it needs enough width to fill the box height too
+      var aw = +img.getAttribute('width'), ah = +img.getAttribute('height');
+      if (aw && ah && getComputedStyle(img).objectFit === 'cover') w = Math.max(w, r.height * aw / ah);
+      w = Math.ceil(w);
+      if (w < 2400) img.sizes = w + 'px';
     }
   }
 
-  function boot() { init(); fixSizes(); }
+  function a11y() {
+    var top = document.getElementById('back-to-top');
+    if (top && !top.getAttribute('aria-label')) top.setAttribute('aria-label', 'Back to top');
+  }
+
+  function boot() { init(); fixSizes(); a11y(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();

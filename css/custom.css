@@ -121,3 +121,26 @@ ul.ne-check li::before {
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(0, 0, 0, .18) !important;
 }
+
+/* Dark feature bands: the faint photo texture only reads on wide layouts;
+   on tall tablet/phone bands it would be stretched, so keep just the gradient there. */
+@media (max-width: 1024px) {
+  .e-con.effectbg::before { background-image: none !important; }
+}
+
+/* Blog index, posts and archives: the theme flags the header as "transparent" there, but this
+   site's header is solid white — keep it in the page flow so it doesn't cover the title banner. */
+#site-header.header-transparent { position: relative; }
+.page-header.header-transparent .page-title { margin-top: 0; }
+.blog .entry-content,
+.single-post .entry-content,
+.archive .entry-content,
+.search .entry-content { padding-top: 80px; }
+
+/* Single posts: the author box only shows the WordPress login name and a blank avatar */
+.single-post .author-bio { display: none; }
+
+/* Theme title banner (blog, posts, archives): darken the photo so the title + breadcrumb read clearly */
+.page-header { position: relative; }
+.page-header::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.5)); pointer-events: none; }
+.page-header > * { position: relative; z-index: 1; }

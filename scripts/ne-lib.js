@@ -72,6 +72,16 @@
   NE.media = (() => { try { return JSON.parse(localStorage.getItem('NE_MEDIA') || '{}'); } catch (e) { return {}; } })();
   NE.saveMedia = () => localStorage.setItem('NE_MEDIA', JSON.stringify(NE.media));
   NE.M = (key) => { const m = NE.media[key]; if (!m) throw new Error('missing media ' + key); return m; };
+  // Rebuild the map from docs/media-map.json (key -> {attachment_id, file, width, height, alt, title}).
+  // Elementor resolves the served file from id + size, so `url` only needs to be the original.
+  NE.loadMediaMap = (map) => {
+    const base = location.origin + '/wp-content/uploads/2026/10/';
+    for (const [k, v] of Object.entries(map)) {
+      NE.media[k] = { id: v.attachment_id, url: base + v.file, large: base + v.file, alt: v.alt, caption: v.title, w: v.width, h: v.height };
+    }
+    NE.saveMedia();
+    return Object.keys(NE.media).length;
+  };
   // Upload every image in `files` whose key isn't in the map yet; meta = {filename: {key, alt, caption}}.
   NE.uploadBatch = async (files, meta, log = []) => {
     for (const f of files) {

@@ -11,7 +11,40 @@
 
   /* ---------- prototype docs ---------- */
   const H = 5476, LR = 5513, W = 5523, AB = 5511;
-  NE.loadProtos = async () => { for (const id of [H, LR, W, AB]) await NE.load(id); return 'ok'; };
+  /*
+   * Prototypes come from the pre-redesign BACKUP templates (the live pages now hold the new
+   * layouts). Elementor re-ids elements when saving a template, so the original ids used by
+   * the builders are restored by tree position, verifying the element type at each path.
+   */
+  const BACKUPS = { 5476: 5910, 5513: 5905, 5523: 5950, 5524: 5953, 5522: 5947 };
+  const PATHS = {
+    5476: [['f5c2610', [0], 'container'], ['2dd64e4', [0, 0, 1, 0, 1, 1], 'ibutton'], ['86db9aa', [1], 'container'], ['5c09e8b', [1, 0, 0], 'image'],
+      ['858fcfd', [1, 1, 0], 'iheading'], ['364169d', [1, 1, 1], 'heading'], ['6457823', [1, 1, 5], 'ibutton'], ['aa4f9cc', [2], 'container'],
+      ['a7d8c32', [2, 1, 1, 0], 'container'], ['9399458', [2, 2, 1, 0, 0, 0, 2], 'text-editor'], ['94d8e6c', [3], 'container'],
+      ['1aebfab', [4], 'container'], ['974690f', [6], 'container'], ['4abad13', [7], 'container'], ['d32d0eb', [8], 'container']],
+    5513: [['3e3b505', [0], 'container'], ['f234636', [1], 'container'], ['45f7636', [1, 0, 2], 'text-editor'], ['c0e69c8', [1, 0, 3], 'container'],
+      ['9bfd753', [1, 0, 3, 1], 'button'], ['a49abb3', [3], 'container']],
+    5523: [['2aedb0c', [0], 'container'], ['56dbda4', [0, 0], 'container'], ['26ffe74', [0, 0, 3, 0, 0], 'icon-box'], ['1f1ac9d', [0, 0, 4], 'container'],
+      ['b7354eb', [0, 0, 4, 0], 'iheading'], ['35d8452', [0, 0, 4, 1], 'heading'], ['bf5365c', [0, 0, 4, 2], 'text-editor'], ['47b3f27', [0, 0, 4, 3], 'form']],
+    5524: [['b3cfc95', [0], 'container'], ['5907104', [0, 0, 0], 'iheading'], ['1283b94', [0, 0, 1], 'text-editor'], ['1d6bd40', [0, 0, 2], 'icontact_info'],
+      ['37e8d7d', [0, 0, 3], 'icontact_info'], ['617dda3', [0, 0, 4], 'icontact_info'], ['16fa6b7', [0, 0, 5], 'social-icons'],
+      ['d5c2a74', [0, 1, 0], 'iheading'], ['11003c4', [0, 1, 1], 'form'], ['1a7b17c', [1], 'container'], ['14088ed', [1, 0, 0], 'google_maps']],
+    5522: [['ea0d992', [0], 'container'], ['aebe389', [0, 0, 0], 'container'], ['6408b17', [0, 0, 0, 0, 0, 0], 'heading'],
+      ['98980fe', [0, 0, 0, 0, 0, 1], 'heading'], ['46d6656', [0, 0, 0, 0, 0, 2], 'text-editor'], ['c695e78', [0, 1], 'container']],
+  };
+  NE.loadProtos = async () => {
+    for (const [orig, backup] of Object.entries(BACKUPS)) {
+      const d = JSON.parse(JSON.stringify(await NE.getDoc(backup)));
+      for (const [id, path, type] of PATHS[orig]) {
+        let el = { elements: d.elements };
+        for (const i of path) el = el.elements[i];
+        if (!el || (el.widgetType || el.elType) !== type) throw new Error(`proto path mismatch ${orig}:${id} expected ${type} got ${el && (el.widgetType || el.elType)}`);
+        el.id = id;
+      }
+      NE.docs[orig] = d;
+    }
+    return 'ok';
+  };
   const P = (doc, id) => { const e = NE.byId(NE.docs[doc].elements, id); if (!e) throw new Error('proto ' + doc + '#' + id); return e; };
   const CL = (doc, id) => NE.clone(P(doc, id));
   const kid = (el, i) => el.elements[i];
@@ -165,7 +198,7 @@
     const s = CL(H, '94d8e6c');
     if (id) S(s, { _element_id: id });
     const box = kid(s, 0), inner = kid(box, 0);
-    S(box, { background_overlay_image: bgVal(texture || 'louvered-roofs-16', 'large'), background_overlay_opacity: { unit: 'px', size: 0.07 } });
+    S(box, { background_overlay_image: bgVal(texture || 'louvered-roofs-17', 'xl'), background_overlay_opacity: { unit: 'px', size: 0.07 } });
     const [pl, tt, tx, row] = inner.elements;
     S(pl, { title: pill, header_size: 'div' }); S(tt, { title, header_size: 'h2' });
     S(tx, { editor: html || '', _element_custom_width: { unit: 'px', size: 760 } });
