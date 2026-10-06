@@ -81,7 +81,17 @@
   function a11y() {
     var top = document.getElementById('back-to-top');
     if (top && !top.getAttribute('aria-label')) top.setAttribute('aria-label', 'Back to top');
+    var closers = document.querySelectorAll('.mmenu-close');
+    for (var i = 0; i < closers.length; i++) closers[i].setAttribute('aria-label', 'Close menu');
   }
+
+  /* Mobile menu close arrow is an href="#" link and the theme's handler doesn't cancel it,
+     so closing the menu jumped the page to the top. Cancel only that default navigation;
+     the theme's own (jQuery) close handler still runs. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.mmenu-close, #mmenu-toggle');
+    if (a && a.getAttribute('href') === '#') e.preventDefault();
+  });
 
   function boot() { init(); fixSizes(); a11y(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

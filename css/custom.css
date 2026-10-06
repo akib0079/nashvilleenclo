@@ -163,3 +163,11 @@ ul.ne-check li::before {
 @media (min-width: 1025px) and (max-width: 1239px) {
   body .elementor .e-con.custom-animated-header { --padding-left: 20px !important; --padding-right: 20px !important; }
 }
+
+/* Mobile/tablet menu: Elementor's sticky header leaves a hidden "spacer" copy of the header section.
+   The theme force-shows every .mmenu-overlay when the menu opens (child visibility overrides the
+   hidden spacer), so the copy's dark overlay covered the real menu and blocked every tap.
+   Remove the copies and lift the open header above all page content. */
+.elementor-sticky__spacer .mmenu-overlay,
+.elementor-sticky__spacer .mmenu-wrapper { display: none !important; }
+body.mmenu-active .header-mobile .elementor-sticky--active { z-index: 100000 !important; }

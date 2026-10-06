@@ -39,6 +39,10 @@ Automated audit of all 18 pages + the blog article at 1440px, 820px and 390px (p
 - No broken or missing images, every image has alt text, no images visibly upscaled.
 - No horizontal overflow, no clipped/overlapping buttons, no content touching the window edges (1100px).
 - Sticky header: pins when the nav reaches the top with no content jump; tablet and phone headers stick.
+- Mobile/tablet menu: every link, submenu, call and email item is tappable; closing keeps scroll position.
+  (Bug found on a real phone: Elementor's sticky "spacer" copy of the mobile header carried a second
+  dark overlay that the theme force-showed above the menu. Fixed in custom.css; the close arrow's
+  `href="#"` jump is cancelled in scripts/sticky-header.html.)
 - Pages open cleanly in the Elementor editor; gallery filters, lightboxes, YouTube embeds, Google Map and
   the mobile menu all work.
 - First-visit image payload (whole page scrolled): Home ~1.8 MB, Louvered Roofs ~2.6 MB, Projects ~0.7 MB
@@ -59,6 +63,11 @@ and the builder throws if a dropped photo is referenced.
 The theme's Royal Preloader keeps the page hidden ~1.5–2.4 s even when it has already loaded
 (longer on first visit). Turning it off (Customizer › theme options) would noticeably improve
 perceived speed and LCP.
+
+## Cache
+After Customizer CSS or header/footer template changes, clear WP Engine's cache (WP Engine › Caching ›
+Clear all caches) and confirm `x-cache: MISS` or the new markup with `curl`; the button doesn't always
+register on the first click.
 
 ## Backups
 Before any change, every touched page/template was saved as an Elementor template:
