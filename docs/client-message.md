@@ -28,10 +28,11 @@ WHAT'S INCLUDED
 - All page copy from your document. Our Process sits under About in the menu.
 - About 160 photos from your folders, optimized to load quickly. The Projects page has a gallery you can filter by system type.
 - The menu now stays at the top of the screen as you scroll, on desktop, tablet and phone.
+- The accent colour is now #957E56 across the site: buttons, links, highlighted headings and icons.
 - Both forms still go to brian@nashvilleenclosures.com, with updated product lists.
 
 WHAT WE NEED FROM YOU
-1. Links to your Facebook, Instagram, LinkedIn and YouTube pages. The social icons are hidden until we have them.
+1. Links to your LinkedIn and YouTube pages, if you have them. Facebook and Instagram are now linked in the header, footer and Contact page.
 2. Any of your own project videos for the Videos & Resources page. Two manufacturer videos are there for now.
 3. Photos of finished cantilever projects. That folder was empty, so the Cantilever page uses the closest examples we had.
 4. Higher-resolution heater photos if you have them. The ones we received are small (Instagram size).

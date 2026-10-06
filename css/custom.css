@@ -52,7 +52,11 @@
 /* ---------------------------------------------------------------------
    Content helpers used by the page templates
    --------------------------------------------------------------------- */
-.highlight { color: #CEA45D; }
+.highlight { color: #957E56; }
+
+/* Brand accent is #957E56. The uploaded arrow icon (Frame-73.svg) has the old gold baked into
+   its strokes, and Elementor inlines it, so recolour it here. */
+.elementor-icon svg [stroke="#EEB75D" i] { stroke: #957E56; }
 
 ul.ne-check {
   list-style: none;
@@ -76,7 +80,7 @@ ul.ne-check li::before {
   width: 17px;
   height: 17px;
   border-radius: 50%;
-  background: #CEA45D url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center / 10px no-repeat;
+  background: #957E56 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center / 10px no-repeat;
 }
 @media (max-width: 767px) {
   ul.ne-check { grid-template-columns: 1fr; }
@@ -92,7 +96,7 @@ ul.ne-check li::before {
 .ne-card-note {
   margin-top: 18px;
   padding: 18px 22px;
-  border-left: 3px solid #CEA45D;
+  border-left: 3px solid #957E56;
   background: #F7F5F0;
   border-radius: 0 10px 10px 0;
   line-height: 1.7;
@@ -101,7 +105,7 @@ ul.ne-check li::before {
 /* Filterable project gallery (Elementor Pro gallery) */
 .ne-filter-gallery .elementor-gallery__titles-container { flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
 .ne-filter-gallery .elementor-gallery-title { padding: 8px 4px; border-bottom: 2px solid transparent; }
-.ne-filter-gallery .elementor-gallery-title.elementor-item-active { border-bottom-color: #CEA45D; }
+.ne-filter-gallery .elementor-gallery-title.elementor-item-active { border-bottom-color: #957E56; }
 .ne-filter-gallery .e-gallery-item { border-radius: 10px; overflow: hidden; }
 
 /* Video cards */

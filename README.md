@@ -29,7 +29,14 @@ from the client's *Nash Enclosures website Page Layouts.docx* and photo folders.
   respects the WP admin bar, no flicker; tablet (768–1024px) header is now sticky too.
 - Theme page-title banner switched off on pages that now have their own hero (`pheader_switch = 0`).
 - Footer: wrong `mailto:theratio_interior@mail.com`, product links to the theme demo site, copyright link.
-- Header/footer/contact social icons hidden (they had no URLs) — re-enable once real profile URLs exist.
+- Social icons: Facebook + Instagram only (client URLs, 2026-10-06) in the header top bar, footer
+  (desktop centre column + a copy in the tablet/phone layout), side panel and Contact page — `B.SOCIAL` in `ne-build.js`.
+- Brand accent changed to **#957E56** (client, 2026-10-06). Every old gold (#CEA45D/#CDA45E, #CAA566, #C5A059,
+  #EEB75D, #998560, #FDB843, incl. 8-digit alpha variants and rgba forms) maps to it via `NE.recolor` (`ne-run.js`),
+  applied to live documents and to every build (the design prototypes still contain the old golds). The pale hero
+  line colour #FCE2B4 maps to a light tint, #E1D5C1, so it stays readable on dark photos. Also: Elementor kit global
+  "Accent Color", Customizer preloader bar, `css/custom.css`; the uploaded arrow icon `Frame-73.svg` has the old gold
+  in the file, so CSS recolours its strokes. The logo image keeps its own gold.
 - Forms: product lists updated, warranty photo upload made optional, clearer email subjects.
 - Menus (desktop + mobile) restructured; Patio Covers menu items repointed to the new pages.
 
@@ -86,7 +93,7 @@ Before any change, every touched page/template was saved as an Elementor templat
 | `docs/media-map.json` | Photo key → WordPress attachment ID |
 
 ## Open items for the client
-- Real social media profile URLs (icons are hidden until then).
+- LinkedIn / YouTube profile URLs if they have them (only Facebook and Instagram are shown).
 - Their own YouTube videos for the Videos & Resources page (two Suncoast product videos are used now).
 - Photos of cantilever projects (the Cantilever folder was empty) and higher-resolution heater photos.
 - Form “From” address uses the staging domain; switch to `@nashvilleenclosures.com` at launch.

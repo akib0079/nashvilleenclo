@@ -8,7 +8,6 @@
   const ps = B.ps;
   const hl = (t) => `<span class="highlight">${t}</span>`;
   const TEL = 'tel:+16303031666';
-  const HIDE = { hide_desktop: 'hidden-desktop', hide_tablet: 'hidden-tablet', hide_mobile: 'hidden-mobile' };
   const PRODUCT_OPTIONS = ['Motorized Louvered Roof', 'Retractable Screens', 'Cantilever Roof System', '3 & 4 Season Room', 'Sliding / Motorized Glass Enclosure', 'Infrared Heating', 'Screen Room', 'Architectural Metal', 'Commercial Outdoor Space', 'Multiple Systems / Not Sure Yet'];
   // deep copy keeping original ids so we can address prototype children, re-id at the end
   const copy = (doc, id) => JSON.parse(JSON.stringify(NE.byId(NE.docs[doc].elements, id)));
@@ -82,7 +81,7 @@
         set(main, '1d6bd40', { title: 'Email:' });
         set(main, '37e8d7d', { title: 'Phone:', des: `<a href="${TEL}">(630) 303-1666</a>` });
         set(main, '617dda3', { title: 'Service Area:', des: 'Nashville &amp; Middle Tennessee' });
-        set(main, '16fa6b7', HIDE); // no social profile URLs yet
+        set(main, '16fa6b7', B.social());
         set(main, 'd5c2a74', { sub: 'Request a Consultation', title: 'Get a Project Quote' });
         const form = NE.byId([main], '11003c4');
         form.settings.form_fields = form.settings.form_fields.map((f) => {

@@ -5,7 +5,6 @@
 (function () {
   const NE = window.NE, B = NE.B, U = B.URL;
   const TEL = 'tel:+16303031666', MAIL = 'mailto:brian@nashvilleenclosures.com';
-  const HIDE = { hide_desktop: 'hidden-desktop', hide_tablet: 'hidden-tablet', hide_mobile: 'hidden-mobile' };
   const copyDoc = async (id) => JSON.parse(JSON.stringify((await NE.load(id, true)).elements));
   const set = (els, id, s) => { const e = NE.byId(els, id); if (!e) throw new Error('missing ' + id); Object.assign(e.settings, s); return e; };
 
@@ -16,7 +15,7 @@
     const els = await copyDoc(3971);
     if (!NE.STICKY_HTML) throw new Error('sticky html not loaded');
     set(els, 'cb8d2f7', { html: NE.STICKY_HTML });
-    set(els, 'e92c188', HIDE); // social icons have no profile URLs yet
+    set(els, 'e92c188', B.social());
     const il = NE.byId(els, 'c09be38');
     il.settings.icon_list = il.settings.icon_list.map((it, i) => (i === 0 ? { ...it, text: 'Call: (630) 303-1666', link: { url: TEL } } : { ...it, link: { url: MAIL } }));
     set(els, 'd9f347a', { text: 'Request Quote', link: { url: U.contact } });
@@ -40,7 +39,7 @@
     set(els, 'ec0cbb0', { editor: about });
     set(els, '7594f36', { editor: about });
     set(els, '0b7f025', { editor: '<p>Copyright © [oceanthemes_date time_custom="Y"] Nashville Enclosures. All Rights Reserved.</p>' });
-    set(els, '66580c5', HIDE);
+    set(els, '66580c5', B.social()); // desktop: centre column (hidden on tablet/phone)
     const contacts = NE.byId(els, 'eed8c7e');
     const [loc, mail, tel] = contacts.settings.icon_list;
     contacts.settings.icon_list = [
@@ -64,6 +63,14 @@
     set(els, '9dded2f', { hide_tablet: 'hidden-tablet' });
     set(els, '9d51a93', { _inline_size_tablet: 50 });
     set(els, '152061b', { _inline_size_tablet: 50 });
+    // tablet/phone layout (171877e) had no social icons: copy the desktop ones under the about text
+    const SOC_M = 'ne50c0m';
+    const top = NE.byId(els, '9a73e59');
+    top.elements = top.elements.filter((e) => e.id !== SOC_M);
+    const socM = JSON.parse(JSON.stringify(NE.byId(els, '66580c5')));
+    socM.id = SOC_M;
+    Object.assign(socM.settings, { align: 'center', align_tablet: 'center', hide_desktop: 'hidden-desktop' });
+    top.elements.push(socM);
     const logoLink = NE.byId(els, '3ebc271');
     if (logoLink) logoLink.settings.link = { url: '/' };
     await NE.save(1334, els);
@@ -75,6 +82,7 @@
     const els = await copyDoc(2831);
     const g = NE.byId(els, '8701e24');
     g.settings.wp_gallery = ['louvered-roofs-04', 'glide-glass-01', 'season-rooms-01', 'retractable-screens-05', 'architectural-metal-01', 'commercial-02'].map((k) => NE.M(NE.B.SWAP[k] && NE.media[NE.B.SWAP[k]] ? NE.B.SWAP[k] : k)).map((m) => ({ id: m.id, url: m.url }));
+    NE.byId(els, 'bf2c7be').settings.social_icon_list = B.socialList();
     await NE.save(2831, els);
     return 'side panel ok';
   };

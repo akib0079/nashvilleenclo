@@ -61,6 +61,15 @@
   };
   const U = B.URL;
 
+  /* Social profiles — header top bar, footer, side panel, contact page */
+  B.SOCIAL = [
+    ['fab fa-facebook-f', 'https://www.facebook.com/p/Nashville-Enclosures-61560898534466/'],
+    ['fab fa-instagram', 'https://www.instagram.com/nashvilleenclosures/'],
+  ];
+  B.socialList = () => B.SOCIAL.map(([value, url], i) => ({ _id: 'ne50c' + i + '0', social_icon: { value, library: 'fa-brands' },
+    link: { url, is_external: 'on', nofollow: '', custom_attributes: '' } }));
+  B.social = () => ({ social_icon_list: B.socialList(), hide_desktop: '', hide_tablet: '', hide_mobile: '' });
+
   /* ---------- media helpers ---------- */
   /* Photo QA (full audit of all 162 photos): cropped versions replace originals that showed
      non-US flags/landmarks, third-party signage, faces or site clutter; DROP photos are never used. */
@@ -287,7 +296,7 @@
       image_border_radius: { unit: 'px', top: '10', right: '10', bottom: '10', left: '10', isLinked: true },
       background_overlay_color: 'rgba(26,26,26,0.45)',
       galleries_titles_space_between: { unit: 'px', size: 8 }, galleries_titles_gap: { unit: 'px', size: 32 },
-      galleries_title_color_normal: '#3D3D3D', galleries_title_color_hover: '#CAA566', galleries_title_color_active: '#CAA566',
+      galleries_title_color_normal: '#3D3D3D', galleries_title_color_hover: '#957E56', galleries_title_color_active: '#957E56',
       galleries_titles_typography_typography: 'custom', galleries_titles_typography_font_family: 'Poppins', galleries_titles_typography_font_size: { unit: 'px', size: 14 }, galleries_titles_typography_font_weight: '500', galleries_titles_typography_text_transform: 'uppercase',
       _css_classes: 'ne-filter-gallery',
     },
