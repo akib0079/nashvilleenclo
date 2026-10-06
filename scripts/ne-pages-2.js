@@ -337,7 +337,7 @@
         const featured = JSON.parse(JSON.stringify(NE.byId(NE.docs[5522].elements, 'ea0d992'))); // edit by original ids, re-id at the end
         // featured video card + side list of product guides
         const card = NE.byId([featured], 'aebe389');
-        Object.assign(card.settings, { link: { url: U.louvered }, background_image: { id: NE.M('louvered-roofs-06').id, url: NE.M('louvered-roofs-06').url, source: 'library' } });
+        Object.assign(card.settings, { link: { url: U.louvered }, background_image: { id: NE.M('louvered-roofs-06').id, url: NE.M('louvered-roofs-06').url, source: 'library', size: '1536x1536' } });
         Object.assign(NE.byId([featured], '6408b17').settings, { title: 'Featured Video', header_size: 'div' });
         Object.assign(NE.byId([featured], '98980fe').settings, { title: 'Motorized Louvered Roofs', header_size: 'h3' });
         Object.assign(NE.byId([featured], '46d6656').settings, { editor: '<p>See how a motorized louvered roof opens for sunlight and fresh air, adjusts for shade and closes for weather protection.</p>' });

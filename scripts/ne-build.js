@@ -31,7 +31,9 @@
   /* ---------- media helpers ---------- */
   const M = (k) => NE.M(k);
   const imgVal = (k, size = 'url') => { const m = M(k); return { id: m.id, url: m[size] || m.url, alt: m.alt, source: 'library', size: '' }; };
-  const bgVal = (k, size = 'url') => { const m = M(k); return { id: m.id, url: m[size] || m.url, source: 'library' }; };
+  // Elementor regenerates background URLs from the attachment id + `size`, so the size key decides the file served.
+  const BG_SIZE = { url: '', large: 'large', xl: '1536x1536' };
+  const bgVal = (k, size = 'url') => { const m = M(k); return { id: m.id, url: (size === 'large' && m.large) || m.url, source: 'library', size: BG_SIZE[size] ?? '' }; };
   B.range = (cat, n, skip = []) => Array.from({ length: n }, (_, i) => cat + '-' + String(i + 1).padStart(2, '0')).filter((k) => !skip.includes(k) && NE.media[k]);
 
   /* ---------- widgets ---------- */
@@ -163,7 +165,7 @@
     const s = CL(H, '94d8e6c');
     if (id) S(s, { _element_id: id });
     const box = kid(s, 0), inner = kid(box, 0);
-    S(box, { background_overlay_image: bgVal(texture || 'louvered-roofs-16'), background_overlay_opacity: { unit: 'px', size: 0.07 } });
+    S(box, { background_overlay_image: bgVal(texture || 'louvered-roofs-16', 'large'), background_overlay_opacity: { unit: 'px', size: 0.07 } });
     const [pl, tt, tx, row] = inner.elements;
     S(pl, { title: pill, header_size: 'div' }); S(tt, { title, header_size: 'h2' });
     S(tx, { editor: html || '', _element_custom_width: { unit: 'px', size: 760 } });
@@ -253,7 +255,7 @@
     // a card with buttons must not itself be a link (nested <a> tags break the DOM)
     if (buttons.length) href = '';
     S(card, { html_tag: href ? 'a' : 'div', link: { url: href || '' }, background_background: 'classic', background_color: '#000000', background_image: { url: '', id: '' },
-      background_overlay_background: 'classic', background_overlay_image: bg ? bgVal(bg) : { url: '', id: '' }, background_overlay_color: '#FFFFFF00',
+      background_overlay_background: 'classic', background_overlay_image: bg ? bgVal(bg, 'xl') : { url: '', id: '' }, background_overlay_color: '#FFFFFF00',
       background_overlay_position: 'center center', background_overlay_size: 'cover', background_overlay_repeat: 'no-repeat', background_overlay_opacity: { unit: 'px', size: 0.42 } });
     const col = kid(kid(card, 0), 0);
     const [ic, ih, hd, tx] = col.elements;

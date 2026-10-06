@@ -60,7 +60,21 @@
     update();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  /* Responsive images: some theme widgets output a generic `sizes` (e.g. 768px) for
+     thumbnails rendered much smaller, so high-DPI screens fetch 1536–2000px files.
+     Before lazy images load, replace `sizes` with their real rendered width. */
+  function fixSizes() {
+    var imgs = document.querySelectorAll('img[srcset][sizes]');
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      if (img.complete && img.currentSrc) continue;
+      var w = Math.ceil(img.getBoundingClientRect().width);
+      if (w > 0 && w < 2000) img.sizes = w + 'px';
+    }
+  }
+
+  function boot() { init(); fixSizes(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>

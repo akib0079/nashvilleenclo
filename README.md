@@ -33,6 +33,20 @@ from the client's *Nash Enclosures website Page Layouts.docx* and photo folders.
 - Forms: product lists updated, warranty photo upload made optional, clearer email subjects.
 - Menus (desktop + mobile) restructured; Patio Covers menu items repointed to the new pages.
 
+## Verified (headless Chrome, logged-out visitor view)
+- All 18 public pages return 200, each has exactly one H1, no broken internal links (21 checked).
+- Sticky header: pins exactly when the nav reaches the top, content offset unchanged (no jump);
+  tablet (900px) and phone (390px) headers stick too; no horizontal overflow at 390px.
+- First-visit image payload (whole page scrolled, 1280px): Home 1.8 MB, Louvered Roofs 2.6 MB,
+  Projects 0.7 MB initial (gallery lazy-loads ~86 KB thumbnails). Only full-width heroes exceed 300 KB.
+- Backgrounds request the right WP size (`size` key): cards 1024px, CTA bands 1536px, heroes full (≤2000px).
+- Header script also corrects `sizes` on lazy thumbnails so retina screens don't fetch 1536–2000px files.
+
+## Recommendation (not changed)
+The theme's Royal Preloader keeps the page hidden ~1.5–2.4 s even when it has already loaded
+(longer on first visit). Turning it off (Customizer › theme options) would noticeably improve
+perceived speed and LCP.
+
 ## Backups
 Before any change, every touched page/template was saved as an Elementor template:
 **Templates › Saved Templates › “BACKUP 2026-10-06 – …”** (18 templates). Insert one into a page to restore it.
