@@ -22,9 +22,22 @@
     return id;
   };
 
+  // Boxed sections from the original design have 0 side padding, so between 1025–1239px their
+  // content touches the window edges. Guarantee a 20px minimum (no visible change on wide screens).
+  NE.minSidePadding = (els) => {
+    for (const el of els) {
+      if (el.elType !== 'container') continue;
+      const p = el.settings.padding || {};
+      const l = +(p.left || 0), r = +(p.right || 0);
+      if (l >= 20 && r >= 20) continue;
+      el.settings.padding = { unit: p.unit || 'px', top: p.top === undefined ? '' : String(p.top), right: String(Math.max(r, 20)), bottom: p.bottom === undefined ? '' : String(p.bottom), left: String(Math.max(l, 20)), isLinked: false };
+    }
+    return els;
+  };
+
   NE.publishPage = async (key, opts = {}) => {
     const p = NE.PAGES[key];
-    const els = p.build();
+    const els = NE.minSidePadding(p.build());
     if (opts.dry) return { key, sections: els.length, bytes: JSON.stringify(els).length };
     const id = await NE.ensurePage(key);
     const body = { title: p.title };

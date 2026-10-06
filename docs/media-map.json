@@ -1456,5 +1456,23 @@
   "alt": "Cantilevered louvered canopy projecting from a brick building over a sidewalk patio",
   "title": "Street-Side Cantilever Canopy",
   "source": "web/cantilever/cantilever-03.jpg"
+ },
+ "cantilever-01w": {
+  "attachment_id": 6263,
+  "file": "nashville-cantilever-roof-01-wide.jpg",
+  "width": 2000,
+  "height": 800,
+  "alt": "Black cantilevered aluminum roof with cable stays extending from a brick building",
+  "title": "Cantilevered Patio Roof",
+  "source": "crop of cantilever-01 (removes Canadian street banners)"
+ },
+ "cantilever-03c": {
+  "attachment_id": 6264,
+  "file": "nashville-cantilever-roof-03-crop.jpg",
+  "width": 1200,
+  "height": 1600,
+  "alt": "Cantilevered louvered roof over a glass-railed restaurant patio",
+  "title": "Cantilevered Restaurant Patio",
+  "source": "crop of cantilever-03 (removes Canadian street banners)"
  }
 }

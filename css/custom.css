@@ -144,3 +144,22 @@ ul.ne-check li::before {
 .page-header { position: relative; }
 .page-header::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.5)); pointer-events: none; }
 .page-header > * { position: relative; z-index: 1; }
+
+/* Theme image galleries: uniform 4:3 thumbnails so mixed portrait/landscape photos form clean rows */
+.maingal img {
+  width: 100%;
+  height: auto !important;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* Long CTA labels (e.g. "Design a Custom Architectural Feature"): let theme buttons wrap on
+   tablet/phone instead of overflowing their column or the screen edge. */
+@media (max-width: 1024px) {
+  .ot-button a.octf-btn { white-space: normal; max-width: 100%; text-align: center; line-height: 1.45; }
+}
+
+/* Desktop header between 1025–1239px: keep logo and Request Quote off the window edges */
+@media (min-width: 1025px) and (max-width: 1239px) {
+  .elementor .e-con.custom-animated-header { --padding-left: 20px; --padding-right: 20px; }
+}

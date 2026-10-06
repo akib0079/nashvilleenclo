@@ -27,7 +27,8 @@
   /* ---------- mobile / tablet header: make sticky on tablet too ---------- */
   NE.fixMobileHeader = async () => {
     const els = await copyDoc(2888);
-    set(els, '04a6a8c', { sticky: 'top', sticky_on: ['tablet', 'mobile'], sticky_offset: 0, sticky_effects_offset: 0 });
+    set(els, '04a6a8c', { sticky: 'top', sticky_on: ['tablet', 'mobile'], sticky_offset: 0, sticky_effects_offset: 0,
+      padding_tablet: { unit: 'px', top: '0', right: '10', bottom: '0', left: '20', isLinked: false } });
     await NE.save(2888, els);
     return 'mobile header ok';
   };
@@ -55,6 +56,14 @@
       ['3 &amp; 4 Season Rooms', U.seasons], ['Glass Enclosures', U.glass], ['Infrared Heating', U.heating],
       ['Screen Rooms', U.screenrooms], ['Architectural Metal', U.metal], ['Commercial Outdoor Spaces', U.commercial],
     ].map(([text, url]) => ({ ...proto, _id: NE.uid(), text, link: { url } }));
+    // tablet: use the phone layout on top (logo + text) and Contacts | Systems side by side
+    set(els, '171877e', { hide_tablet: '' });
+    set(els, '9a73e59', { _inline_size_tablet: 100 });
+    set(els, '272d1eb', { hide_tablet: 'hidden-tablet' });
+    set(els, '41040ae', { hide_tablet: 'hidden-tablet' });
+    set(els, '9dded2f', { hide_tablet: 'hidden-tablet' });
+    set(els, '9d51a93', { _inline_size_tablet: 50 });
+    set(els, '152061b', { _inline_size_tablet: 50 });
     const logoLink = NE.byId(els, '3ebc271');
     if (logoLink) logoLink.settings.link = { url: '/' };
     await NE.save(1334, els);

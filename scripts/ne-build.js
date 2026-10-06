@@ -75,7 +75,7 @@
     const e = CL(H, '364169d'); S(e, { title: html, header_size: o.tag || 'h2' });
     delete e.settings.text_shadow_text_shadow;
     if (o.center) S(e, { align: 'center' });
-    if (o.size) S(e, { typography_font_size: { unit: 'px', size: o.size }, typography_line_height: { unit: 'em', size: 1.3 } });
+    if (o.size) S(e, { typography_font_size: { unit: 'px', size: o.size }, typography_line_height: { unit: 'em', size: 1.3 }, typography_font_size_tablet: { unit: 'px', size: o.size }, typography_font_size_mobile: { unit: 'px', size: Math.min(o.size, 18) }, typography_line_height_mobile: { unit: 'em', size: 1.35 } });
     return e;
   };
   B.text = (html, o = {}) => {
@@ -122,7 +122,7 @@
   // Inner-page / product hero (cloned from the product banner)
   B.hero = ({ pill, kicker, title, text, bg, buttons = [], h = 62, pos = 'center center' }) => {
     const s = CL(LR, '3e3b505');
-    S(s, { background_image: bgVal(bg), background_position: pos, min_height: { unit: 'vh', size: h }, background_slideshow_gallery: [] });
+    S(s, { background_image: bgVal(bg), background_position: pos, min_height: { unit: 'vh', size: h }, background_slideshow_gallery: [], padding_tablet: { unit: 'px', top: '110', right: '30', bottom: '80', left: '30', isLinked: false } });
     const inner = kid(s, 0), heads = kid(inner, 0), lower = kid(inner, 1);
     const [p, k, t] = heads.elements;
     S(p, { title: pill, header_size: 'div' });
@@ -130,7 +130,8 @@
     S(t, { title, header_size: 'h1' });
     const col = kid(lower, 0), [tx, row] = col.elements;
     S(tx, { editor: `<p>${text}</p>` });
-    S(row, { hide_tablet: '', hide_mobile: '', flex_wrap: 'wrap', flex_gap: { unit: 'px', size: 12, column: '12', row: '12', isLinked: true } });
+    // the prototype forces nowrap on mobile, which clips long CTA labels — let buttons wrap on every breakpoint
+    S(row, { hide_tablet: '', hide_mobile: '', flex_wrap: 'wrap', flex_wrap_tablet: 'wrap', flex_wrap_mobile: 'wrap', flex_gap: { unit: 'px', size: 12, column: '12', row: '12', isLinked: true } });
     const proto = row.elements[0];
     row.elements = buttons.map((b, i) => {
       if (i === 0) return S(NE.clone(proto), { text: b.text, link: { url: b.url } });
@@ -143,7 +144,7 @@
   // Home hero (cloned from home banner)
   B.homeHero = ({ pill, line1, line2, text, bg, buttons }) => {
     const s = CL(H, 'f5c2610');
-    S(s, { background_image: bgVal(bg) });
+    S(s, { background_image: bgVal(bg), padding_tablet: { unit: 'px', top: '110', right: '30', bottom: '80', left: '30', isLinked: false } });
     const heads = kid(kid(s, 0), 0), lower = kid(kid(s, 0), 1);
     const [p, l1, l2] = heads.elements;
     S(p, { title: pill, header_size: 'div' });
@@ -151,6 +152,7 @@
     S(l2, { title: line2, header_size: 'div' });
     const col = kid(lower, 0), [tx, row] = col.elements;
     S(tx, { editor: `<p>${text}</p>` });
+    S(row, { flex_wrap: 'wrap', flex_wrap_tablet: 'wrap', flex_wrap_mobile: 'wrap' });
     const [b1, b2] = row.elements;
     S(b1, { text: buttons[0].text, link: { url: buttons[0].url } });
     S(b2, { text: buttons[1].text, link: { url: buttons[1].url } });
@@ -162,7 +164,9 @@
     const s = CL(H, '86db9aa');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
-    S(s, { padding: { unit: 'px', top: '100', right: '20', bottom: '100', left: '20', isLinked: false }, padding_mobile: { unit: 'px', top: '60', right: '15', bottom: '60', left: '15', isLinked: false } });
+    S(s, { padding: { unit: 'px', top: '100', right: '20', bottom: '100', left: '20', isLinked: false }, padding_tablet: { unit: 'px', top: '80', right: '30', bottom: '80', left: '30', isLinked: false }, padding_mobile: { unit: 'px', top: '60', right: '15', bottom: '60', left: '15', isLinked: false },
+      // tablet: stack image + text like on phones (two narrow columns cramp headings, lists and features)
+      flex_direction_tablet: 'column', flex_gap_tablet: { unit: 'px', size: 40, column: '40', row: '40', isLinked: true } });
     const [imgCol, txtCol] = s.elements;
     const [big, small] = imgCol.elements;
     S(big, { image: imgVal(images[0]), image_size: 'large' });

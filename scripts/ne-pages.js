@@ -209,7 +209,7 @@
           items: systemCards(), minH: 400, bg: '#FFFFFF',
         }),
         processBand(),
-        productCta('Not Sure Which System Is Right?', 'retractable-screens-07', 'Whether you already know exactly what you want or you’re still trying to determine the right solution, the process starts with a conversation.'),
+        productCta('Not Sure Which System Is Right?', 'season-rooms-10', 'Whether you already know exactly what you want or you’re still trying to determine the right solution, the process starts with a conversation.'),
         B.effect(),
       ],
     },

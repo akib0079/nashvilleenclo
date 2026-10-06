@@ -100,11 +100,11 @@
     cantilever: {
       id: 5519, title: 'Cantilever Roof Systems', slug: 'cantilever-roof-systems',
       build: product({
-        name: 'Cantilever Roof Systems', short: 'Cantilever', kicker: 'Maximum Coverage. Minimal Obstruction.', hero: 'cantilever-01', ctaText: 'Explore a Cantilever Design', ctaBg: 'architectural-metal-15',
+        name: 'Cantilever Roof Systems', short: 'Cantilever', kicker: 'Maximum Coverage. Minimal Obstruction.', hero: 'cantilever-01w', ctaText: 'Explore a Cantilever Design', ctaBg: 'architectural-metal-15',
         lead: 'Architectural shade and roof structures designed with fewer posts and cleaner sightlines.',
         galleryTitle: `Architectural ${hl('Shade Structures')}`,
         sections: [
-          { sub: 'Cantilever Roof Systems', title: `Maximum Coverage. ${hl('Minimal Obstruction.')}`, images: ['architectural-metal-03', 'cantilever-03'],
+          { sub: 'Cantilever Roof Systems', title: `Maximum Coverage. ${hl('Minimal Obstruction.')}`, images: ['architectural-metal-03', 'cantilever-03c'],
             html: ps('A cantilevered roof changes the way an outdoor structure interacts with the space beneath it.',
               'By supporting the roof primarily from one side, cantilever designs can reduce or eliminate posts along important sightlines — creating a more open architectural appearance and greater flexibility around pools, patios, outdoor kitchens and entertainment areas.',
               'Our cantilever system uses structural aluminum construction and is designed around large engineered spans. Available roof configurations can provide full shade and weather coverage while maintaining the clean, modern appearance of a cantilevered structure.') },
@@ -116,7 +116,7 @@
             html: ps('Our systems use extruded aluminum components and architectural powder-coated finishes designed for exterior environments. The product line also allows our structures to be combined with lattice, privacy walls, decorative Soleil panels and other architectural elements.'),
             cta: ['Explore a Cantilever Design', U.contact] },
         ],
-        gallery: ['cantilever-01', 'cantilever-03', 'architectural-metal-03', 'solid-roofs-10', 'architectural-metal-15', 'architectural-metal-07'],
+        gallery: ['cantilever-01w', 'cantilever-03c', 'architectural-metal-03', 'solid-roofs-10', 'architectural-metal-15', 'architectural-metal-07'],
       }),
     },
 
@@ -309,7 +309,7 @@
           { title: 'Retractable Screens', images: R('retractable-screens', 18) },
           { title: 'Glass Enclosures', images: [...R('glide-glass', 18, ['glide-glass-17']), ...R('vertaslide-glass', 14)] },
           { title: 'Season &amp; Screen Rooms', images: [...R('season-rooms', 16), ...R('screen-rooms', 14)] },
-          { title: 'Patio Roofs &amp; Cantilevers', images: [...R('solid-roofs', 14), 'cantilever-01', 'cantilever-03'] },
+          { title: 'Patio Roofs &amp; Cantilevers', images: [...R('solid-roofs', 14), 'cantilever-01w', 'cantilever-03c'] },
           { title: 'Architectural Metal', images: R('architectural-metal', 18) },
           { title: 'Commercial', images: R('commercial', 20) },
         ];
