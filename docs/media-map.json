@@ -105,7 +105,8 @@
   "height": 1086,
   "alt": "Black louvered pergola with decorative privacy panels, built-in bench and wall heaters",
   "title": "Pergola with Privacy Panels",
-  "source": "web/louvered-roofs/louvered-roofs-12.jpg"
+  "source": "web/louvered-roofs/louvered-roofs-12.jpg",
+  "not_used_on_site": true
  },
  "louvered-roofs-13": {
   "attachment_id": 5820,
@@ -564,7 +565,8 @@
   "height": 1500,
   "alt": "Rooftop glass enclosure with a fire feature overlooking a city skyline",
   "title": "Rooftop Glass Room",
-  "source": "web/glide-glass/glide-glass-09.jpg"
+  "source": "web/glide-glass/glide-glass-09.jpg",
+  "not_used_on_site": true
  },
  "glide-glass-10": {
   "attachment_id": 5871,
@@ -636,7 +638,8 @@
   "height": 1126,
   "alt": "Close-up of a frameless glass panel's top track beneath a wood beam",
   "title": "Glass Track Detail",
-  "source": "web/glide-glass/glide-glass-17.jpg"
+  "source": "web/glide-glass/glide-glass-17.jpg",
+  "not_used_on_site": true
  },
  "glide-glass-18": {
   "attachment_id": 5879,
@@ -663,7 +666,8 @@
   "height": 1500,
   "alt": "Vertical sliding glass windows framing a sweeping lake view from a covered deck",
   "title": "Lakeview Glass Windows",
-  "source": "web/vertaslide-glass/vertaslide-glass-02.jpg"
+  "source": "web/vertaslide-glass/vertaslide-glass-02.jpg",
+  "not_used_on_site": true
  },
  "vertaslide-glass-03": {
   "attachment_id": 5882,
@@ -681,7 +685,8 @@
   "height": 1500,
   "alt": "Patio enclosure with vertical sliding glass windows along a sunny plaza",
   "title": "Glass Patio Enclosure",
-  "source": "web/vertaslide-glass/vertaslide-glass-04.jpg"
+  "source": "web/vertaslide-glass/vertaslide-glass-04.jpg",
+  "not_used_on_site": true
  },
  "vertaslide-glass-05": {
   "attachment_id": 5884,
@@ -690,7 +695,8 @@
   "height": 1380,
   "alt": "Glass-enclosed deck with timber ceiling overlooking the water",
   "title": "Waterfront Glass Deck",
-  "source": "web/vertaslide-glass/vertaslide-glass-05.jpg"
+  "source": "web/vertaslide-glass/vertaslide-glass-05.jpg",
+  "not_used_on_site": true
  },
  "vertaslide-glass-06": {
   "attachment_id": 5909,
@@ -735,7 +741,8 @@
   "height": 1380,
   "alt": "Guests dining inside a glass patio enclosure on a sunny day",
   "title": "Year-Round Patio Dining",
-  "source": "web/vertaslide-glass/vertaslide-glass-10.jpg"
+  "source": "web/vertaslide-glass/vertaslide-glass-10.jpg",
+  "not_used_on_site": true
  },
  "vertaslide-glass-11": {
   "attachment_id": 5937,
@@ -924,7 +931,8 @@
   "height": 1335,
   "alt": "Two-story home with a gabled screen room above a fire pit with blue chairs",
   "title": "Gabled Upper Screen Room",
-  "source": "web/screen-rooms/screen-rooms-05.jpg"
+  "source": "web/screen-rooms/screen-rooms-05.jpg",
+  "not_used_on_site": true
  },
  "screen-rooms-06": {
   "attachment_id": 5902,
@@ -969,7 +977,8 @@
   "height": 1499,
   "alt": "Gabled screen room above a walkout patio with stone columns",
   "title": "Elevated Gable Screen Room",
-  "source": "web/screen-rooms/screen-rooms-10.jpg"
+  "source": "web/screen-rooms/screen-rooms-10.jpg",
+  "not_used_on_site": true
  },
  "screen-rooms-11": {
   "attachment_id": 5995,
@@ -1176,7 +1185,8 @@
   "height": 1380,
   "alt": "Waterfront restaurant patio with open glass walls, umbrellas and skyline views",
   "title": "Waterfront Restaurant Patio",
-  "source": "web/commercial/commercial-01.jpg"
+  "source": "web/commercial/commercial-01.jpg",
+  "not_used_on_site": true
  },
  "commercial-02": {
   "attachment_id": 5988,
@@ -1284,7 +1294,8 @@
   "height": 1500,
   "alt": "Enclosed restaurant patio with large windows overlooking a city street",
   "title": "Street-View Patio Enclosure",
-  "source": "web/commercial/commercial-15.jpg"
+  "source": "web/commercial/commercial-15.jpg",
+  "not_used_on_site": true
  },
  "commercial-16": {
   "attachment_id": 6041,
@@ -1446,7 +1457,8 @@
   "height": 1500,
   "alt": "Wall-mounted cantilevered louvered roof over a busy street-side restaurant patio",
   "title": "Cantilevered Restaurant Canopy",
-  "source": "web/cantilever/cantilever-01.jpg"
+  "source": "web/cantilever/cantilever-01.jpg",
+  "not_used_on_site": true
  },
  "cantilever-03": {
   "attachment_id": 6003,
@@ -1455,7 +1467,8 @@
   "height": 1840,
   "alt": "Cantilevered louvered canopy projecting from a brick building over a sidewalk patio",
   "title": "Street-Side Cantilever Canopy",
-  "source": "web/cantilever/cantilever-03.jpg"
+  "source": "web/cantilever/cantilever-03.jpg",
+  "not_used_on_site": true
  },
  "cantilever-01w": {
   "attachment_id": 6263,
@@ -1474,5 +1487,176 @@
   "alt": "Cantilevered louvered roof over a glass-railed restaurant patio",
   "title": "Cantilevered Restaurant Patio",
   "source": "crop of cantilever-03 (removes Canadian street banners)"
+ },
+ "vertaslide-glass-06c": {
+  "attachment_id": 6322,
+  "file": "nashville-vertical-glass-enclosure-06-c.jpg",
+  "width": 1440,
+  "height": 1080,
+  "alt": "Restaurant dining room with open windows overlooking a waterfront plaza",
+  "title": "Open-Air Dining Room",
+  "source": "QA crop of vertaslide-glass-06"
+ },
+ "vertaslide-glass-09c": {
+  "attachment_id": 6323,
+  "file": "nashville-vertical-glass-enclosure-09-c.jpg",
+  "width": 1140,
+  "height": 855,
+  "alt": "Restaurant booths beside wide glass windows overlooking a waterfront",
+  "title": "Waterfront Booth Seating",
+  "source": "QA crop of vertaslide-glass-09"
+ },
+ "commercial-18c": {
+  "attachment_id": 6309,
+  "file": "nashville-commercial-outdoor-space-18-c.jpg",
+  "width": 1332,
+  "height": 999,
+  "alt": "Enclosed restaurant patio glowing with string lights at sunset",
+  "title": "Sunset Patio Enclosure",
+  "source": "QA crop of commercial-18"
+ },
+ "commercial-20c": {
+  "attachment_id": 6310,
+  "file": "nashville-commercial-outdoor-space-20-c.jpg",
+  "width": 1070,
+  "height": 802,
+  "alt": "White louvered canopy over a building entrance flanked by potted plants",
+  "title": "Louvered Entry Canopy",
+  "source": "QA crop of commercial-20"
+ },
+ "louvered-roofs-10c": {
+  "attachment_id": 6313,
+  "file": "nashville-louvered-roof-10-c.jpg",
+  "width": 1800,
+  "height": 1350,
+  "alt": "Open louvered roof framing a wide countryside view from a modern patio",
+  "title": "Panoramic Open Roof",
+  "source": "QA crop of louvered-roofs-10"
+ },
+ "glide-glass-06c": {
+  "attachment_id": 6320,
+  "file": "nashville-sliding-glass-wall-06-c.jpg",
+  "width": 1496,
+  "height": 940,
+  "alt": "Glass-walled patio with lounge chairs overlooking an infinity pool and ocean",
+  "title": "Oceanview Glass Patio",
+  "source": "QA crop of glide-glass-06"
+ },
+ "season-rooms-10c": {
+  "attachment_id": 6319,
+  "file": "nashville-season-room-10-c.jpg",
+  "width": 1480,
+  "height": 1110,
+  "alt": "Translucent-roof sunroom with lounge chairs overlooking a green lawn",
+  "title": "Backyard Sunroom Lounge",
+  "source": "QA crop of season-rooms-10"
+ },
+ "architectural-metal-04c": {
+  "attachment_id": 6305,
+  "file": "nashville-architectural-aluminum-04-c.jpg",
+  "width": 1387,
+  "height": 1040,
+  "alt": "Multi-story apartment building with wood-look aluminum cladding accents",
+  "title": "Multifamily Cladding",
+  "source": "QA crop of architectural-metal-04"
+ },
+ "commercial-09c": {
+  "attachment_id": 6308,
+  "file": "nashville-commercial-outdoor-space-09-c.jpg",
+  "width": 1232,
+  "height": 924,
+  "alt": "Louvered roof with ceiling fans over a restaurant patio beside a garden",
+  "title": "Louvered Restaurant Patio",
+  "source": "QA crop of commercial-09"
+ },
+ "retractable-screens-05c": {
+  "attachment_id": 6314,
+  "file": "nashville-retractable-screen-05-c.jpg",
+  "width": 1880,
+  "height": 1410,
+  "alt": "Large retractable screens on the lower patio of a modern multi-level home",
+  "title": "Modern Home Screens",
+  "source": "QA crop of retractable-screens-05"
+ },
+ "glide-glass-10c": {
+  "attachment_id": 6321,
+  "file": "nashville-sliding-glass-wall-10-c.jpg",
+  "width": 1940,
+  "height": 1455,
+  "alt": "White-framed rooftop pergola enclosed with sliding glass panels",
+  "title": "Glass-Enclosed Rooftop Pergola",
+  "source": "QA crop of glide-glass-10"
+ },
+ "retractable-screens-13c": {
+  "attachment_id": 6315,
+  "file": "nashville-retractable-screen-13-c.jpg",
+  "width": 1680,
+  "height": 1260,
+  "alt": "Light gray retractable screens lowered around a white home's back porch",
+  "title": "Back Porch Screens",
+  "source": "QA crop of retractable-screens-13"
+ },
+ "retractable-screens-18c": {
+  "attachment_id": 6316,
+  "file": "nashville-retractable-screen-18-c.jpg",
+  "width": 1200,
+  "height": 900,
+  "alt": "Black retractable screen lowered over a wide opening on a cedar-sided home",
+  "title": "Single Wide-Span Screen",
+  "source": "QA crop of retractable-screens-18"
+ },
+ "season-rooms-02c": {
+  "attachment_id": 6317,
+  "file": "nashville-season-room-02-c.jpg",
+  "width": 890,
+  "height": 668,
+  "alt": "Four-season room with stone fireplace, mounted TV and vaulted plank ceiling",
+  "title": "Fireplace Four-Season Room",
+  "source": "QA crop of season-rooms-02"
+ },
+ "season-rooms-08c": {
+  "attachment_id": 6318,
+  "file": "nashville-season-room-08-c.jpg",
+  "width": 1600,
+  "height": 1200,
+  "alt": "Glass-walled season room with dining set overlooking open fields",
+  "title": "Countryside Dining Room",
+  "source": "QA crop of season-rooms-08"
+ },
+ "commercial-02c": {
+  "attachment_id": 6307,
+  "file": "nashville-commercial-outdoor-space-02-c.jpg",
+  "width": 1440,
+  "height": 1080,
+  "alt": "Louvered roof shading a landscaped rooftop restaurant terrace with wood tables",
+  "title": "Rooftop Louvered Terrace",
+  "source": "QA crop of commercial-02"
+ },
+ "architectural-metal-15c": {
+  "attachment_id": 6306,
+  "file": "nashville-architectural-aluminum-15-c.jpg",
+  "width": 900,
+  "height": 675,
+  "alt": "Laser-cut decorative aluminum roof panels casting patterned shade",
+  "title": "Laser-Cut Roof Panels",
+  "source": "QA crop of architectural-metal-15"
+ },
+ "solid-roofs-07c": {
+  "attachment_id": 6312,
+  "file": "nashville-insulated-patio-roof-07-c.jpg",
+  "width": 955,
+  "height": 608,
+  "alt": "Black solid roof pavilion with decorative laser-cut privacy panels",
+  "title": "Modern Privacy Pavilion",
+  "source": "QA crop of solid-roofs-07"
+ },
+ "solid-roofs-05c": {
+  "attachment_id": 6311,
+  "file": "nashville-insulated-patio-roof-05-c.jpg",
+  "width": 649,
+  "height": 444,
+  "alt": "Solid aluminum patio cover with ceiling fans over a wide backyard patio",
+  "title": "Fan-Cooled Patio Cover",
+  "source": "QA crop of solid-roofs-05"
  }
 }

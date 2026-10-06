@@ -65,7 +65,7 @@
               'For appropriate projects, we can provide 3D modeling and renderings before construction so you can understand the design before it becomes part of your home.'),
             cta: ['Design Your Louvered Roof', U.contact] },
         ],
-        gallery: ['louvered-roofs-02', 'louvered-roofs-04', 'louvered-roofs-05', 'louvered-roofs-08', 'louvered-roofs-09', 'louvered-roofs-10', 'louvered-roofs-11', 'louvered-roofs-12', 'louvered-roofs-14', 'louvered-roofs-15', 'louvered-roofs-16', 'louvered-roofs-20'],
+        gallery: ['louvered-roofs-02', 'louvered-roofs-04', 'louvered-roofs-05', 'louvered-roofs-08', 'louvered-roofs-09', 'louvered-roofs-10', 'louvered-roofs-11', 'louvered-roofs-14', 'louvered-roofs-15', 'louvered-roofs-16', 'louvered-roofs-20'],
       }),
     },
 
@@ -173,14 +173,14 @@
             html: ps('For new projects, Nashville Enclosures can incorporate the glass system into the design from the beginning, coordinating the structure, openings, tracks, finishes, and surrounding systems for a clean, intentional result.',
               'Combine sliding glass with a louvered or insulated roof, retractable screens, infrared heaters, lighting, and fans to create an outdoor room that adapts to changing conditions.',
               '<strong>The goal isn’t to separate you from the outdoors — it’s to give you more opportunities to enjoy it.</strong>') }),
-          B.gallery({ sub: 'Sliding Glass Walls', title: `GLIDE Frameless ${hl('Glass Projects')}`, images: ['glide-glass-02', 'glide-glass-03', 'glide-glass-04', 'glide-glass-05', 'glide-glass-07', 'glide-glass-09', 'glide-glass-12', 'glide-glass-13', 'glide-glass-15'], cols: 3 }),
-          B.split({ sub: 'Motorized Vertical Glass', title: `Glass That Rises ${hl('and Lowers')}`, images: ['vertaslide-glass-02', 'vertaslide-glass-01'], bg: '#FFFFFF',
+          B.gallery({ sub: 'Sliding Glass Walls', title: `GLIDE Frameless ${hl('Glass Projects')}`, images: ['glide-glass-02', 'glide-glass-03', 'glide-glass-04', 'glide-glass-05', 'glide-glass-07', 'glide-glass-16', 'glide-glass-12', 'glide-glass-13', 'glide-glass-15'], cols: 3 }),
+          B.split({ sub: 'Motorized Vertical Glass', title: `Glass That Rises ${hl('and Lowers')}`, images: ['vertaslide-glass-01'], bg: '#FFFFFF',
             html: ps('For projects requiring a different type of opening, motorized vertical glass systems can raise or lower glass panels rather than sliding them horizontally.',
               'Vertaslide systems use electrically operated vertical glass and can be controlled through wireless controls, apps or compatible central control systems.',
               'These systems can be particularly effective for:') + list(['Restaurants', 'Bars', 'Hospitality spaces', 'Outdoor kitchens', 'Pool houses', 'Covered patios', 'Large residential entertaining areas'])
               + ps('The result is a space that can respond to changing weather without sacrificing the visual connection to the outdoors.'),
             cta: [p.ctaText, U.contact] }),
-          B.gallery({ sub: 'Motorized Vertical Glass', title: `Vertaslide ${hl('Glass Projects')}`, images: ['vertaslide-glass-03', 'vertaslide-glass-04', 'vertaslide-glass-05', 'vertaslide-glass-06', 'vertaslide-glass-08', 'vertaslide-glass-09', 'vertaslide-glass-11', 'vertaslide-glass-12', 'vertaslide-glass-13'], cols: 3, button: { text: 'View All Projects', url: U.projects } }),
+          B.gallery({ sub: 'Motorized Vertical Glass', title: `Vertaslide ${hl('Glass Projects')}`, images: ['vertaslide-glass-03', 'vertaslide-glass-06', 'vertaslide-glass-07', 'vertaslide-glass-08', 'vertaslide-glass-09', 'vertaslide-glass-11', 'vertaslide-glass-12', 'vertaslide-glass-13', 'vertaslide-glass-14'], cols: 3, button: { text: 'View All Projects', url: U.projects } }),
           processBand(),
           cta(p.ctaText, 'glide-glass-14'),
           B.effect(),
@@ -217,7 +217,7 @@
     screenrooms: {
       id: null, title: 'Screen Rooms', slug: 'screen-rooms', parent: 5512,
       build: product({
-        name: 'Screen Rooms', short: 'Screen Room', kicker: 'Fresh Air Without the Bugs.', hero: 'screen-rooms-03', ctaText: 'Enclose Your Patio', ctaBg: 'screen-rooms-05',
+        name: 'Screen Rooms', short: 'Screen Room', kicker: 'Fresh Air Without the Bugs.', hero: 'screen-rooms-03', ctaText: 'Enclose Your Patio', ctaBg: 'screen-rooms-13',
         lead: 'Custom aluminum screen enclosures designed for airflow, visibility and protection from insects.',
         sections: [
           { sub: 'Screen Rooms', title: `Fresh Air Without ${hl('the Bugs')}`, images: ['screen-rooms-01', 'screen-rooms-02'],
@@ -232,7 +232,7 @@
               + ps('Powder-coated aluminum framing provides a durable alternative to traditional painted wood screen construction and requires minimal ongoing maintenance.'),
             cta: ['Enclose Your Patio', U.contact] },
         ],
-        gallery: ['screen-rooms-04', 'screen-rooms-05', 'screen-rooms-06', 'screen-rooms-08', 'screen-rooms-09', 'screen-rooms-10', 'screen-rooms-11', 'screen-rooms-13', 'screen-rooms-14'],
+        gallery: ['screen-rooms-04', 'screen-rooms-06', 'screen-rooms-08', 'screen-rooms-09', 'screen-rooms-11', 'screen-rooms-14'],
       }),
     },
 
@@ -264,7 +264,7 @@
     commercial: {
       id: null, title: 'Commercial Outdoor Spaces', slug: 'commercial-outdoor-spaces', parent: 5512,
       build: product({
-        name: 'Commercial Outdoor Structures &amp; Enclosures', short: 'Commercial', kicker: 'Commercial Outdoor Spaces Designed to Perform.', hero: 'commercial-01', ctaText: 'Discuss Your Commercial Project', ctaBg: 'commercial-08',
+        name: 'Commercial Outdoor Structures &amp; Enclosures', short: 'Commercial', kicker: 'Commercial Outdoor Spaces Designed to Perform.', hero: 'commercial-12', ctaText: 'Discuss Your Commercial Project', ctaBg: 'commercial-08',
         lead: 'Custom structures and enclosure systems that help restaurants, hotels and commercial properties get more use from their exterior spaces.',
         galleryTitle: `Commercial ${hl('Projects')}`,
         sections: [
@@ -295,7 +295,7 @@
             ],
           } },
         ],
-        gallery: ['commercial-04', 'commercial-06', 'commercial-09', 'commercial-11', 'commercial-12', 'commercial-15', 'commercial-16', 'commercial-18', 'commercial-20', 'vertaslide-glass-06', 'vertaslide-glass-09', 'vertaslide-glass-14'],
+        gallery: ['commercial-04', 'commercial-06', 'commercial-09', 'commercial-11', 'commercial-13', 'commercial-16', 'commercial-18', 'commercial-20', 'vertaslide-glass-06', 'vertaslide-glass-09', 'vertaslide-glass-12', 'vertaslide-glass-14'],
       }),
     },
 
@@ -307,7 +307,7 @@
         const groups = [
           { title: 'Louvered Roofs', images: R('louvered-roofs', 20) },
           { title: 'Retractable Screens', images: R('retractable-screens', 18) },
-          { title: 'Glass Enclosures', images: [...R('glide-glass', 18, ['glide-glass-17']), ...R('vertaslide-glass', 14)] },
+          { title: 'Glass Enclosures', images: [...R('glide-glass', 18), ...R('vertaslide-glass', 14)] },
           { title: 'Season &amp; Screen Rooms', images: [...R('season-rooms', 16), ...R('screen-rooms', 14)] },
           { title: 'Patio Roofs &amp; Cantilevers', images: [...R('solid-roofs', 14), 'cantilever-01w', 'cantilever-03c'] },
           { title: 'Architectural Metal', images: R('architectural-metal', 18) },

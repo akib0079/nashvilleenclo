@@ -151,7 +151,7 @@
     process: {
       id: null, title: 'Our Process', slug: 'our-process', parent: 5511,
       build: () => [
-        B.hero({ pill: 'The Nashville Enclosures Difference', kicker: 'Consult. Design. Build. Enjoy.', title: 'A Better Project Starts With a Better Process', text: 'Every major decision is considered before installation begins — from the first conversation through design, construction and final turnover.', bg: 'glide-glass-09', buttons: [{ text: 'Start Your Project', url: U.contact }], h: 58 }),
+        B.hero({ pill: 'The Nashville Enclosures Difference', kicker: 'Consult. Design. Build. Enjoy.', title: 'A Better Project Starts With a Better Process', text: 'Every major decision is considered before installation begins — from the first conversation through design, construction and final turnover.', bg: 'louvered-roofs-20', buttons: [{ text: 'Start Your Project', url: U.contact }], h: 58 }),
         B.intro({
           sub: 'The Nashville Enclosures Difference', title: `Great Outdoor Spaces Don’t Start ${hl('With a Product')}`,
           html: ps('They start with understanding the problem you’re trying to solve.', 'Our process takes a project from the first conversation through design, construction and final turnover so that every major decision is considered before installation begins.'),
@@ -181,7 +181,7 @@
             'Once we’re on site, our focus is on organized construction, clear communication and completing the work efficiently without sacrificing quality.',
             'We pay attention to the details that determine how a project ultimately looks and performs: structural connections, alignment, drainage, trim, penetrations, wiring, transitions and finish work.',
             '<strong>Speed matters. Quality matters more.</strong> Our process is designed to deliver both.'),
-          images: ['louvered-roofs-12'], bg: '#FFFFFF',
+          images: ['louvered-roofs-10'], bg: '#FFFFFF',
         }),
         B.split({
           id: 'enjoy', sub: 'Step 4 — Enjoy', title: `We Don’t Just Finish the Project ${hl('and Leave')}`,

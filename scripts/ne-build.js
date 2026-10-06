@@ -62,12 +62,23 @@
   const U = B.URL;
 
   /* ---------- media helpers ---------- */
-  const M = (k) => NE.M(k);
+  /* Photo QA (full audit of all 162 photos): cropped versions replace originals that showed
+     non-US flags/landmarks, third-party signage, faces or site clutter; DROP photos are never used. */
+  B.SWAP = Object.fromEntries(['vertaslide-glass-06', 'vertaslide-glass-09', 'commercial-18', 'commercial-20', 'louvered-roofs-10',
+    'glide-glass-06', 'season-rooms-10', 'architectural-metal-04', 'commercial-09', 'retractable-screens-05', 'glide-glass-10',
+    'retractable-screens-13', 'retractable-screens-18', 'season-rooms-02', 'season-rooms-08', 'commercial-02', 'architectural-metal-15',
+    'solid-roofs-07', 'solid-roofs-05'].map((k) => [k, k + 'c']));
+  B.DROP = ['commercial-15', 'commercial-01', 'vertaslide-glass-04', 'vertaslide-glass-02', 'vertaslide-glass-05', 'vertaslide-glass-10',
+    'screen-rooms-05', 'screen-rooms-10', 'louvered-roofs-12', 'glide-glass-09', 'glide-glass-17', 'cantilever-01', 'cantilever-03'];
+  const M = (k) => {
+    if (B.DROP.includes(k)) throw new Error('dropped photo still referenced: ' + k);
+    return NE.M(B.SWAP[k] && NE.media[B.SWAP[k]] ? B.SWAP[k] : k);
+  };
   const imgVal = (k, size = 'url') => { const m = M(k); return { id: m.id, url: m[size] || m.url, alt: m.alt, source: 'library', size: '' }; };
   // Elementor regenerates background URLs from the attachment id + `size`, so the size key decides the file served.
   const BG_SIZE = { url: '', large: 'large', xl: '1536x1536' };
   const bgVal = (k, size = 'url') => { const m = M(k); return { id: m.id, url: (size === 'large' && m.large) || m.url, source: 'library', size: BG_SIZE[size] ?? '' }; };
-  B.range = (cat, n, skip = []) => Array.from({ length: n }, (_, i) => cat + '-' + String(i + 1).padStart(2, '0')).filter((k) => !skip.includes(k) && NE.media[k]);
+  B.range = (cat, n, skip = []) => Array.from({ length: n }, (_, i) => cat + '-' + String(i + 1).padStart(2, '0')).filter((k) => !skip.includes(k) && !B.DROP.includes(k) && NE.media[k]);
 
   /* ---------- widgets ---------- */
   B.sub = (text, o = {}) => { const e = CL(H, '858fcfd'); S(e, { sub: text }); if (o.center) S(e, { text_align: 'center' }); if (o.light) S(e, { stitle_color: '#E0E0E0' }); return e; };

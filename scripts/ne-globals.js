@@ -74,7 +74,7 @@
   NE.fixSidePanel = async () => {
     const els = await copyDoc(2831);
     const g = NE.byId(els, '8701e24');
-    g.settings.wp_gallery = ['louvered-roofs-04', 'glide-glass-01', 'season-rooms-01', 'retractable-screens-05', 'architectural-metal-01', 'commercial-02'].map((k) => ({ id: NE.M(k).id, url: NE.M(k).url }));
+    g.settings.wp_gallery = ['louvered-roofs-04', 'glide-glass-01', 'season-rooms-01', 'retractable-screens-05', 'architectural-metal-01', 'commercial-02'].map((k) => NE.M(NE.B.SWAP[k] && NE.media[NE.B.SWAP[k]] ? NE.B.SWAP[k] : k)).map((m) => ({ id: m.id, url: m.url }));
     await NE.save(2831, els);
     return 'side panel ok';
   };

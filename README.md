@@ -19,7 +19,7 @@ from the client's *Nash Enclosures website Page Layouts.docx* and photo folders.
   15/10/5-year warranty claims (the doc says warranties vary by product), 22 duplicate placeholder videos.
 
 **Photos**
-- 162 photos selected from ~930 originals, resized to ≤2000px, sRGB progressive JPEG, metadata stripped,
+- 162 photos selected from ~930 originals (later QA: 21 cropped, 11 removed — see Verified), resized to ≤2000px, sRGB progressive JPEG, metadata stripped,
   ≤450 KB each (≈50 MB total), SEO file names (`nashville-louvered-roof-01.jpg`) and descriptive alt text.
 - Cards use the 1024px “large” size; galleries use 768px thumbnails with lightbox to the full image.
 - Not used: 4 commercial photos showing other businesses’ signage (Cactus Club, First Watch).
@@ -34,13 +34,26 @@ from the client's *Nash Enclosures website Page Layouts.docx* and photo folders.
 - Menus (desktop + mobile) restructured; Patio Covers menu items repointed to the new pages.
 
 ## Verified (headless Chrome, logged-out visitor view)
-- All 18 public pages return 200, each has exactly one H1, no broken internal links (21 checked).
-- Sticky header: pins exactly when the nav reaches the top, content offset unchanged (no jump);
-  tablet (900px) and phone (390px) headers stick too; no horizontal overflow at 390px.
-- First-visit image payload (whole page scrolled, 1280px): Home 1.8 MB, Louvered Roofs 2.6 MB,
-  Projects 0.7 MB initial (gallery lazy-loads ~86 KB thumbnails). Only full-width heroes exceed 300 KB.
-- Backgrounds request the right WP size (`size` key): cards 1024px, CTA bands 1536px, heroes full (≤2000px).
-- Header script also corrects `sizes` on lazy thumbnails so retina screens don't fetch 1536–2000px files.
+Automated audit of all 18 pages + the blog article at 1440px, 820px and 390px (plus 360px and 1100px for layout):
+- Every page returns 200 and has exactly one H1; no broken internal links; no leftover demo/placeholder text.
+- No broken or missing images, every image has alt text, no images visibly upscaled.
+- No horizontal overflow, no clipped/overlapping buttons, no content touching the window edges (1100px).
+- Sticky header: pins when the nav reaches the top with no content jump; tablet and phone headers stick.
+- Pages open cleanly in the Elementor editor; gallery filters, lightboxes, YouTube embeds, Google Map and
+  the mobile menu all work.
+- First-visit image payload (whole page scrolled): Home ~1.8 MB, Louvered Roofs ~2.6 MB, Projects ~0.7 MB
+  initial (gallery lazy-loads). Only full-width heroes exceed 300 KB.
+
+Fixed during the audit: blog post demo filler + demo category/tags, blog/post H1 banners, author box,
+Screen Rooms/Commercial pages stuck in the sidebar layout, hero buttons clipped on phones, tablet layouts
+(stacking, padding, footer), laptop-width edge padding, ragged galleries (uniform 4:3), Canadian street
+banners in two cantilever photos (cropped), 43 placeholder Portfolio posts + Blog Grid duplicate (drafted).
+
+Photo QA (every one of the 162 photos reviewed): 21 photos replaced by crops (`*-c.jpg`) that remove non-US
+flags/landmarks, third-party signage (restaurant names, hotel logo, storefronts), close faces, shipping wrap
+and site clutter; 11 photos removed from the site (Vancouver street/skyline, Canadian flag, restaurant logo on
+glass, an AI-looking render, unfinished-site shots). `B.SWAP` / `B.DROP` in `scripts/ne-build.js` enforce this,
+and the builder throws if a dropped photo is referenced.
 
 ## Recommendation (not changed)
 The theme's Royal Preloader keeps the page hidden ~1.5–2.4 s even when it has already loaded
