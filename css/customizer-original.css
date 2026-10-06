@@ -1,0 +1,63 @@
+.blog-post .entry-media img{
+	width: 100%;
+}
+.widget_media_image img{
+	width: 100%;
+}
+.style-2 .octf-cta-header .h-search-form-field{ right: 0; }
+
+.page-id-3355 .side-panel{
+	right: auto;
+	left: 0;
+	transform: translateX(-100%);
+}
+.page-id-3355 .side-panel.side-panel-open{
+	transform: translateX(0);
+}
+
+@media only screen and (min-width: 1025px) {
+	.blog-slider .octf-swiper-pagination {display: none;}
+}
+
+.imagedark{
+filter: brightness(0) invert(1);
+}
+
+
+/* 1. Base styling and ultra-smooth transition settings */
+.custom-animated-header {
+    width: 100%;
+    /* We use transition here so it smoothly glides both up AND down */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease !important;
+    z-index: 9999 !important;
+}
+
+/* 2. The Fixed State (Prepares it to stick once you scroll past the top) */
+.custom-animated-header.is-fixed {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    background-color: #ffffff; /* Ensure this matches your header color */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* 3. The Hidden State (Pushes it out of view when scrolling down) */
+.custom-animated-header.is-hidden {
+    transform: translateY(-100%) !important;
+}
+
+.page-header {
+    width: 100%;
+    height: 300px;
+    color: #fff;
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    background: center center no-repeat;
+    background-size: cover;
+}
+
+.entry-content {
+  padding: 180px 0 100px;
+}

@@ -1,0 +1,123 @@
+/* =====================================================================
+   Nashville Enclosures — Additional CSS (Appearance › Customize › Additional CSS)
+   ===================================================================== */
+
+.blog-post .entry-media img { width: 100%; }
+.widget_media_image img { width: 100%; }
+.style-2 .octf-cta-header .h-search-form-field { right: 0; }
+@media only screen and (min-width: 1025px) {
+  .blog-slider .octf-swiper-pagination { display: none; }
+}
+.imagedark { filter: brightness(0) invert(1); }
+
+.page-header {
+  width: 100%;
+  height: 300px;
+  color: #fff;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  background: center center no-repeat;
+  background-size: cover;
+}
+.entry-content { padding: 180px 0 100px; }
+
+/* ---------------------------------------------------------------------
+   Sticky header (desktop ≥1025px). Behaviour lives in the header
+   template's HTML widget; it adds .is-fixed + a spacer so nothing jumps.
+   --------------------------------------------------------------------- */
+.custom-animated-header {
+  width: 100%;
+  transition: box-shadow .3s ease, background-color .3s ease;
+}
+.elementor .e-con.custom-animated-header.is-fixed {
+  position: fixed !important;
+  top: var(--ne-sticky-top, 0px);
+  left: 0;
+  right: 0;
+  z-index: 990;
+  background-color: #fff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  animation: neStickyIn .35s cubic-bezier(.25, .8, .25, 1);
+}
+@keyframes neStickyIn { from { opacity: .6; } to { opacity: 1; } }
+.ne-sticky-spacer { display: block; height: 0; }
+
+/* Mobile/tablet header (Elementor sticky) — keep it above page content */
+.header-mobile .elementor-sticky--active { z-index: 990 !important; box-shadow: 0 4px 18px rgba(0, 0, 0, .08); }
+
+/* ---------------------------------------------------------------------
+   Content helpers used by the page templates
+   --------------------------------------------------------------------- */
+.highlight { color: #CEA45D; }
+
+ul.ne-check {
+  list-style: none;
+  margin: 6px 0 18px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 26px;
+}
+ul.ne-check li {
+  position: relative;
+  padding-left: 28px;
+  line-height: 1.55;
+  color: #3D3D3D;
+}
+ul.ne-check li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .28em;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #CEA45D url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center / 10px no-repeat;
+}
+@media (max-width: 767px) {
+  ul.ne-check { grid-template-columns: 1fr; }
+}
+.elementor-widget-text-editor h3.ne-subhead {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #292929;
+  margin: 22px 0 10px;
+}
+.elementor-widget-text-editor p:last-child { margin-bottom: 0; }
+.ne-card-note {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border-left: 3px solid #CEA45D;
+  background: #F7F5F0;
+  border-radius: 0 10px 10px 0;
+  line-height: 1.7;
+}
+
+/* Filterable project gallery (Elementor Pro gallery) */
+.ne-filter-gallery .elementor-gallery__titles-container { flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
+.ne-filter-gallery .elementor-gallery-title { padding: 8px 4px; border-bottom: 2px solid transparent; }
+.ne-filter-gallery .elementor-gallery-title.elementor-item-active { border-bottom-color: #CEA45D; }
+.ne-filter-gallery .e-gallery-item { border-radius: 10px; overflow: hidden; }
+
+/* Video cards */
+.ne-video .elementor-wrapper { border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, .12); }
+
+/* Photo cards in grids: always cover the card, lift on hover */
+.e-grid > .e-con.featured-zoom-section { height: 100%; }
+.e-con.ne-card.featured-zoom-section,
+.e-con.ne-card.featured-zoom-section:hover {
+  background-size: cover !important;
+  background-position: center center !important;
+}
+.e-con.ne-card.featured-zoom-section {
+  transition: transform .45s cubic-bezier(.25, .8, .25, 1), box-shadow .45s ease !important;
+}
+.e-con.ne-card.featured-zoom-section:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .18) !important;
+}

@@ -1,0 +1,66 @@
+<script>
+/* Nashville Enclosures — sticky desktop header (≥1025px).
+   The top contact bar scrolls away; the main nav bar pins to the top once it
+   reaches it. A spacer of the same height replaces it so the page never jumps,
+   and the WP admin bar offset is respected. Tablet/mobile use Elementor's own
+   sticky on the mobile header template. */
+(function () {
+  if (window.__neSticky) return;
+  window.__neSticky = true;
+  var mq = window.matchMedia('(min-width: 1025px)');
+
+  function init() {
+    var bar = document.querySelector('.custom-animated-header');
+    if (!bar) return;
+    var spacer = document.createElement('div');
+    spacer.className = 'ne-sticky-spacer';
+    spacer.setAttribute('aria-hidden', 'true');
+    bar.parentNode.insertBefore(spacer, bar.nextSibling);
+
+    var startY = 0, height = 0, fixed = false, ticking = false;
+
+    function adminOffset() {
+      var ab = document.getElementById('wpadminbar');
+      return ab && getComputedStyle(ab).position === 'fixed' ? ab.offsetHeight : 0;
+    }
+    function fix() {
+      fixed = true;
+      spacer.style.height = height + 'px';
+      bar.style.setProperty('--ne-sticky-top', adminOffset() + 'px');
+      bar.classList.add('is-fixed');
+      document.body.classList.add('ne-header-fixed');
+    }
+    function unfix() {
+      fixed = false;
+      spacer.style.height = '0px';
+      bar.classList.remove('is-fixed');
+      document.body.classList.remove('ne-header-fixed');
+    }
+    function measure() {
+      var was = fixed;
+      if (was) unfix();
+      height = bar.offsetHeight;
+      startY = bar.getBoundingClientRect().top + window.pageYOffset - adminOffset();
+      if (was) update();
+    }
+    function update() {
+      ticking = false;
+      if (!mq.matches) { if (fixed) unfix(); return; }
+      var y = window.pageYOffset;
+      if (!fixed && y > startY) fix();
+      else if (fixed && y <= startY) unfix();
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { measure(); update(); });
+    window.addEventListener('load', function () { measure(); update(); });
+    measure();
+    update();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
