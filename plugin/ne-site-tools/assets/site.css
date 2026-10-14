@@ -625,33 +625,34 @@ a.ne-feat:hover .ne-feat-link svg { transform: translateX(4px); }
 }
 .ne-pcard-num { background: rgba(20,20,20,.38) !important; }
 
-/* ---- Process steps (home) ---- */
+/* ---- Process steps (home): one centred composition ---- */
 .ne-steps-sec { border-radius: 20px; background: #151515; }
-.ne-steps-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px 80px; align-items: end; margin-bottom: 60px; }
-.ne-steps-head h2 { margin: 14px 0 0 !important; font: 600 clamp(30px, 2.8vw, 44px)/1.16 var(--ne-font) !important; letter-spacing: -.018em !important; color: #fff !important; }
-.ne-steps-head .highlight { color: #D8CBB2 !important; }
-.ne-steps-head p { margin: 0 0 1em !important; font-size: 16px; line-height: 1.8; color: rgba(255,255,255,.7) !important; }
 .ne-eyebrow-txt { display: inline-flex; align-items: center; gap: 12px; font: 600 12px/1.4 var(--ne-font); letter-spacing: .18em; text-transform: uppercase; color: var(--ne-accent); }
 .ne-eyebrow-txt::before { content: ""; width: 26px; height: 1.5px; background: currentColor; opacity: .7; }
+.ne-steps-head { max-width: 920px; margin: 0 auto 64px; text-align: center; }
 .ne-steps-head .ne-eyebrow-txt { color: #D8CBB2; }
-.ne-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; list-style: none; margin: 0 !important; padding: 0 !important; }
-.ne-steps::before { content: ""; position: absolute; left: 0; right: 0; top: 23px; height: 1px; background: rgba(255,255,255,.14); }
-.ne-step { position: relative; padding-right: 10px; }
-.ne-step-n { position: relative; z-index: 1; width: 46px; height: 46px; display: grid; place-items: center; margin-bottom: 24px; border-radius: 50%; background: #151515; border: 1px solid var(--ne-accent); color: #fff; font: 600 13px/1 var(--ne-font); letter-spacing: .04em; }
+.ne-steps-head .ne-eyebrow-txt::after { content: ""; width: 26px; height: 1.5px; background: currentColor; opacity: .7; }
+.ne-steps-head h2 { margin: 16px 0 16px !important; font: 600 clamp(30px, 2.8vw, 44px)/1.16 var(--ne-font) !important; letter-spacing: -.018em !important; color: #fff !important; }
+.ne-steps-head .highlight { color: #D8CBB2 !important; }
+.ne-steps-head p { margin: 0 auto !important; max-width: 560px; font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.68) !important; }
+.ne-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; list-style: none; margin: 0 !important; padding: 0 !important; }
+/* connecting line runs from the first circle's centre to the last */
+.ne-steps::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 23px; height: 1px; background: rgba(255,255,255,.16); }
+.ne-step { position: relative; text-align: center; padding: 0 6px; }
+.ne-step-n { position: relative; z-index: 1; width: 46px; height: 46px; display: grid; place-items: center; margin: 0 auto 22px; border-radius: 50%; background: #151515; border: 1px solid var(--ne-accent); color: #fff; font: 600 13px/1 var(--ne-font); letter-spacing: .04em; }
 .ne-step h3 { margin: 0 0 10px !important; font: 600 19px/1.3 var(--ne-font) !important; color: #fff !important; }
-.ne-step p { margin: 0 !important; font-size: 14.5px; line-height: 1.75; color: rgba(255,255,255,.66) !important; }
-.ne-steps-foot { margin-top: 52px; }
+.ne-step p { margin: 0 auto !important; max-width: 250px; font-size: 14.5px; line-height: 1.7; color: rgba(255,255,255,.64) !important; }
+.ne-steps-foot { margin-top: 56px; display: flex; justify-content: center; }
 .ne-steps-foot a.ne-link-btn { display: inline-block; padding: 18px 30px; border-radius: 4px; background: var(--ne-accent); color: #fff !important; text-decoration: none !important; font: 600 13px/1.2 var(--ne-font); letter-spacing: .1em; text-transform: uppercase; transition: background-color .3s ease, color .3s ease; }
 .ne-steps-foot a.ne-link-btn:hover { background: #fff; color: var(--ne-ink) !important; }
 @media (max-width: 1024px) {
-  .ne-steps-head { grid-template-columns: 1fr; margin-bottom: 40px; }
-  .ne-steps { grid-template-columns: 1fr 1fr; gap: 34px 28px; }
+  .ne-steps-head { margin-bottom: 48px; }
+  .ne-steps { grid-template-columns: 1fr 1fr; gap: 40px 28px; }
   .ne-steps::before { display: none; }
 }
 @media (max-width: 600px) {
-  .ne-steps { grid-template-columns: 1fr; }
-  .ne-step { display: grid; grid-template-columns: 46px 1fr; gap: 0 18px; }
-  .ne-step-n { margin: 0; grid-row: span 2; }
+  .ne-steps { grid-template-columns: 1fr; gap: 34px; }
+  .ne-steps-foot { margin-top: 44px; }
 }
 
 /* ---- Photo band with overlapping card [ne_band] ---- */
@@ -687,13 +688,5 @@ a.ne-feat:hover .ne-feat-link svg { transform: translateX(4px); }
 .ne-mosaic-item:hover .ne-mosaic-cap, .ne-mosaic-item:focus-visible .ne-mosaic-cap { opacity: 1; }
 @media (max-width: 1024px) { .ne-mosaic { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 220px; } }
 @media (max-width: 600px) { .ne-mosaic { grid-template-columns: 1fr; grid-auto-rows: 240px; } .ne-mosaic-item--1, .ne-mosaic-item--4, .ne-mosaic-item--5, .ne-mosaic-item--6 { grid-column: auto; grid-row: auto; } }
-
-/* ---- Service-area strip ---- */
-.ne-area { display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px 72px; align-items: center; }
-.ne-area h2 { margin: 14px 0 14px !important; font: 600 clamp(26px, 2.4vw, 38px)/1.18 var(--ne-font) !important; letter-spacing: -.018em !important; color: var(--ne-ink) !important; }
-.ne-area p { margin: 0 !important; font-size: 15.5px; line-height: 1.8; color: var(--ne-text) !important; }
-.ne-chips { display: flex; flex-wrap: wrap; gap: 10px; }
-.ne-chip { padding: 10px 16px; border-radius: 999px; background: #fff; border: 1px solid var(--ne-line); font: 500 14px/1 var(--ne-font); color: var(--ne-ink); }
-.ne-area-link { display: inline-block; margin-top: 22px; font: 600 12.5px/1 var(--ne-font); letter-spacing: .1em; text-transform: uppercase; color: var(--ne-accent) !important; text-decoration: none !important; border-bottom: 1.5px solid currentColor; padding-bottom: 4px; }
-.ne-area-link:hover { color: var(--ne-ink) !important; }
-@media (max-width: 1024px) { .ne-area { grid-template-columns: 1fr; } }
+/* phones: breathing room between the project mosaic and the resources card */
+@media (max-width: 767px) { .e-con.ne-gallery { padding-bottom: 56px !important; } }

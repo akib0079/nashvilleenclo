@@ -48,8 +48,8 @@
         ];
         const process = B.wrap(B.container({ css_classes: 'ne-steps-sec', flex_direction: 'column',
           padding: { unit: 'px', top: '90', right: '64', bottom: '84', left: '64', isLinked: false }, padding_mobile: { unit: 'px', top: '56', right: '24', bottom: '52', left: '24', isLinked: false } }, [B.html(
-          '<div class="ne-steps-head"><div><span class="ne-eyebrow-txt">Consult. Design. Build. Live.</span><h2>Custom outdoor living, <span class="highlight">designed around you</span></h2></div>'
-          + '<div><p>Every property is different, and every client uses their outdoor space differently. Rather than forcing a project into a predetermined package, we start by understanding what you want the space to accomplish — shade, weather protection, bug control, heating, privacy, an unobstructed view or a fully enclosed room.</p><p>Then we design a complete solution around your home, architecture and lifestyle.</p></div></div>'
+          '<div class="ne-steps-head"><span class="ne-eyebrow-txt">Consult. Design. Build. Live.</span><h2>Custom outdoor living, <span class="highlight">designed around you</span></h2>'
+          + '<p>Every property is different. We start by understanding how you want to use the space, then design a complete solution around your home and lifestyle.</p></div>'
           + '<ol class="ne-steps">' + steps.map(([t, d], n) => `<li class="ne-step"><span class="ne-step-n">0${n + 1}</span><h3>${t}</h3><p>${d}</p></li>`).join('') + '</ol>'
           + `<div class="ne-steps-foot"><a class="ne-link-btn" href="${U.process}">Explore Our Process</a></div>`)]),
           { boxed: 1240, pt: 30, pb: 110, px: 20, ptm: 10, pbm: 70, pxm: 10 });
@@ -59,12 +59,6 @@
           + '<p>We design every space around those moments, and around your home, so the finished structure feels like it has always belonged there. Proportion, rooflines, colors, sightlines, drainage, lighting, fans, heaters and screens are all considered from the start.</p>'
           + `<div class="ne-band-ctas"><a href="${U.contact}">Start Your Project</a><a href="${B.TEL}">Call ${B.PHONE}</a></div>[/ne_band]`),
           { boxed: 1240, pt: 110, pb: 110, px: 20, ptm: 70, pbm: 70, pxm: 10 });
-        const counties = ['Davidson', 'Williamson', 'Rutherford', 'Wilson', 'Sumner', 'Robertson', 'Montgomery', 'Cheatham', 'Dickson', 'Hickman', 'Maury', 'Marshall', 'Bedford', 'Trousdale', 'Smith', 'Macon'];
-        const area = B.wrap(B.html('<div class="ne-area"><div><span class="ne-eyebrow-txt">Service Area</span><h2>Proudly serving Nashville &amp; <span class="highlight">Middle Tennessee</span></h2>'
-          + '<p>From Clarksville to Shelbyville and Lebanon to Centerville, we design and build outdoor living spaces for homes and businesses across sixteen Middle Tennessee counties.</p>'
-          + `<a class="ne-area-link" href="${U.contact}">View the service area map</a></div>`
-          + '<div class="ne-chips">' + counties.map((c, n) => `<span class="ne-chip${n === 0 ? ' ne-chip--hub' : ''}">${c}</span>`).join('') + '</div></div>'),
-          { boxed: 1240, pt: 100, pb: 100, px: 20, ptm: 64, pbm: 64, pxm: 16, bg: '#F7F5F0' });
         return [
           hero,
           B.split({
@@ -91,7 +85,6 @@
             id: 'home-work', mosaic: true, sub: 'Featured Projects', title: `Explore ${hl('Our Work')}`, button: { text: 'View All Projects', url: U.projects },
             images: ['louvered-roofs-06', 'season-rooms-01', 'glide-glass-01', 'louvered-roofs-04', 'solid-roofs-03', 'commercial-04'], bg: '#FFFFFF',
           }),
-          area,
           B.cta({
             sub: 'Videos &amp; Resources', title: 'Understand Your Options Before You Build', bg: 'glide-glass-02', href: U.videos,
             html: '<p>Product demonstrations, project walkthroughs, design considerations, budget discussions and answers to frequently asked questions — so you can make an informed decision before your project ever begins.</p>',
