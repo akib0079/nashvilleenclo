@@ -27,6 +27,7 @@
   NE.minSidePadding = (els) => {
     for (const el of els) {
       if (el.elType !== 'container') continue;
+      if (/\bne-fullbleed\b/.test(el.settings.css_classes || '')) continue; // edge-to-edge sections (home hero)
       const p = el.settings.padding || {};
       const l = +(p.left || 0), r = +(p.right || 0);
       if (l >= 20 && r >= 20) continue;

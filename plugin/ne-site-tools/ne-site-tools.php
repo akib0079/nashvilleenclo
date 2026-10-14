@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Nashville Enclosures Site Tools
  * Description: Site design system stylesheet, footer ([ne_footer]), curtain preloader, service-area map ([ne_service_map]) and permanent redirects.
- * Version: 1.2.0
+ * Version: 1.3.1
  * Author: Nashville Enclosures web team
  * License: GPL-2.0-or-later
  * Requires at least: 6.0
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NE_SITE_TOOLS_VERSION', '1.2.0' );
+define( 'NE_SITE_TOOLS_VERSION', '1.3.1' );
 define( 'NE_SITE_TOOLS_URL', plugin_dir_url( __FILE__ ) );
 
 /**
@@ -47,6 +47,7 @@ add_action(
 require_once __DIR__ . '/includes-footer.php';
 require_once __DIR__ . '/includes-preloader.php';
 require_once __DIR__ . '/includes-components.php';
+require_once __DIR__ . '/includes-home.php';
 
 /**
  * Site stylesheet (design system). Printed late so it sits after Elementor's per-page CSS.
@@ -57,6 +58,7 @@ add_action(
 	function () {
 		$file = __DIR__ . '/assets/site.css';
 		wp_enqueue_style( 'ne-site', NE_SITE_TOOLS_URL . 'assets/site.css', array(), (string) filemtime( $file ) );
+		wp_register_script( 'ne-home', NE_SITE_TOOLS_URL . 'assets/home.js', array(), (string) filemtime( __DIR__ . '/assets/home.js' ), true );
 	},
 	999
 );

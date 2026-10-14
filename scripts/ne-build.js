@@ -89,6 +89,7 @@
     if (B.DROP.includes(k)) throw new Error('dropped photo still referenced: ' + k);
     return NE.M(B.SWAP[k] && NE.media[B.SWAP[k]] ? B.SWAP[k] : k);
   };
+  B.M = M; // photo lookup with the QA swaps/drops applied (used by page builders)
   const imgVal = (k, size = 'url') => { const m = M(k); return { id: m.id, url: m[size] || m.url, alt: m.alt, source: 'library', size: '' }; };
   // Elementor regenerates background URLs from the attachment id + `size`, so the size key decides the file served.
   const BG_SIZE = { url: '', large: 'large', xl: '1536x1536' };
@@ -129,6 +130,14 @@
     return e;
   };
   B.html = (html) => ({ id: NE.uid(), elType: 'widget', widgetType: 'html', settings: { html }, elements: [] });
+  B.ids = (keys) => keys.map((k) => M(k).id).join(',');
+  // full-width / boxed wrapper for a single component widget
+  B.wrap = (widget, o = {}) => {
+    const pad = (t, r, b, l) => ({ unit: 'px', top: String(t), right: String(r), bottom: String(b), left: String(l), isLinked: false });
+    return B.container(Object.assign({ content_width: o.boxed ? 'boxed' : 'full', boxed_width: { unit: 'px', size: o.boxed || 1240 }, flex_direction: 'column',
+      padding: pad(o.pt ?? 0, o.px ?? 0, o.pb ?? 0, o.px ?? 0), padding_mobile: pad(o.ptm ?? o.pt ?? 0, o.pxm ?? o.px ?? 0, o.pbm ?? o.pb ?? 0, o.pxm ?? o.px ?? 0),
+      css_classes: o.cls || '', _element_id: o.id || '' }, o.bg ? { background_background: 'classic', background_color: o.bg } : {}), [widget], false);
+  };
   // plugin components ([ne_card], [ne_gallery]) render through Elementor's shortcode widget
   const attr = (v) => String(v).replace(/"/g, '&quot;').replace(/\[/g, '(').replace(/\]/g, ')');
   B.shortcode = (code, cls = '') => ({ id: NE.uid(), elType: 'widget', widgetType: 'shortcode', settings: { shortcode: code, _css_classes: cls }, elements: [] });
@@ -321,7 +330,7 @@
     C(txt, 'ne-card-body');
     return c;
   };
-  B.cards = ({ sub, title, button, items, cols = 3, minH, bg, id, intro }) => {
+  B.cards = ({ sub, title, button, items, cols = 3, minH, bg, id, intro, bento }) => {
     const s = C(CL(H, 'aa4f9cc'), 'ne-cards');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
@@ -335,12 +344,12 @@
     // title column 70% (the prototype's 50% stranded the last word of longer headings on its own line)
     S(left, { width: { unit: '%', size: button ? 70 : 100 }, width_tablet: { unit: '%', size: button ? 65 : 100 } });
     if (button) S(right, { width: { unit: '%', size: 30 }, width_tablet: { unit: '%', size: 35 } });
-    s.elements = [head, B.shortcode(`<div class="ne-pcards ne-pcards--${cols}">${items.map(B.cardCode).join('')}</div>`, 'ne-pcards-widget')];
+    s.elements = [head, B.shortcode(`<div class="ne-pcards ne-pcards--${cols}${bento ? ' ne-pcards--bento' : ''}">${items.map(B.cardCode).join('')}</div>`, 'ne-pcards-widget')];
     return s;
   };
 
   // Gallery block (cloned from home "Explore Projects")
-  B.gallery = ({ sub, title, button, images, cols = 3, bg, id }) => {
+  B.gallery = ({ sub, title, button, images, cols = 3, bg, id, mosaic }) => {
     const s = C(CL(H, '1aebfab'), 'ne-gallery');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
@@ -348,6 +357,7 @@
     const [left, right] = head.elements;
     S(C(left.elements[0], 'ne-eyebrow'), { sub }); S(C(left.elements[1], 'ne-h2'), { title, header_size: 'h2' }); C(head, 'ne-sec-head');
     if (button) S(kid(right, 0), { text: button.text, link: { url: button.url } }); else head.elements = [left];
+    if (mosaic) { s.elements[1] = B.shortcode(`[ne_mosaic ids="${images.map((k) => M(k).id).join(',')}" group="${id || 'home-work'}"]`, 'ne-mosaic-widget'); return s; }
     // featured galleries show complete rows only (the Projects page shows every photo)
     const shown = images.length > cols ? images.slice(0, images.length - (images.length % cols)) : images;
     s.elements[1] = B.shortcode(B.galleryCode(shown, cols, id || NE.uid()), 'ne-gal-widget');

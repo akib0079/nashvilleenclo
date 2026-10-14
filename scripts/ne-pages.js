@@ -36,66 +36,70 @@
     /* =========================== HOME =========================== */
     home: {
       id: 5476, title: 'Home',
-      build: () => [
-        B.homeHero({
-          pill: 'Nashville’s Premier Custom Outdoor Structure &amp; Enclosure Professionals',
-          line1: 'Designed for the Way You Live.', line2: 'Built for the Outdoors.',
-          text: 'Elevating outdoor living through luxury architectural structures and premium enclosure systems, thoughtfully designed and expertly built for residential and commercial spaces throughout Tennessee.',
-          // client's "Top of Page Carousel" selection (2026-10-15); low-resolution originals placed last
-          slides: ['louvered-roofs-01', 'hero-03', 'louvered-roofs-08', 'glide-glass-18', 'hero-06', 'louvered-roofs-19', 'hero-04', 'hero-02', 'louvered-roofs-16', 'hero-05', 'hero-01', 'hero-07'],
-          buttons: [{ text: 'View Products', url: U.products }, { text: 'Start Your Project', url: U.contact }],
-        }),
-        B.split({
-          sub: 'About Nashville Enclosures',
-          title: `Custom Outdoor Spaces Designed Around ${hl('Your Lifestyle')}`,
-          html: ps(
-            'Nashville Enclosures designs and builds luxury outdoor structures and premium enclosure systems for homes and businesses throughout Tennessee.',
-            'From motorized louvered roofs and solid roof systems to retractable screens, glass enclosures, season rooms, cantilever structures and architectural aluminum, every project is custom designed for the property — and for the people who will enjoy it.',
-            'Our focus is simple: understand how you want to use your outdoor space, then design and build the right solution — beautiful, comfortable and made to be enjoyed for years to come.'),
-          images: ['louvered-roofs-02', 'architectural-metal-06'],
-          bubbles: [
-            { title: 'Residential', text: 'Homes, patios, pools &amp; outdoor rooms', icon: 'home', url: U.products },
-            { title: 'Commercial', text: 'Restaurants, hospitality &amp; businesses', icon: 'building', url: U.commercial },
-          ],
-          cta: { text: 'Our Story', url: U.about },
-        }),
-        B.dark({
-          pill: 'Consult. Design. Build. Live.',
-          title: 'Custom Outdoor Living, Designed Around You',
-          html: ps('Every property is different. Every client uses their outdoor space differently.',
-            'Rather than forcing a project into a predetermined package, we start by understanding what you want the space to accomplish. Shade. Weather protection. Bug control. Heating. Privacy. An unobstructed view. A fully enclosed room. Or a combination of all of them.',
-            'We then design a complete solution around your home, architecture and lifestyle.'),
-          cards: [
-            { title: 'Consult', text: 'We listen before we design and help determine the right combination of products for your goals.', icon: 'fas fa-comments', url: U.process },
-            { title: 'Design', text: 'Layouts, models and realistic renderings help you see the space before we build it.', icon: 'fas fa-drafting-compass', url: U.process },
-            { title: 'Build', text: 'Organized, efficient construction with attention to the details that determine performance.', icon: 'fas fa-hard-hat', url: U.process },
-            { title: 'Live', text: 'We walk you through every system, then stay available for service and support.', icon: 'fas fa-couch', url: U.process },
-          ],
-        }),
-        B.cards({
-          sub: 'Our Outdoor Living Systems', title: `Systems Built for ${hl('Tennessee Living')}`,
-          button: { text: 'View All Products', url: U.products }, items: systemCards(), minH: 390,
-        }),
-        B.split({
-          sub: 'Designed Around Your Lifestyle', title: `Built to Become Part of ${hl('the Way You Live')}`,
-          html: ps('Great outdoor living starts with how you want to live — slow mornings with coffee, family dinners, game days and evenings entertaining friends.',
-            'We design every space around those moments, and around your home, so the finished structure feels like it has always belonged there.',
-            'Proportion, rooflines, colors, sightlines, drainage, lighting, fans, heaters and screens are all considered during the design process.',
-            'The result is an outdoor space that is comfortable, intentional and built to be enjoyed for years to come.'),
-          images: ['louvered-roofs-11'], reverse: true, bg: '#FFFFFF',
-          cta: ['Start Your Project', U.contact],
-        }),
-        B.gallery({
-          sub: 'Featured Projects', title: `Explore ${hl('Our Work')}`, button: { text: 'View All Projects', url: U.projects },
-          images: ['louvered-roofs-06', 'season-rooms-01', 'glide-glass-01', 'retractable-screens-05', 'architectural-metal-05', 'commercial-02'], cols: 3,
-        }),
-        B.cta({
-          sub: 'Videos &amp; Resources', title: 'Understand Your Options Before You Build', bg: 'glide-glass-02', href: U.videos,
-          html: '<p>Product demonstrations, project walkthroughs, design considerations, budget discussions and answers to frequently asked questions — so you can make an informed decision before your project ever begins.</p>',
-          buttons: [{ text: 'Explore Resources', url: U.videos }],
-        }),
-        B.effect(),
-      ],
+      build: () => {
+        // client's "Top of Page Carousel" selection (2026-10-15); low-resolution originals placed last
+        const slides = ['louvered-roofs-01', 'hero-03', 'louvered-roofs-08', 'glide-glass-18', 'hero-06', 'louvered-roofs-19', 'hero-04', 'hero-02', 'louvered-roofs-16', 'hero-05', 'hero-01', 'hero-07'];
+        const hero = B.wrap(B.shortcode(`[ne_hero ids="${B.ids(slides)}" pill="Nashville’s Premier Custom Outdoor Structure &amp; Enclosure Professionals" title="Designed for the Way You Live." accent="Built for the outdoors." text="Elevating outdoor living through luxury architectural structures and premium enclosure systems, thoughtfully designed and expertly built for residential and commercial spaces throughout Tennessee." cta1="View Products|${U.products}" cta2="Start Your Project|${U.contact}"]`), { cls: 'ne-home-hero ne-fullbleed' });
+        const steps = [
+          ['Consult', 'We listen before we design and help determine the right combination of products for your goals.'],
+          ['Design', 'Layouts, models and realistic renderings help you see the space before we build it.'],
+          ['Build', 'Organized, efficient construction with attention to the details that determine performance.'],
+          ['Live', 'We walk you through every system, then stay available for service and support.'],
+        ];
+        const process = B.wrap(B.container({ css_classes: 'ne-steps-sec', flex_direction: 'column',
+          padding: { unit: 'px', top: '90', right: '64', bottom: '84', left: '64', isLinked: false }, padding_mobile: { unit: 'px', top: '56', right: '24', bottom: '52', left: '24', isLinked: false } }, [B.html(
+          '<div class="ne-steps-head"><div><span class="ne-eyebrow-txt">Consult. Design. Build. Live.</span><h2>Custom outdoor living, <span class="highlight">designed around you</span></h2></div>'
+          + '<div><p>Every property is different, and every client uses their outdoor space differently. Rather than forcing a project into a predetermined package, we start by understanding what you want the space to accomplish — shade, weather protection, bug control, heating, privacy, an unobstructed view or a fully enclosed room.</p><p>Then we design a complete solution around your home, architecture and lifestyle.</p></div></div>'
+          + '<ol class="ne-steps">' + steps.map(([t, d], n) => `<li class="ne-step"><span class="ne-step-n">0${n + 1}</span><h3>${t}</h3><p>${d}</p></li>`).join('') + '</ol>'
+          + `<div class="ne-steps-foot"><a class="ne-link-btn" href="${U.process}">Explore Our Process</a></div>`)]),
+          { boxed: 1240, pt: 30, pb: 110, px: 20, ptm: 10, pbm: 70, pxm: 10 });
+        const band = B.wrap(B.shortcode(`[ne_band id="${B.M('architectural-metal-05').id}" side="left"]`
+          + '<span class="ne-eyebrow-txt">Designed Around Your Lifestyle</span><h2>Built to become part of <span class="highlight">the way you live</span></h2>'
+          + '<p>Great outdoor living starts with how you want to live — slow mornings with coffee, family dinners, game days and evenings entertaining friends.</p>'
+          + '<p>We design every space around those moments, and around your home, so the finished structure feels like it has always belonged there. Proportion, rooflines, colors, sightlines, drainage, lighting, fans, heaters and screens are all considered from the start.</p>'
+          + `<div class="ne-band-ctas"><a href="${U.contact}">Start Your Project</a><a href="${B.TEL}">Call ${B.PHONE}</a></div>[/ne_band]`),
+          { boxed: 1240, pt: 110, pb: 110, px: 20, ptm: 70, pbm: 70, pxm: 10 });
+        const counties = ['Davidson', 'Williamson', 'Rutherford', 'Wilson', 'Sumner', 'Robertson', 'Montgomery', 'Cheatham', 'Dickson', 'Hickman', 'Maury', 'Marshall', 'Bedford', 'Trousdale', 'Smith', 'Macon'];
+        const area = B.wrap(B.html('<div class="ne-area"><div><span class="ne-eyebrow-txt">Service Area</span><h2>Proudly serving Nashville &amp; <span class="highlight">Middle Tennessee</span></h2>'
+          + '<p>From Clarksville to Shelbyville and Lebanon to Centerville, we design and build outdoor living spaces for homes and businesses across sixteen Middle Tennessee counties.</p>'
+          + `<a class="ne-area-link" href="${U.contact}">View the service area map</a></div>`
+          + '<div class="ne-chips">' + counties.map((c, n) => `<span class="ne-chip${n === 0 ? ' ne-chip--hub' : ''}">${c}</span>`).join('') + '</div></div>'),
+          { boxed: 1240, pt: 100, pb: 100, px: 20, ptm: 64, pbm: 64, pxm: 16, bg: '#F7F5F0' });
+        return [
+          hero,
+          B.split({
+            sub: 'About Nashville Enclosures',
+            title: `Custom Outdoor Spaces Designed Around ${hl('Your Lifestyle')}`,
+            html: ps(
+              'Nashville Enclosures designs and builds luxury outdoor structures and premium enclosure systems for homes and businesses throughout Tennessee.',
+              'From motorized louvered roofs and solid roof systems to retractable screens, glass enclosures, season rooms, cantilever structures and architectural aluminum, every project is custom designed for the property — and for the people who will enjoy it.',
+              'Our focus is simple: understand how you want to use your outdoor space, then design and build the right solution — beautiful, comfortable and made to be enjoyed for years to come.'),
+            images: ['louvered-roofs-02', 'architectural-metal-06'],
+            bubbles: [
+              { title: 'Residential', text: 'Homes, patios, pools &amp; outdoor rooms', icon: 'home', url: U.products },
+              { title: 'Commercial', text: 'Restaurants, hospitality &amp; businesses', icon: 'building', url: U.commercial },
+            ],
+            cta: { text: 'Our Story', url: U.about }, bg: '#FFFFFF',
+          }),
+          B.cards({
+            sub: 'Our Outdoor Living Systems', title: `Systems Built for ${hl('Tennessee Living')}`,
+            button: { text: 'View All Products', url: U.products }, items: systemCards(), bento: true, bg: '#F7F5F0',
+          }),
+          process,
+          band,
+          B.gallery({
+            id: 'home-work', mosaic: true, sub: 'Featured Projects', title: `Explore ${hl('Our Work')}`, button: { text: 'View All Projects', url: U.projects },
+            images: ['louvered-roofs-06', 'season-rooms-01', 'glide-glass-01', 'louvered-roofs-04', 'solid-roofs-03', 'commercial-04'], bg: '#FFFFFF',
+          }),
+          area,
+          B.cta({
+            sub: 'Videos &amp; Resources', title: 'Understand Your Options Before You Build', bg: 'glide-glass-02', href: U.videos,
+            html: '<p>Product demonstrations, project walkthroughs, design considerations, budget discussions and answers to frequently asked questions — so you can make an informed decision before your project ever begins.</p>',
+            buttons: [{ text: 'Explore Resources', url: U.videos }],
+          }),
+          B.effect(),
+        ];
+      },
     },
 
     /* =========================== ABOUT =========================== */
