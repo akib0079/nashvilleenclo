@@ -1658,5 +1658,158 @@
   "alt": "Solid aluminum patio cover with ceiling fans over a wide backyard patio",
   "title": "Fan-Cooled Patio Cover",
   "source": "QA crop of solid-roofs-05"
+ },
+ "logo": {
+  "attachment_id": 6437,
+  "file": "nashville-enclosures-logo.png",
+  "width": 750,
+  "height": 200,
+  "alt": "Nashville Enclosures",
+  "title": "Nashville Enclosures logo",
+  "source": "rev2/logo-new-header.png"
+ },
+ "logo-white": {
+  "attachment_id": 6438,
+  "file": "nashville-enclosures-logo-white.png",
+  "width": 521,
+  "height": 160,
+  "alt": "Nashville Enclosures",
+  "title": "Nashville Enclosures logo (light)",
+  "source": ""
+ },
+ "hero-01": {
+  "attachment_id": 6439,
+  "file": "nashville-outdoor-living-hero-01.jpg",
+  "width": 1024,
+  "height": 576,
+  "alt": "Louvered pergola with sliding glass walls over a rooftop terrace lounge",
+  "title": "Rooftop Louvered Pergola",
+  "source": "Top of Page Carousel/61147_corradi_alba_terrazza…1024x576.jpeg"
+ },
+ "hero-02": {
+  "attachment_id": 6440,
+  "file": "nashville-outdoor-living-hero-02.jpg",
+  "width": 2000,
+  "height": 1250,
+  "alt": "White aluminum louvered pergola on an upper-level deck under a blue sky",
+  "title": "Upper Deck Louvered Pergola",
+  "source": "Top of Page Carousel/20250310_180644.jpg (landscape crop)"
+ },
+ "hero-03": {
+  "attachment_id": 6441,
+  "file": "nashville-outdoor-living-hero-03.jpg",
+  "width": 2000,
+  "height": 1333,
+  "alt": "Custom-color louvered patio roof over a stone fireplace bar and outdoor dining area",
+  "title": "Louvered Roof Over Outdoor Kitchen",
+  "source": "Top of Page Carousel/NE - fireplace stone & patio - custom color r-blade 1.jpg"
+ },
+ "hero-04": {
+  "attachment_id": 6442,
+  "file": "nashville-outdoor-living-hero-04.jpg",
+  "width": 2000,
+  "height": 1500,
+  "alt": "Freestanding louvered pergola with frameless glass walls on a rooftop terrace",
+  "title": "Glass-Enclosed Rooftop Pergola",
+  "source": "Top of Page Carousel/FMS Operable Glass Wall- Vancouver Penthouse 4.jpg"
+ },
+ "hero-05": {
+  "attachment_id": 6443,
+  "file": "nashville-outdoor-living-hero-05.jpg",
+  "width": 2000,
+  "height": 1250,
+  "alt": "Glass-roof outdoor dining room with frameless glass walls and string lights",
+  "title": "Glass Outdoor Dining Room",
+  "source": "Top of Page Carousel/WhatsApp Image 2025-06-20 at 12.38.06.jpeg (landscape crop)"
+ },
+ "hero-06": {
+  "attachment_id": 6444,
+  "file": "nashville-outdoor-living-hero-06.jpg",
+  "width": 2000,
+  "height": 1125,
+  "alt": "Wood-look louvered pergola over a hillside deck with a fire table and dining set",
+  "title": "Hillside Deck Louvered Pergola",
+  "source": "Top of Page Carousel/b4c2acb5-07de-4403-bc3e-8b08ae254ec4.jpg"
+ },
+ "hero-07": {
+  "attachment_id": 6445,
+  "file": "nashville-outdoor-living-hero-07.jpg",
+  "width": 1080,
+  "height": 675,
+  "alt": "Black louvered roof over an outdoor dining table framed by fall trees",
+  "title": "Louvered Roof Outdoor Dining",
+  "source": "Top of Page Carousel/IMG_8544.JPG (landscape crop of louvered-roofs-15)"
+ },
+ "solid-roofs-15": {
+  "attachment_id": 6446,
+  "file": "nashville-polycarbonate-patio-roof-15.jpg",
+  "width": 1350,
+  "height": 1800,
+  "alt": "Black aluminum polycarbonate patio roof over a raised deck behind a brick townhome",
+  "title": "Polycarbonate Deck Roof",
+  "source": "Solid Roof Systems/20250617_151116.jpg"
+ },
+ "solid-roofs-16": {
+  "attachment_id": 6447,
+  "file": "nashville-polycarbonate-patio-roof-16.jpg",
+  "width": 1500,
+  "height": 2000,
+  "alt": "Polycarbonate roof with black aluminum frame over a deck outside sliding glass doors",
+  "title": "Polycarbonate Patio Roof",
+  "source": "Solid Roof Systems/20250617_151139.jpg"
+ },
+ "solid-roofs-17": {
+  "attachment_id": 6448,
+  "file": "nashville-polycarbonate-patio-roof-17.jpg",
+  "width": 2000,
+  "height": 1500,
+  "alt": "White polycarbonate patio cover over a long deck with white railings",
+  "title": "Polycarbonate Patio Cover",
+  "source": "Solid Roof Systems/IMG_0271.JPG"
+ },
+ "solid-roofs-18": {
+  "attachment_id": 6449,
+  "file": "nashville-polycarbonate-patio-roof-18.jpg",
+  "width": 2000,
+  "height": 1500,
+  "alt": "Polycarbonate roof and glass walls enclosing a deck overlooking a backyard",
+  "title": "Polycarbonate Sunroom Roof",
+  "source": "Solid Roof Systems/IMG_0285.JPG"
+ },
+ "solid-roofs-19": {
+  "attachment_id": 6450,
+  "file": "nashville-polycarbonate-patio-roof-19.jpg",
+  "width": 2000,
+  "height": 1500,
+  "alt": "Glass room with a polycarbonate roof on a deck overlooking open countryside",
+  "title": "Polycarbonate Glass Room",
+  "source": "Solid Roof Systems/IMG_0291.JPG"
+ },
+ "solid-roofs-20": {
+  "attachment_id": 6451,
+  "file": "nashville-polycarbonate-patio-roof-20.jpg",
+  "width": 1800,
+  "height": 1350,
+  "alt": "Screened deck lounge with wicker chairs under a black-framed polycarbonate roof",
+  "title": "Polycarbonate Screened Deck",
+  "source": "Solid Roof Systems/IMG_0357.JPG"
+ },
+ "solid-roofs-21": {
+  "attachment_id": 6452,
+  "file": "nashville-insulated-patio-roof-21.jpg",
+  "width": 1080,
+  "height": 1080,
+  "alt": "Dark aluminum insulated patio roof over an outdoor sectional",
+  "title": "Insulated Patio Roof",
+  "source": "Solid Roof Systems/IMG_8396.JPG"
+ },
+ "solid-roofs-22": {
+  "attachment_id": 6453,
+  "file": "nashville-insulated-patio-roof-22.jpg",
+  "width": 1080,
+  "height": 1350,
+  "alt": "White aluminum patio roof structure on an apartment community pool deck",
+  "title": "Commercial Pool Deck Roof",
+  "source": "Solid Roof Systems/IMG_8433.JPG"
  }
 }

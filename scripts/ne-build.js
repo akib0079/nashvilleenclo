@@ -51,13 +51,16 @@
   const S = (el, s) => (Object.assign(el.settings, s), el);
 
   /* ---------- constants ---------- */
-  const PHONE = '(630) 303-1666', TEL = 'tel:+16303031666';
+  // Client contact details (2026-10-15): one place for phone + email across every page and template
+  const PHONE = (B.PHONE = '(615) 669-1987'), TEL = (B.TEL = 'tel:+16156691987');
+  B.EMAIL = 'info@nashvilleenclosures.com'; B.MAILTO = 'mailto:' + B.EMAIL;
+  B.FORM_TO = 'info@nashvilleenclosures.com, brian@nashvilleenclosures.com'; // both until info@ is confirmed
   B.URL = {
     home: '/', about: '/about/', process: '/about/our-process/', products: '/products/', projects: '/projects/',
     videos: '/videos-resources/', warranty: '/warranty-service/', contact: '/contact-us/', blog: '/blog/',
     louvered: '/products/louvered-roofs/', screens: '/products/retractable-screens/', cantilever: '/products/cantilever-roof-systems/',
     seasons: '/products/3-4-season-rooms/', glass: '/products/glass-enclosures/', heating: '/products/infrared-heating/',
-    screenrooms: '/products/screen-rooms/', metal: '/products/architectural-metal/', commercial: '/products/commercial-outdoor-spaces/',
+    screenrooms: '/products/screen-rooms/', metal: '/products/architectural-metal/', solid: '/products/solid-roof-systems/', commercial: '/commercial/',
   };
   const U = B.URL;
 
@@ -105,13 +108,13 @@
     if (o.cls) S(e, { _css_classes: o.cls });
     return e;
   };
-  B.btn = (text, url) => S(CL(H, '6457823'), { text, link: { url, is_external: '', nofollow: '' }, btn_width: { unit: '%', size: '' } });
+  B.btn = (text, url) => S(CL(H, '6457823'), { text, link: { url, is_external: '', nofollow: '' }, btn_width: { unit: '%', size: '' }, is_line: '' });
   B.callBtn = () => S(CL(LR, '9bfd753'), { text: 'Call: ' + PHONE, link: { url: TEL } });
   // primary CTA + call link on one row
   B.ctaRow = (text, url, withCall = true) => {
     const row = CL(LR, 'c0e69c8');
     const [b, c] = row.elements;
-    S(b, { text, link: { url }, btn_width: { unit: '%', size: '' } });
+    S(b, { text, link: { url }, btn_width: { unit: '%', size: '' }, is_line: '' });
     row.elements = withCall ? [b, S(c, { text: 'Call: ' + PHONE, link: { url: TEL } })] : [b];
     S(row, { flex_wrap: 'wrap', flex_gap: { unit: 'px', size: 20, column: '20', row: '12', isLinked: false } });
     return row;
@@ -162,9 +165,18 @@
   };
 
   // Home hero (cloned from home banner)
-  B.homeHero = ({ pill, line1, line2, text, bg, buttons }) => {
+  // `slides`: photo keys for a background slideshow with a slow Ken Burns zoom (Elementor's own slideshow, no plugin)
+  B.homeHero = ({ pill, line1, line2, text, bg, slides, buttons }) => {
     const s = CL(H, 'f5c2610');
-    S(s, { background_image: bgVal(bg), padding_tablet: { unit: 'px', top: '110', right: '30', bottom: '80', left: '30', isLinked: false } });
+    S(s, { background_image: bgVal(bg || slides[0]), padding_tablet: { unit: 'px', top: '110', right: '30', bottom: '80', left: '30', isLinked: false } });
+    if (slides) S(s, {
+      background_background: 'slideshow',
+      background_slideshow_gallery: slides.map((k) => ({ id: M(k).id, url: M(k).url })),
+      background_slideshow_loop: 'yes', background_slideshow_slide_duration: 6000,
+      background_slideshow_slide_transition: 'fade', background_slideshow_transition_duration: 1500,
+      background_slideshow_background_size: 'cover', background_slideshow_background_position: 'center center',
+      background_slideshow_lazyload: 'yes', background_slideshow_ken_burns: 'yes', background_slideshow_ken_burns_zoom_direction: 'in',
+    });
     const heads = kid(kid(s, 0), 0), lower = kid(kid(s, 0), 1);
     const [p, l1, l2] = heads.elements;
     S(p, { title: pill, header_size: 'div' });
@@ -180,13 +192,26 @@
   };
 
   // Text + photo(s) split section (cloned from the home "about" block)
-  B.split = ({ sub, title, html, after = [], images = [], reverse = false, cta, bg, features, id }) => {
+  // Two equal "bubbles" (icon + title + line) on one row — replaces the theme feature row, whose items never lined up
+  B.bubbles = (items) => B.html('<div class="ne-bubbles">' + items.map((b) => {
+    const tag = b.url ? 'a' : 'div';
+    return `<${tag} class="ne-bubble"${b.url ? ` href="${b.url}"` : ''}><span class="ne-bubble-ic" aria-hidden="true">${B.ICONS[b.icon] || ''}</span><span class="ne-bubble-tx"><strong>${b.title}</strong><span>${b.text}</span></span></${tag}>`;
+  }).join('') + '</div>');
+  B.ICONS = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>',
+    compass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="m11 7-6 14M13 7l6 14M7.5 15h9"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18"/><path d="M12 8h8v13"/><path d="M2.5 21h19"/><path d="M7 8h2M7 12h2M7 16h2M15 12h2M15 16h2"/></svg>',
+  };
+
+  B.split = ({ sub, title, html, after = [], images = [], reverse = false, cta, bg, features, bubbles, id }) => {
     const s = CL(H, '86db9aa');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
     S(s, { padding: { unit: 'px', top: '100', right: '20', bottom: '100', left: '20', isLinked: false }, padding_tablet: { unit: 'px', top: '80', right: '30', bottom: '80', left: '30', isLinked: false }, padding_mobile: { unit: 'px', top: '60', right: '15', bottom: '60', left: '15', isLinked: false },
       // tablet: stack image + text like on phones (two narrow columns cramp headings, lists and features)
-      flex_direction_tablet: 'column', flex_gap_tablet: { unit: 'px', size: 40, column: '40', row: '40', isLinked: true } });
+      flex_direction_tablet: 'column', flex_gap_tablet: { unit: 'px', size: 40, column: '40', row: '40', isLinked: true },
+      flex_align_items: 'center' }); // photo column centred against the text, not pinned to the top
     const [imgCol, txtCol] = s.elements;
     const [big, small] = imgCol.elements;
     S(big, { image: imgVal(images[0]), image_size: 'large' });
@@ -203,7 +228,8 @@
       features.forEach((ft, i) => { const grp = pairs[i]; const txts = kid(grp, 1).elements; S(txts[0], { title: ft[0] }); S(txts[1], { title: ft[1] }); });
       kids.push(dv, f);
     }
-    if (cta) kids.push(Array.isArray(cta) ? B.ctaRow(cta[0], cta[1], cta[2] !== false) : S(bt, { text: cta.text, link: { url: cta.url } }));
+    if (bubbles) kids.push(B.bubbles(bubbles));
+    if (cta) kids.push(Array.isArray(cta) ? B.ctaRow(cta[0], cta[1], cta[2] !== false) : B.btn(cta.text, cta.url));
     txtCol.elements = kids;
     S(txtCol, { flex_gap: { unit: 'px', size: 18, column: '18', row: '18', isLinked: true } });
     if (reverse) s.elements = [txtCol, imgCol];
@@ -218,9 +244,11 @@
   };
 
   // Dark rounded band with icon cards (cloned from home "benefits")
-  B.dark = ({ pill, title, html, cards, cols = 4, id, footer, texture }) => {
+  B.dark = ({ pill, title, html, cards, cols = 4, id, footer, texture, spaceTop }) => {
     const s = CL(H, '94d8e6c');
     if (id) S(s, { _element_id: id });
+    // directly under a hero the band would touch it — give it room
+    if (spaceTop) S(s, { margin: { unit: 'px', top: '90', right: '0', bottom: '0', left: '0', isLinked: false }, margin_mobile: { unit: 'px', top: '50', right: '0', bottom: '0', left: '0', isLinked: false } });
     const box = kid(s, 0), inner = kid(box, 0);
     S(box, { background_overlay_image: bgVal(texture || 'louvered-roofs-17', 'xl'), background_overlay_opacity: { unit: 'px', size: 0.07 } });
     const [pl, tt, tx, row] = inner.elements;
@@ -235,7 +263,8 @@
       wrap.elements = [ib];
       return wrap;
     });
-    const grid = B.grid(cols, items, { gap: 20, tablet: 2, title: 'cards' });
+    // an incomplete last row (e.g. 5 cards in 3 columns) is centred instead of leaving an empty cell
+    const grid = B.grid(cols, items, { gap: 20, tablet: 2, title: 'cards', cls: cards.length % cols ? 'ne-center-grid ne-cols-' + cols : '' });
     inner.elements = [pl, tt, ...(html ? [tx] : []), grid, ...(footer || [])];
     return s;
   };
@@ -264,7 +293,9 @@
     S(ih, { sub }); S(hd, { title, header_size: 'h2' });
     if (intro) left.elements.push(B.text(intro));
     if (button) S(kid(right, 0), { text: button.text, link: { url: button.url } }); else head.elements = [left];
-    if (!button) S(left, { width: { unit: '%', size: 100 } });
+    // title column 70% (the prototype's 50% stranded the last word of longer headings on its own line)
+    S(left, { width: { unit: '%', size: button ? 70 : 100 }, width_tablet: { unit: '%', size: button ? 65 : 100 } });
+    if (button) S(right, { width: { unit: '%', size: 30 }, width_tablet: { unit: '%', size: 35 } });
     s.elements = [head, B.grid(cols, items.map((it) => B.card({ ...it, minH: minH || it.minH })), { gap: 16, tablet: 2, title: 'cards' })];
     return s;
   };

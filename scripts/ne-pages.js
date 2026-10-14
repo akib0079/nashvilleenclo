@@ -11,6 +11,7 @@
   /* product cards used on Home + Products */
   const SYSTEMS = [
     { title: 'Motorized Louvered Roofs', text: 'Control sun, shade and protection from rain at the push of a button.', url: U.louvered, img: 'louvered-roofs-05' },
+    { title: 'Solid Roof Systems', text: 'Polycarbonate, insulated panel and solid aluminum roofs for dependable, all-weather coverage.', url: U.solid, img: 'solid-roofs-08' },
     { title: 'Retractable Screens', text: 'Create an open-air space when you want it and a protected enclosure when you need it.', url: U.screens, img: 'retractable-screens-02' },
     { title: 'Cantilever Roof Systems', text: 'Architectural shade and roof structures designed with fewer posts and cleaner sightlines.', url: U.cantilever, img: 'architectural-metal-03' },
     { title: '3 &amp; 4 Season Rooms', text: 'Extend the use of your outdoor space with custom window, glass, screen and enclosure systems.', url: U.seasons, img: 'season-rooms-01' },
@@ -18,7 +19,6 @@
     { title: 'Infrared Heating', text: 'Integrated electric heating systems designed to extend the comfortable use of your patio into cooler weather.', url: U.heating, img: 'heaters-02' },
     { title: 'Screen Rooms', text: 'Custom aluminum screen enclosures designed for airflow, visibility and protection from insects.', url: U.screenrooms, img: 'screen-rooms-04' },
     { title: 'Architectural Metal', text: 'Custom aluminum privacy walls, cladding, ceilings, decorative panels and architectural features.', url: U.metal, img: 'architectural-metal-06' },
-    { title: 'Commercial Outdoor Spaces', text: 'Custom structures and enclosure systems for restaurants, hotels, rooftops, hospitality venues and other commercial properties.', url: U.commercial, img: 'commercial-04' },
   ];
   const systemCards = () => SYSTEMS.map((s, i) => ({ ...s, label: String(i + 1).padStart(2, '0') }));
 
@@ -32,7 +32,7 @@
   const productCta = (title, bg, text) => B.cta({
     sub: 'Start Your Project', title, bg,
     html: `<p>${text || 'Tell us about your property, how you want to use the space and what you’re hoping to accomplish. We’ll help you determine the products and design approach that make the most sense for your project.'}</p>`,
-    buttons: [{ text: 'Request a Consultation', url: U.contact }, { text: 'Call (630) 303-1666', url: 'tel:+16303031666' }],
+    buttons: [{ text: 'Request a Consultation', url: U.contact }, { text: 'Call ' + B.PHONE, url: B.TEL }],
   });
 
   const productHero = (o) => B.hero({ pill: 'Outdoor Living Systems', buttons: [{ text: o.cta, url: U.contact }, { text: 'View Projects', url: U.projects }], ...o });
@@ -44,20 +44,24 @@
       build: () => [
         B.homeHero({
           pill: 'Nashville’s Premier Custom Outdoor Structure &amp; Enclosure Professionals',
-          line1: 'Designed for Your Home.', line2: 'Built for the Outdoors.',
-          text: 'Made to last. Premium outdoor structures and enclosure systems for residential and commercial properties throughout Tennessee.',
-          bg: 'louvered-roofs-04',
+          line1: 'Designed for the Way You Live.', line2: 'Built for the Outdoors.',
+          text: 'Elevating outdoor living through luxury architectural structures and premium enclosure systems, thoughtfully designed and expertly built for residential and commercial spaces throughout Tennessee.',
+          // client's "Top of Page Carousel" selection (2026-10-15); low-resolution originals placed last
+          slides: ['louvered-roofs-01', 'hero-03', 'louvered-roofs-08', 'glide-glass-18', 'hero-06', 'louvered-roofs-19', 'hero-04', 'hero-02', 'louvered-roofs-16', 'hero-05', 'hero-01', 'hero-07'],
           buttons: [{ text: 'View Products', url: U.products }, { text: 'Start Your Project', url: U.contact }],
         }),
         B.split({
           sub: 'About Nashville Enclosures',
-          title: `Nashville’s Premier Custom Outdoor Structure &amp; ${hl('Enclosure Professionals')}`,
+          title: `Custom Outdoor Spaces Designed Around ${hl('Your Lifestyle')}`,
           html: ps(
-            'Nashville Enclosures designs and builds premium outdoor structures and enclosure systems for residential and commercial properties throughout All of Tennessee.',
-            'From motorized louvered roofs and retractable screens to glass enclosures, three- and four-season rooms, cantilevered structures and architectural aluminum, we create custom outdoor spaces designed around the way you want to live.',
-            'Our focus is simple: understand what you want from your outdoor living space and create the right solution — a beautiful, comfortable, functional space designed around the way you live and built for a lifetime of enjoyment.'),
-          images: ['retractable-screens-02', 'glide-glass-03'],
-          features: [['Residential', 'Commercial &amp; Hospitality'], ['Design-Build', 'Consult to Completion']],
+            'Nashville Enclosures designs and builds luxury outdoor structures and premium enclosure systems for homes and businesses throughout Tennessee.',
+            'From motorized louvered roofs and solid roof systems to retractable screens, glass enclosures, season rooms, cantilever structures and architectural aluminum, every project is custom designed for the property — and for the people who will enjoy it.',
+            'Our focus is simple: understand how you want to use your outdoor space, then design and build the right solution — beautiful, comfortable and made to be enjoyed for years to come.'),
+          images: ['louvered-roofs-02', 'architectural-metal-06'],
+          bubbles: [
+            { title: 'Residential', text: 'Homes, patios, pools &amp; outdoor rooms', icon: 'home', url: U.products },
+            { title: 'Commercial', text: 'Restaurants, hospitality &amp; businesses', icon: 'building', url: U.commercial },
+          ],
           cta: { text: 'Our Story', url: U.about },
         }),
         B.dark({
@@ -78,10 +82,11 @@
           button: { text: 'View All Products', url: U.products }, items: systemCards(), minH: 390,
         }),
         B.split({
-          sub: 'Designed Around Your Home', title: `Built to Become ${hl('Part of Your Home')}`,
-          html: ps('We don’t approach outdoor living projects as accessories added onto a house.', 'We design them to look and feel like they belong there.',
-            'Proportion, rooflines, colors, attachment points, sightlines, drainage, lighting, fans, heaters, screens and surrounding architecture are all considered during the design process.',
-            'The result is a finished outdoor space that is functional, intentional and built for years of use.'),
+          sub: 'Designed Around Your Lifestyle', title: `Built to Become Part of ${hl('the Way You Live')}`,
+          html: ps('Great outdoor living starts with how you want to live — slow mornings with coffee, family dinners, game days and evenings entertaining friends.',
+            'We design every space around those moments, and around your home, so the finished structure feels like it has always belonged there.',
+            'Proportion, rooflines, colors, sightlines, drainage, lighting, fans, heaters and screens are all considered during the design process.',
+            'The result is an outdoor space that is comfortable, intentional and built to be enjoyed for years to come.'),
           images: ['louvered-roofs-11'], reverse: true, bg: '#FFFFFF',
           cta: ['Start Your Project', U.contact],
         }),
@@ -102,24 +107,29 @@
     about: {
       id: 5511, title: 'About',
       build: () => [
-        B.hero({ pill: 'About Nashville Enclosures', kicker: 'Built to Last. Designed to Be Used.', title: 'We Build Outdoor Spaces That Are Made to Be Used', text: 'A design-build contractor specializing in premium outdoor structures and enclosure systems.', bg: 'louvered-roofs-08', buttons: [{ text: 'Start Your Project', url: U.contact }, { text: 'Our Process', url: U.process }], h: 58 }),
+        B.hero({ pill: 'About Nashville Enclosures', kicker: 'Elevated by Design. Built for Living.', title: 'Redefining the Outdoor Living Experience', text: 'We design and build luxury outdoor structures and innovative enclosure systems that transform ordinary spaces into extraordinary places to live, gather, and entertain.', bg: 'louvered-roofs-08', buttons: [{ text: 'Start Your Project', url: U.contact }, { text: 'Our Process', url: U.process }], h: 58 }),
         B.split({
           sub: 'About Nashville Enclosures', title: `More Time Outside. ${hl('Less Time Maintaining It.')}`,
           html: ps('Nashville Enclosures is a design-build contractor specializing in premium outdoor structures and enclosure systems.',
             'Our purpose is to create outdoor spaces that allow people to spend more time outside — relaxing, entertaining, gathering with friends and family, and enjoying their homes.',
             'We believe the best outdoor living projects combine thoughtful design, high-quality materials, proper construction and products that require as little maintenance as possible.',
-            '<strong>Our goal isn’t simply to complete your project.</strong> Our goal is to build something you will still be enjoying years from now.'),
+            '<strong>We’re not just here to build your project.</strong> We’re here to create something you’ll love, enjoy, and be proud of for years to come.'),
           images: ['louvered-roofs-09', 'retractable-screens-10'],
-          features: [['Design-Build', 'Contractor'], ['Statewide', 'Throughout Tennessee']],
+          // same bubble component as the Home page (replaces the old icon row)
+          bubbles: [
+            { title: 'Design-Build', text: 'One team from consultation to completion', icon: 'compass', url: U.process },
+            { title: 'Statewide', text: 'Residential &amp; commercial projects throughout Tennessee', icon: 'pin', url: U.projects },
+          ],
         }),
         B.split({
-          sub: 'Our Story', title: `Founded on a Lifetime Spent Around ${hl('Construction')}`,
-          html: ps('Nashville Enclosures was founded by Brian Watters after a lifetime spent around construction.',
-            'With a degree in Mechanical Engineering and a background spanning large commercial construction, industrial projects, and custom residential construction, Brian developed an appreciation for both the technical side of building and the details that separate an average project from an exceptional one.',
-            'That experience eventually led to a specialization in premium aluminum outdoor structures, motorized systems, and custom enclosure products.',
-            'Nashville Enclosures was built around a straightforward idea:',
-            '<strong>Offer clients the best systems, design projects properly, build them correctly, and stand behind the finished work.</strong>'),
-          images: ['louvered-roofs-14'], reverse: true, bg: '#FFFFFF',
+          id: 'our-story', sub: 'Our Story', title: `Built on Experience. ${hl('Inspired by Outdoor Living.')}`,
+          html: ps('Nashville Enclosures was founded by Brian Watters, bringing together a lifetime of experience in construction, a background in Mechanical Engineering, and a genuine passion for the outdoors.',
+            'With experience spanning large-scale commercial and industrial construction to custom residential projects, Brian developed a deep appreciation for thoughtful design, quality craftsmanship, and the technical details that make exceptional projects possible.',
+            'Beyond construction, a lifelong appreciation for outdoor living helped shape the vision for Nashville Enclosures. The belief that some of life’s best moments happen outdoors — whether relaxing with family, entertaining friends, or simply enjoying the space around you — became the inspiration for creating outdoor environments that people truly love spending time in.',
+            'Combining that passion with an engineering and construction background led to a specialization in luxury aluminum structures, innovative motorized roof systems, and custom outdoor enclosures. These systems offer the opportunity to transform ordinary outdoor areas into beautiful, comfortable, and functional living spaces that can be enjoyed throughout the seasons.',
+            'Today, Nashville Enclosures is built around the same core principles that inspired its founding: use the finest products available, approach every project with thoughtful design, execute with exceptional craftsmanship, and stand behind our work.',
+            '<strong>Our goal is more than simply building outdoor structures.</strong> It’s about understanding our clients’ vision, bringing that vision to life, and creating exceptional spaces that enhance the way people live, gather, and enjoy the outdoors for years to come.'),
+          images: ['louvered-roofs-14', 'louvered-roofs-03'], reverse: true, bg: '#FFFFFF',
         }),
         B.split({
           sub: 'Our Team', title: `People Who Take Pride in ${hl('Their Craft')}`,
@@ -132,7 +142,7 @@
           images: ['commercial-11'],
         }),
         B.dark({
-          pill: 'Our Core Values', title: 'What We Stand For',
+          pill: 'Our Core Values', title: 'Commitment to Excellence',
           cards: [
             { title: 'Stand Behind Your Word and Your Work', text: 'We believe clients should understand what they are buying, what it will accomplish and what they can expect from the project. We communicate clearly, make realistic commitments and do what we say we are going to do.', icon: 'fas fa-handshake' },
             { title: 'Build It Right', text: 'Quality is measured years after construction — not just on installation day. That means durable materials, proven systems, attention to the details people don’t always see, and never compromising long-term performance to make a project cheaper or faster.', icon: 'fas fa-ruler-combined' },
@@ -142,7 +152,7 @@
           ], cols: 3,
         }),
         processBand('A Better Project Starts With a Better Process'),
-        productCta('We Build the Structure. You Create What Happens Inside It.', 'season-rooms-14'),
+        productCta('We Build the Structure. You Create What Happens Inside It.', 'louvered-roofs-04'), // the former Home hero photo
         B.effect(),
       ],
     },
@@ -202,7 +212,7 @@
     products: {
       id: 5512, title: 'Products',
       build: () => [
-        B.hero({ pill: 'Our Outdoor Living Systems', kicker: 'Better Products. Better Design. Better Outdoor Spaces.', title: 'Outdoor Living Without Compromise', text: 'Motorized louvered roofs, retractable screens, glass enclosures, seasonal rooms, cantilever structures and architectural aluminum — designed as one complete outdoor space.', bg: 'architectural-metal-01', buttons: [{ text: 'Start Your Project', url: U.contact }, { text: 'View Projects', url: U.projects }], h: 58 }),
+        B.hero({ pill: 'Our Outdoor Living Systems', kicker: 'Better Products. Better Design. Better Outdoor Spaces.', title: 'Outdoor Living Without Compromise', text: 'Motorized louvered roofs, solid roof systems, retractable screens, glass enclosures, seasonal rooms, cantilever structures and architectural aluminum — designed as one complete outdoor space.', bg: 'architectural-metal-01', buttons: [{ text: 'Start Your Project', url: U.contact }, { text: 'View Projects', url: U.projects }], h: 58 }),
         B.cards({
           sub: 'Our Outdoor Living Systems', title: `Choose the Right ${hl('Combination')}`,
           intro: '<p>Shade. Weather protection. Bug control. Heating. Privacy. An unobstructed view. A fully enclosed room. Or a combination of all of them — each system can stand alone or be designed together as a complete outdoor space.</p>',

@@ -45,9 +45,12 @@
     .replace(OLD_GOLD_RGB, (m, a) => (a ? 'rgba(149, 126, 86' + a.replace(/\s+/g, ' ') + ')' : 'rgb(149, 126, 86)'));
   NE.recolor = (els) => JSON.parse(NE.recolorText(JSON.stringify(els)));
 
+  // Theme buttons draw decorative corner lines unless is_line is off; the client wants one consistent button style.
+  NE.flatButtons = (els) => (NE.walk(els, (e) => { if (e.widgetType === 'ibutton') e.settings.is_line = ''; }), els);
+
   NE.publishPage = async (key, opts = {}) => {
     const p = NE.PAGES[key];
-    const els = NE.recolor(NE.minSidePadding(p.build()));
+    const els = NE.flatButtons(NE.recolor(NE.minSidePadding(p.build())));
     if (opts.dry) return { key, sections: els.length, bytes: JSON.stringify(els).length };
     const id = await NE.ensurePage(key);
     const body = { title: p.title };

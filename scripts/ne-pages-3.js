@@ -7,7 +7,7 @@
   const NE = window.NE, B = NE.B, U = B.URL;
   const ps = B.ps;
   const hl = (t) => `<span class="highlight">${t}</span>`;
-  const TEL = 'tel:+16303031666';
+  const TEL = B.TEL;
   const PRODUCT_OPTIONS = ['Motorized Louvered Roof', 'Retractable Screens', 'Cantilever Roof System', '3 & 4 Season Room', 'Sliding / Motorized Glass Enclosure', 'Infrared Heating', 'Screen Room', 'Architectural Metal', 'Commercial Outdoor Space', 'Multiple Systems / Not Sure Yet'];
   // deep copy keeping original ids so we can address prototype children, re-id at the end
   const copy = (doc, id) => JSON.parse(JSON.stringify(NE.byId(NE.docs[doc].elements, id)));
@@ -35,10 +35,10 @@
           if (f.custom_id === 'image') return { ...f, field_label: 'Photos (optional)', required: '', field_options: '', allow_multiple_upload: 'yes', file_types: 'jpg,jpeg,png,heic,webp,pdf' };
           return f;
         });
-        Object.assign(form.settings, { form_name: 'Service Request', email_subject: 'New Service Request — Nashville Enclosures website', success_message: 'Thank you — your service request has been received. Our team will review it and contact you about the next step.', button_text: 'Submit Service Request' });
+        Object.assign(form.settings, { email_to: B.FORM_TO, form_name: 'Service Request', email_subject: 'New Service Request — Nashville Enclosures website', success_message: 'Thank you — your service request has been received. Our team will review it and contact you about the next step.', button_text: 'Submit Service Request' });
         reid(svc);
         return [
-          B.hero({ pill: 'Warranty &amp; Service', kicker: 'We Stand Behind Our Word and Our Work.', title: 'We Stand Behind What We Build', text: 'Warranty support, product education and ongoing service for the outdoor structures and enclosure systems we install.', bg: 'retractable-screens-14', buttons: [{ text: 'Submit a Service Request', url: '#service-request' }, { text: 'Call (630) 303-1666', url: TEL }], h: 58 }),
+          B.hero({ pill: 'Warranty &amp; Service', kicker: 'We Stand Behind Our Word and Our Work.', title: 'We Stand Behind What We Build', text: 'Warranty support, product education and ongoing service for the outdoor structures and enclosure systems we install.', bg: 'retractable-screens-14', buttons: [{ text: 'Submit a Service Request', url: '#service-request' }, { text: 'Call ' + B.PHONE, url: TEL }], h: 58 }),
           B.split({
             sub: 'Warranty &amp; Service', title: `Quality Construction Should Be ${hl('Supported After Installation')}`,
             html: ps('Quality construction should be supported after installation.',
@@ -78,8 +78,8 @@
           'Tell us about your property, how you want to use the space and what you’re hoping to accomplish.',
           'We’ll help you determine the products and design approach that make the most sense for your project.')
           + '<p class="ne-card-note"><strong>Nashville Enclosures</strong><br>Custom Outdoor Structures &amp; Enclosures<br>Residential | Commercial | Hospitality<br>Serving Nashville and Middle Tennessee</p>' });
-        set(main, '1d6bd40', { title: 'Email:' });
-        set(main, '37e8d7d', { title: 'Phone:', des: `<a href="${TEL}">(630) 303-1666</a>` });
+        set(main, '1d6bd40', { title: 'Email:', des: `<a href="${B.MAILTO}">${B.EMAIL}</a>` });
+        set(main, '37e8d7d', { title: 'Phone:', des: `<a href="${TEL}">${B.PHONE}</a>` });
         set(main, '617dda3', { title: 'Service Area:', des: 'Nashville &amp; Middle Tennessee' });
         set(main, '16fa6b7', B.social());
         set(main, 'd5c2a74', { sub: 'Request a Consultation', title: 'Get a Project Quote' });
@@ -90,11 +90,13 @@
           if (f.custom_id === 'field_94bc8e5') return { ...f, field_options: f.field_options.replace(/^How Did You Hear About Us\n/, 'How did you hear about us?|\n').replace(/\n+$/, '') };
           return f;
         });
-        Object.assign(form.settings, { form_name: 'Project Inquiry', email_subject: 'New Project Inquiry — Nashville Enclosures website', button_text: 'Get a Project Quote', success_message: 'Thank you — we’ve received your project details and will be in touch shortly to schedule your consultation.' });
-        set(map, '14088ed', { address: 'Nashville, TN', zoom: { unit: 'px', size: 9 } });
+        Object.assign(form.settings, { email_to: B.FORM_TO, form_name: 'Project Inquiry', email_subject: 'New Project Inquiry — Nashville Enclosures website', button_text: 'Get a Project Quote', success_message: 'Thank you — we’ve received your project details and will be in touch shortly to schedule your consultation.' });
+        // service-area map (Middle Tennessee counties highlighted) from the ne-site-tools plugin replaces the Google embed
+        const gmap = NE.byId([map], '14088ed');
+        Object.assign(gmap, { widgetType: 'shortcode', settings: { shortcode: '[ne_service_map]', _css_classes: 'ne-map-widget' } });
         reid(main); reid(map);
         return [
-          B.hero({ pill: 'Contact Us', kicker: 'Built Around Your Home. Designed Around Your Life.', title: 'Let’s Build Something Outside', text: 'Custom outdoor structures &amp; enclosures — residential, commercial and hospitality — serving Nashville and Middle Tennessee.', bg: 'louvered-roofs-13', buttons: [{ text: 'Get a Project Quote', url: '#contact' }, { text: 'Call (630) 303-1666', url: TEL }], h: 55 }),
+          B.hero({ pill: 'Contact Us', kicker: 'Built Around Your Home. Designed Around Your Life.', title: 'Let’s Build Something Outside', text: 'Custom outdoor structures &amp; enclosures — residential, commercial and hospitality — serving Nashville and Middle Tennessee.', bg: 'louvered-roofs-13', buttons: [{ text: 'Get a Project Quote', url: '#contact' }, { text: 'Call ' + B.PHONE, url: TEL }], h: 55 }),
           main,
           map,
           B.effect(),

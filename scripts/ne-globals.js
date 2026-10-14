@@ -4,7 +4,7 @@
  */
 (function () {
   const NE = window.NE, B = NE.B, U = B.URL;
-  const TEL = 'tel:+16303031666', MAIL = 'mailto:brian@nashvilleenclosures.com';
+  const TEL = B.TEL, MAIL = B.MAILTO;
   const copyDoc = async (id) => JSON.parse(JSON.stringify((await NE.load(id, true)).elements));
   const set = (els, id, s) => { const e = NE.byId(els, id); if (!e) throw new Error('missing ' + id); Object.assign(e.settings, s); return e; };
 
@@ -17,7 +17,7 @@
     set(els, 'cb8d2f7', { html: NE.STICKY_HTML });
     set(els, 'e92c188', B.social());
     const il = NE.byId(els, 'c09be38');
-    il.settings.icon_list = il.settings.icon_list.map((it, i) => (i === 0 ? { ...it, text: 'Call: (630) 303-1666', link: { url: TEL } } : { ...it, link: { url: MAIL } }));
+    il.settings.icon_list = il.settings.icon_list.map((it, i) => (i === 0 ? { ...it, text: 'Call: ' + B.PHONE, link: { url: TEL } } : { ...it, text: B.EMAIL, link: { url: MAIL } }));
     set(els, 'd9f347a', { text: 'Request Quote', link: { url: U.contact } });
     await NE.save(3971, els);
     return 'header ok';
@@ -44,16 +44,16 @@
     const [loc, mail, tel] = contacts.settings.icon_list;
     contacts.settings.icon_list = [
       { ...loc, text: 'Serving Nashville &amp; Middle Tennessee', link: { url: U.contact } },
-      { ...mail, text: 'brian@nashvilleenclosures.com', link: { url: MAIL } },
-      { ...tel, text: '(630) 303-1666', link: { url: TEL } },
+      { ...mail, text: B.EMAIL, link: { url: MAIL } },
+      { ...tel, text: B.PHONE, link: { url: TEL } },
     ];
     set(els, '3b3c5e7', { title: 'Our Systems' });
     const prods = NE.byId(els, '1b8925c');
     const proto = prods.settings.icon_list[0];
     prods.settings.icon_list = [
-      ['Louvered Roofs', U.louvered], ['Retractable Screens', U.screens], ['Cantilever Roof Systems', U.cantilever],
+      ['Louvered Roofs', U.louvered], ['Solid Roof Systems', U.solid], ['Retractable Screens', U.screens], ['Cantilever Roof Systems', U.cantilever],
       ['3 &amp; 4 Season Rooms', U.seasons], ['Glass Enclosures', U.glass], ['Infrared Heating', U.heating],
-      ['Screen Rooms', U.screenrooms], ['Architectural Metal', U.metal], ['Commercial Outdoor Spaces', U.commercial],
+      ['Screen Rooms', U.screenrooms], ['Architectural Metal', U.metal], ['Commercial Projects', U.commercial],
     ].map(([text, url]) => ({ ...proto, _id: NE.uid(), text, link: { url } }));
     // tablet: use the phone layout on top (logo + text) and Contacts | Systems side by side
     set(els, '171877e', { hide_tablet: '' });
@@ -87,6 +87,29 @@
     return 'side panel ok';
   };
 
+  /* ---------- logos: "Nashville Enclosures" wordmark (capital E, no period) ---------- */
+  // Replaces every image setting that points at an old logo file, in all global templates.
+  NE.OLD_LOGOS = /\/(logos\.png|Title-170-x-100-px-2[^/]*\.png|logo-footer\.svg|logo\.svg|logo-dark\.svg)$/;
+  NE.fixLogos = async (light, dark, ids = [3971, 2888, 1334, 2831]) => {
+    const log = [];
+    for (const id of ids) {
+      const els = await copyDoc(id);
+      let n = 0;
+      const fix = (o) => {
+        if (!o || typeof o !== 'object') return;
+        if (typeof o.url === 'string' && NE.OLD_LOGOS.test(o.url.split('?')[0])) {
+          const white = /Title-170|logo-footer/.test(o.url);
+          Object.assign(o, { url: (white ? dark : light).url, id: (white ? dark : light).id }); n++; return;
+        }
+        Object.values(o).forEach(fix);
+      };
+      NE.walk(els, (e) => fix(e.settings));
+      if (n) await NE.save(id, els);
+      log.push(id + ':' + n);
+    }
+    return log;
+  };
+
   /* ---------- menus ---------- */
   NE.fixMenus = async () => {
     const P = NE.PAGES, log = [];
@@ -106,14 +129,17 @@
     await add(52, { title: 'Our Process', object_id: pid('process'), parent: 5538, menu_order: 3 });
     await upd(5535, { menu_order: 4, parent: 5538, title: 'Warranty &amp; Service' });
     await upd(5525, { menu_order: 5, parent: 0, title: 'Products' });
-    const prodOrder = [[5533, 'Louvered Roofs', 'louvered'], [5532, 'Retractable Screens', 'screens'], [5527, 'Cantilever Roof Systems', 'cantilever'], [5531, '3 &amp; 4 Season Rooms', 'seasons'], [5529, 'Sliding &amp; Motorized Glass', 'glass'], [5528, 'Infrared Heating', 'heating'], [5530, 'Screen Rooms', 'screenrooms'], [5526, 'Architectural Metal', 'metal'], [null, 'Commercial Outdoor Spaces', 'commercial']];
+    const prodOrder = [[5533, 'Louvered Roofs', 'louvered'], [null, 'Solid Roof Systems', 'solid'], [5532, 'Retractable Screens', 'screens'], [5527, 'Cantilever Roof Systems', 'cantilever'], [5531, '3 &amp; 4 Season Rooms', 'seasons'], [5529, 'Sliding &amp; Motorized Glass', 'glass'], [5528, 'Infrared Heating', 'heating'], [5530, 'Screen Rooms', 'screenrooms'], [5526, 'Architectural Metal', 'metal']];
     let o = 6;
     for (const [id, title, key] of prodOrder) {
       const body = { title, parent: 5525, menu_order: o++, object_id: pid(key), object: 'page', type: 'post_type' };
       if (id) await upd(id, body); else await add(52, body);
     }
+    // Commercial is its own top-level page now (the existing menu item is matched by page id and moved up)
+    await add(52, { title: 'Commercial', object_id: pid('commercial'), parent: 0, menu_order: o++ });
     await upd(5537, { menu_order: o++, parent: 0, title: 'Projects' });
-    await upd(5536, { menu_order: o++, parent: 0, title: 'Videos &amp; Resources' });
+    // short label: with Commercial added, the full name no longer fits the desktop bar (page title stays "Videos & Resources")
+    await upd(5536, { menu_order: o++, parent: 0, title: 'Resources' });
     await upd(5541, { menu_order: o++, parent: 5536, title: 'Blog' });
     await upd(5534, { menu_order: o++, parent: 0, title: 'Contact Us' });
 
@@ -123,19 +149,20 @@
     await add(58, { title: 'Our Process', object_id: pid('process'), parent: 5695, menu_order: 3 });
     await upd(5710, { menu_order: 4, parent: 5695, title: 'Warranty &amp; Service' });
     await upd(5699, { menu_order: 5, parent: 0, title: 'Products' });
-    const mob = [[5704, 'louvered'], [5707, 'screens'], [5701, 'cantilever'], [5700, 'seasons'], [5705, 'glass'], [5703, 'heating'], [5706, 'screenrooms'], [5702, 'metal'], [null, 'commercial']];
+    const mob = [[5704, 'louvered'], [null, 'solid'], [5707, 'screens'], [5701, 'cantilever'], [5700, 'seasons'], [5705, 'glass'], [5703, 'heating'], [5706, 'screenrooms'], [5702, 'metal']];
     o = 6;
     for (const [id, key] of mob) {
       const title = prodOrder.find((x) => x[2] === key)[1];
       const body = { title, parent: 5699, menu_order: o++, object_id: pid(key), object: 'page', type: 'post_type' };
       if (id) await upd(id, body); else await add(58, body);
     }
+    await add(58, { title: 'Commercial', object_id: pid('commercial'), parent: 0, menu_order: o++ });
     await upd(5708, { menu_order: o++, parent: 0, title: 'Projects' });
     await upd(5709, { menu_order: o++, parent: 0, title: 'Videos &amp; Resources' });
     await upd(5696, { menu_order: o++, parent: 5709, title: 'Blog', object_id: 136 });
     await upd(5697, { menu_order: o++, parent: 0, title: 'Contact Us' });
-    await upd(5711, { menu_order: o++, parent: 0, title: 'Call: (630) 303-1666', url: TEL });
-    await upd(5712, { menu_order: o++, parent: 0, title: 'brian@nashvilleenclosures.com', url: MAIL });
+    await upd(5711, { menu_order: o++, parent: 0, title: 'Call: ' + B.PHONE, url: TEL });
+    await upd(5712, { menu_order: o++, parent: 0, title: B.EMAIL, url: MAIL });
     return log;
   };
 })();

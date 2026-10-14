@@ -102,10 +102,25 @@ ul.ne-check li::before {
   line-height: 1.7;
 }
 
-/* Filterable project gallery (Elementor Pro gallery) */
-.ne-filter-gallery .elementor-gallery__titles-container { flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
-.ne-filter-gallery .elementor-gallery-title { padding: 8px 4px; border-bottom: 2px solid transparent; }
-.ne-filter-gallery .elementor-gallery-title.elementor-item-active { border-bottom-color: #957E56; }
+/* Filterable project gallery (Elementor Pro gallery).
+   Client: make the filters read as real buttons, so it's obvious the gallery can be filtered. */
+.ne-filter-gallery .elementor-gallery__titles-container { flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 36px; }
+.ne-filter-gallery .elementor-gallery-title {
+  margin: 0 !important; padding: 14px 26px !important;
+  font-size: 14px !important; font-weight: 600 !important; letter-spacing: .06em; line-height: 1.2;
+  color: #3D3D3D !important; background: #FFFFFF; border: 1.5px solid #D9D2C5; border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .05); cursor: pointer;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+.ne-filter-gallery .elementor-gallery-title::before,
+.ne-filter-gallery .elementor-gallery-title::after { display: none !important; }
+.ne-filter-gallery .elementor-gallery-title:hover { border-color: #957E56; color: #957E56 !important; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0, 0, 0, .08); }
+.ne-filter-gallery .elementor-gallery-title.elementor-item-active { background: #957E56; border-color: #957E56; color: #FFFFFF !important; box-shadow: 0 6px 18px rgba(149, 126, 86, .35); }
+.ne-filter-gallery .elementor-gallery-title:focus-visible { outline: 2px solid #957E56; outline-offset: 3px; }
+@media (max-width: 767px) {
+  .ne-filter-gallery .elementor-gallery__titles-container { gap: 8px; }
+  .ne-filter-gallery .elementor-gallery-title { padding: 11px 16px !important; font-size: 12.5px !important; flex: 1 1 calc(50% - 8px); text-align: center; }
+}
 .ne-filter-gallery .e-gallery-item { border-radius: 10px; overflow: hidden; }
 
 /* Video cards */
@@ -175,3 +190,62 @@ ul.ne-check li::before {
 .elementor-sticky__spacer .mmenu-overlay,
 .elementor-sticky__spacer .mmenu-wrapper { display: none !important; }
 body.mmenu-active .header-mobile .elementor-sticky--active { z-index: 100000 !important; }
+
+/* ---------------------------------------------------------------------
+   Revision 2 (2026-10-15)
+   --------------------------------------------------------------------- */
+/* Home "About": Residential / Commercial bubbles — equal size, aligned on one row */
+.ne-bubbles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 22px; margin-top: 4px; border-top: 1px solid #E6E1D8; }
+.ne-bubble { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: #FFFFFF; border: 1px solid #ECE7DE; border-radius: 14px; box-shadow: 0 4px 14px rgba(0, 0, 0, .04); color: inherit; text-decoration: none; transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+a.ne-bubble:hover { border-color: #957E56; box-shadow: 0 10px 24px rgba(0, 0, 0, .08); transform: translateY(-2px); }
+.ne-bubble-ic { flex: 0 0 52px; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: #F4F0E8; color: #957E56; }
+.ne-bubble-ic svg { width: 26px; height: 26px; }
+.ne-bubble-tx { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ne-bubble-tx strong { font: 600 18px/1.25 Poppins, sans-serif; color: #1A1A1A; }
+.ne-bubble-tx span { font-size: 13.5px; line-height: 1.45; color: #6B6B6B; }
+@media (max-width: 480px) { .ne-bubbles { grid-template-columns: 1fr; } }
+
+/* Videos & Resources: note about the manufacturer videos */
+.ne-note { display: flex; gap: 18px; align-items: flex-start; padding: 24px 28px; background: #F7F5F0; border: 1px solid #E6DFD2; border-left: 4px solid #957E56; border-radius: 14px; }
+.ne-note-ic { flex: 0 0 48px; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 12px; background: #957E56; color: #FFFFFF; }
+.ne-note-ic svg { width: 26px; height: 26px; }
+.ne-note p { margin: 0; line-height: 1.7; }
+.ne-note .ne-note-title { margin-bottom: 6px; font: 600 18px/1.4 Poppins, sans-serif; color: #1A1A1A; }
+@media (max-width: 767px) { .ne-note { flex-direction: column; padding: 20px; } }
+
+/* Contact: service-area map widget fills its section */
+.ne-map-widget, .ne-map-widget .elementor-shortcode { width: 100%; }
+
+/* Desktop menu: 7 items + Request Quote. Tighter item spacing so nothing slides under the button;
+   on narrow laptops (1025–1139px) the Home item is dropped — the logo already links home. */
+@media (min-width: 1025px) {
+  .custom-animated-header .main-navigation > ul > li { margin: 0 14px !important; }
+  .custom-animated-header .main-navigation > ul > li:first-child { margin-left: 0 !important; }
+  .custom-animated-header .main-navigation > ul > li:last-child { margin-right: 0 !important; }
+}
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .custom-animated-header .main-navigation > ul > li { margin: 0 9px !important; }
+  .custom-animated-header .main-navigation > ul > li > a { font-size: 12.5px !important; }
+}
+@media (min-width: 1025px) and (max-width: 1139px) {
+  .custom-animated-header .main-navigation > ul > li { margin: 0 7px !important; }
+  .custom-animated-header .main-navigation > ul > li > a { font-size: 12px !important; }
+  .custom-animated-header .main-navigation > ul > li:first-child { display: none !important; }
+}
+
+/* Dark card bands: centre an incomplete last row (e.g. 5 values in 3 columns) */
+@media (min-width: 1025px) {
+  .e-con.ne-center-grid { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 20px !important; }
+  .e-con.ne-center-grid.ne-cols-3 > .e-con { flex: 0 0 calc((100% - 40px) / 3); max-width: calc((100% - 40px) / 3); }
+  .e-con.ne-center-grid.ne-cols-4 > .e-con { flex: 0 0 calc((100% - 60px) / 4); max-width: calc((100% - 60px) / 4); }
+}
+
+/* Videos: featured card fills the height of the product-guide list beside it */
+@media (min-width: 768px) {
+  .e-con.ne-featured-col { align-self: stretch; }
+  .e-con.ne-featured-col > .e-con.ne-featured-card { flex: 1 1 auto; height: 100%; }
+}
+
+/* Back-to-top button in the brand accent (theme default was grey) */
+#back-to-top { background-color: #957E56 !important; }
+#back-to-top:hover { background-color: #3D3D3D !important; }
