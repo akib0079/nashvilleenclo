@@ -13,6 +13,7 @@
   const copy = (doc, id) => JSON.parse(JSON.stringify(NE.byId(NE.docs[doc].elements, id)));
   const reid = (el) => (NE.walk([el], (e) => (e.id = NE.uid())), el);
   const set = (root, id, s) => Object.assign(NE.byId([root], id).settings, s);
+  const tag = (root, id, c) => B.C(NE.byId([root], id), c); // design-system class hooks
 
   Object.assign(NE.PAGES, {
     /* =========================== WARRANTY & SERVICE =========================== */
@@ -24,6 +25,7 @@
         const formBox = NE.byId([svc], '1f1ac9d');
         inner.elements = [formBox];
         set(svc, '2aedb0c', { _element_id: 'service-request', padding: { unit: 'px', top: '90', right: '20', bottom: '90', left: '20', isLinked: false }, background_color: '#F9F9F9' });
+        tag(svc, 'b7354eb', 'ne-eyebrow'); tag(svc, '35d8452', 'ne-h2'); tag(svc, 'bf5365c', 'ne-body');
         set(svc, 'b7354eb', { sub: 'Need Service?' });
         set(svc, '35d8452', { title: 'Submit a Service Request', header_size: 'h2' });
         set(svc, 'bf5365c', { editor: ps('Submit a service request with your contact information, project address, product type, description of the issue and photographs when applicable.', 'Our team will review the information and determine the appropriate next step.') });
@@ -73,6 +75,8 @@
         const main = copy(5524, 'b3cfc95');
         const map = copy(5524, '1a7b17c');
         set(main, 'b3cfc95', { _element_id: 'contact', padding: { unit: 'px', top: '90', right: '20', bottom: '90', left: '20', isLinked: false }, padding_mobile: { unit: 'px', top: '50', right: '15', bottom: '50', left: '15', isLinked: false } });
+        tag(main, '5907104', 'ne-eyebrow ne-ihead'); tag(main, 'd5c2a74', 'ne-eyebrow ne-ihead'); tag(main, '1283b94', 'ne-body');
+        B.C(NE.find([main], (e) => e.elements && e.elements.some((k) => k.id === '11003c4')), 'ne-form-card');
         set(main, '5907104', { sub: 'Contact Nashville Enclosures', title: 'Tell Us About Your Project' });
         set(main, '1283b94', { editor: ps('Whether you already know exactly what you want or you’re still trying to determine the right solution, the process starts with a conversation.',
           'Tell us about your property, how you want to use the space and what you’re hoping to accomplish.',

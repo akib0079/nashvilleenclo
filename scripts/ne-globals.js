@@ -32,47 +32,12 @@
     return 'mobile header ok';
   };
 
-  /* ---------- footer ---------- */
+  /* ---------- footer ----------
+     The theme footer template now holds one full-width container with the plugin's [ne_footer]
+     component (brand, systems, company, contact). The old column layout is in BACKUP template 5962. */
   NE.fixFooter = async () => {
-    const els = await copyDoc(1334);
-    const about = '<p>Nashville Enclosures designs and builds premium outdoor structures and enclosure systems for residential and commercial properties throughout Tennessee — serving Davidson, Williamson, Maury, Hickman, Dickson, Cheatham, Montgomery, Robertson, Sumner, Macon, Trousdale, Smith, Wilson, Rutherford, Bedford and Marshall counties.</p>';
-    set(els, 'ec0cbb0', { editor: about });
-    set(els, '7594f36', { editor: about });
-    set(els, '0b7f025', { editor: '<p>Copyright © [oceanthemes_date time_custom="Y"] Nashville Enclosures. All Rights Reserved.</p>' });
-    set(els, '66580c5', B.social()); // desktop: centre column (hidden on tablet/phone)
-    const contacts = NE.byId(els, 'eed8c7e');
-    const [loc, mail, tel] = contacts.settings.icon_list;
-    contacts.settings.icon_list = [
-      { ...loc, text: 'Serving Nashville &amp; Middle Tennessee', link: { url: U.contact } },
-      { ...mail, text: B.EMAIL, link: { url: MAIL } },
-      { ...tel, text: B.PHONE, link: { url: TEL } },
-    ];
-    set(els, '3b3c5e7', { title: 'Our Systems' });
-    const prods = NE.byId(els, '1b8925c');
-    const proto = prods.settings.icon_list[0];
-    prods.settings.icon_list = [
-      ['Louvered Roofs', U.louvered], ['Solid Roof Systems', U.solid], ['Retractable Screens', U.screens], ['Cantilever Roof Systems', U.cantilever],
-      ['3 &amp; 4 Season Rooms', U.seasons], ['Glass Enclosures', U.glass], ['Infrared Heating', U.heating],
-      ['Screen Rooms', U.screenrooms], ['Architectural Metal', U.metal], ['Commercial Projects', U.commercial],
-    ].map(([text, url]) => ({ ...proto, _id: NE.uid(), text, link: { url } }));
-    // tablet: use the phone layout on top (logo + text) and Contacts | Systems side by side
-    set(els, '171877e', { hide_tablet: '' });
-    set(els, '9a73e59', { _inline_size_tablet: 100 });
-    set(els, '272d1eb', { hide_tablet: 'hidden-tablet' });
-    set(els, '41040ae', { hide_tablet: 'hidden-tablet' });
-    set(els, '9dded2f', { hide_tablet: 'hidden-tablet' });
-    set(els, '9d51a93', { _inline_size_tablet: 50 });
-    set(els, '152061b', { _inline_size_tablet: 50 });
-    // tablet/phone layout (171877e) had no social icons: copy the desktop ones under the about text
-    const SOC_M = 'ne50c0m';
-    const top = NE.byId(els, '9a73e59');
-    top.elements = top.elements.filter((e) => e.id !== SOC_M);
-    const socM = JSON.parse(JSON.stringify(NE.byId(els, '66580c5')));
-    socM.id = SOC_M;
-    Object.assign(socM.settings, { align: 'center', align_tablet: 'center', hide_desktop: 'hidden-desktop' });
-    top.elements.push(socM);
-    const logoLink = NE.byId(els, '3ebc271');
-    if (logoLink) logoLink.settings.link = { url: '/' };
+    const els = [B.container({ content_width: 'full', flex_direction: 'column', padding: { unit: 'px', top: '0', right: '0', bottom: '0', left: '0', isLinked: true }, css_classes: 'ne-footer-wrap' },
+      [{ id: NE.uid(), elType: 'widget', widgetType: 'shortcode', settings: { shortcode: '[ne_footer]' }, elements: [] }], false)];
     await NE.save(1334, els);
     return 'footer ok';
   };

@@ -22,12 +22,7 @@
   ];
   const systemCards = () => SYSTEMS.map((s, i) => ({ ...s, label: String(i + 1).padStart(2, '0') }));
 
-  const processBand = (title = 'Consult. Design. Build. Enjoy.') => B.dark({
-    pill: 'The Nashville Enclosures Difference', title,
-    html: '<p>Great outdoor spaces don’t start with a product. They start with understanding the problem you’re trying to solve.</p>',
-    cards: B.processCards(), cols: 4,
-    footer: [B.btn('Explore Our Process', U.process)],
-  });
+  const processBand = (title) => B.processLight(title); // light card grid (was a dark band)
 
   const productCta = (title, bg, text) => B.cta({
     sub: 'Start Your Project', title, bg,

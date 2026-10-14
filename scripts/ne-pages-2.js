@@ -9,11 +9,7 @@
   const h3 = (t) => `<h3 class="ne-subhead">${t}</h3>`;
   const TEL = B.TEL;
 
-  const processBand = () => B.dark({
-    pill: 'The Nashville Enclosures Difference', title: 'Consult. Design. Build. Enjoy.',
-    html: '<p>Our process takes a project from the first conversation through design, construction and final turnover so that every major decision is considered before installation begins.</p>',
-    cards: B.processCards(), cols: 4, footer: [B.btn('Explore Our Process', U.process)],
-  });
+  const processBand = () => B.processLight(); // light card grid (was a dark band)
   const cta = (title, bg, text) => B.cta({
     sub: 'Start Your Project', title, bg,
     html: `<p>${text || 'Tell us about your property, how you want to use the space and what you’re hoping to accomplish. We’ll help you determine the products and design approach that make the most sense for your project.'}</p>`,
@@ -334,19 +330,24 @@
         ];
         const out = [
           B.hero({ pill: 'Commercial', kicker: 'Commercial Outdoor Spaces Designed to Perform.', title: 'Commercial Outdoor Structures &amp; Enclosures', text: 'We partner with architects, engineers, designers, hospitality groups and restaurant owners to create outdoor spaces that work as hard as the business behind them.', bg: 'commercial-12', buttons: [{ text: 'Discuss Your Commercial Project', url: U.contact }, { text: 'Commercial Gallery', url: '#commercial-gallery' }] }),
-          B.dark({
-            pill: 'Who We Work With', title: 'Built for the Professionals Behind Great Commercial Spaces', cols: 3, spaceTop: true,
-            cards: [
-              { title: 'Architects', text: 'Outdoor structures integrated into the design intent, with product data, finishes and coordination support.', icon: 'fas fa-drafting-compass', url: '#architects' },
-              { title: 'Engineers', text: 'Engineered aluminum systems and coordination on loads, connections, drainage, power and permitting.', icon: 'fas fa-calculator', url: '#engineers' },
-              { title: 'Designers', text: 'Finishes, lighting, heating and decorative panels that carry the interior and landscape vision outdoors.', icon: 'fas fa-palette', url: '#designers' },
-              { title: 'Hospitality Groups', text: 'A long-term partner for consistent outdoor spaces across hotels, restaurants and venues.', icon: 'fas fa-hotel', url: '#hospitality' },
-              { title: 'Restaurants, Bars &amp; Venues', text: 'Comfortable patios that keep outdoor seating open through sun, rain, wind and cool weather.', icon: 'fas fa-utensils', url: '#restaurants' },
-              { title: 'Developers &amp; Property Owners', text: 'Durable outdoor amenity spaces for multifamily, mixed-use and corporate properties.', icon: 'fas fa-building', url: '#solutions' },
-            ],
-          }),
         ];
-        sections.forEach((sct, i) => out.push(B.split({ ...sct, reverse: i % 2 === 1, bg: i % 2 === 1 ? '#FFFFFF' : undefined })));
+        const who = B.features({
+          id: 'who-we-work-with', sub: 'Who We Work With', title: `Built for the Professionals Behind ${hl('Great Commercial Spaces')}`,
+          intro: '<p>From first sketch to grand opening, we partner with the people who design, engineer and operate commercial spaces.</p>',
+          items: [
+            { title: 'Architects', text: 'Outdoor structures integrated into the design intent, with product data, finishes and coordination support.', icon: 'drafting', url: '#architects' },
+            { title: 'Engineers', text: 'Engineered aluminum systems and coordination on loads, connections, drainage, power and permitting.', icon: 'engineer', url: '#engineers' },
+            { title: 'Designers', text: 'Finishes, lighting, heating and decorative panels that carry the interior and landscape vision outdoors.', icon: 'palette', url: '#designers' },
+            { title: 'Hospitality Groups', text: 'A long-term partner for consistent outdoor spaces across hotels, restaurants and venues.', icon: 'hotel', url: '#hospitality' },
+            { title: 'Restaurants, Bars &amp; Venues', text: 'Comfortable patios that keep outdoor seating open through sun, rain, wind and cool weather.', icon: 'dining', url: '#restaurants' },
+            { title: 'Developers &amp; Property Owners', text: 'Durable outdoor amenity spaces for multifamily, mixed-use and corporate properties.', icon: 'building', url: '#solutions' },
+          ],
+        });
+        // intro split → light "who we work with" grid → one section per audience (alternating sides)
+        sections.forEach((sct, i) => {
+          out.push(B.split({ ...sct, reverse: i % 2 === 1, bg: i % 2 === 1 ? '#FFFFFF' : undefined }));
+          if (i === 0) out.push(who);
+        });
         out.push(B.gallery({ id: 'commercial-gallery', sub: 'Commercial Gallery', title: `Commercial ${hl('Projects')}`, button: { text: 'Start a Commercial Project', url: U.contact },
           images: ['commercial-04', 'commercial-06', 'commercial-08', 'commercial-09', 'commercial-12', 'commercial-16', 'commercial-18', 'commercial-20', 'vertaslide-glass-06', 'vertaslide-glass-09', 'vertaslide-glass-12', 'vertaslide-glass-14', 'solid-roofs-22', 'architectural-metal-13', 'architectural-metal-08'], cols: 3 }));
         out.push(processBand());
@@ -403,7 +404,7 @@
         const side = NE.byId([featured], 'c695e78');
         Object.assign(side.elements[0].settings, { title: 'Product Guides', header_size: 'h2' });
         const lineProto = side.elements[1];
-        const guides = [['Louvered Roof Systems', U.louvered], ['Solid Roof Systems', U.solid], ['Retractable Screens', U.screens], ['Glass Enclosures', U.glass], ['Three- &amp; Four-Season Rooms', U.seasons], ['Cantilever Structures', U.cantilever], ['Infrared Heating', U.heating], ['Screen Rooms', U.screenrooms], ['Architectural Aluminum', U.metal], ['Commercial Outdoor Spaces', U.commercial]];
+        const guides = [['Louvered Roof Systems', U.louvered], ['Solid Roof Systems', U.solid], ['Retractable Screens', U.screens], ['Glass Enclosures', U.glass], ['Three- &amp; Four-Season Rooms', U.seasons], ['Cantilever Structures', U.cantilever], ['Infrared Heating', U.heating], ['Screen Rooms', U.screenrooms], ['Architectural Aluminum', U.metal], ['Commercial Projects', U.commercial]];
         side.elements = [side.elements[0], ...guides.map(([t, u]) => {
           const l = NE.clone(lineProto);
           Object.assign(l.elements[0].settings, { link: { url: u } });

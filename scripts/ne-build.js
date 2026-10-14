@@ -49,6 +49,9 @@
   const CL = (doc, id) => NE.clone(P(doc, id));
   const kid = (el, i) => el.elements[i];
   const S = (el, s) => (Object.assign(el.settings, s), el);
+  // semantic class hooks for the design system (plugin assets/site.css) — containers use css_classes, widgets _css_classes
+  const C = (el, c) => { const k = el.elType === 'widget' ? '_css_classes' : 'css_classes'; el.settings[k] = ((el.settings[k] || '') + ' ' + c).trim(); return el; };
+  B.C = C;
 
   /* ---------- constants ---------- */
   // Client contact details (2026-10-15): one place for phone + email across every page and template
@@ -93,9 +96,9 @@
   B.range = (cat, n, skip = []) => Array.from({ length: n }, (_, i) => cat + '-' + String(i + 1).padStart(2, '0')).filter((k) => !skip.includes(k) && !B.DROP.includes(k) && NE.media[k]);
 
   /* ---------- widgets ---------- */
-  B.sub = (text, o = {}) => { const e = CL(H, '858fcfd'); S(e, { sub: text }); if (o.center) S(e, { text_align: 'center' }); if (o.light) S(e, { stitle_color: '#E0E0E0' }); return e; };
+  B.sub = (text, o = {}) => { const e = C(CL(H, '858fcfd'), 'ne-eyebrow'); S(e, { sub: text }); if (o.center) S(e, { text_align: 'center' }); if (o.light) S(e, { stitle_color: '#E0E0E0' }); return e; };
   B.h2 = (html, o = {}) => {
-    const e = CL(H, '364169d'); S(e, { title: html, header_size: o.tag || 'h2' });
+    const e = C(CL(H, '364169d'), o.size ? 'ne-h3' : 'ne-h2'); S(e, { title: html, header_size: o.tag || 'h2' });
     delete e.settings.text_shadow_text_shadow;
     if (o.center) S(e, { align: 'center' });
     if (o.size) S(e, { typography_font_size: { unit: 'px', size: o.size }, typography_line_height: { unit: 'em', size: 1.3 }, typography_font_size_tablet: { unit: 'px', size: o.size }, typography_font_size_mobile: { unit: 'px', size: Math.min(o.size, 18) }, typography_line_height_mobile: { unit: 'em', size: 1.35 } });
@@ -126,6 +129,11 @@
     return e;
   };
   B.html = (html) => ({ id: NE.uid(), elType: 'widget', widgetType: 'html', settings: { html }, elements: [] });
+  // plugin components ([ne_card], [ne_gallery]) render through Elementor's shortcode widget
+  const attr = (v) => String(v).replace(/"/g, '&quot;').replace(/\[/g, '(').replace(/\]/g, ')');
+  B.shortcode = (code, cls = '') => ({ id: NE.uid(), elType: 'widget', widgetType: 'shortcode', settings: { shortcode: code, _css_classes: cls }, elements: [] });
+  B.cardCode = (it) => `[ne_card id="${M(it.img).id}" num="${attr(it.label || '')}" title="${attr(it.title)}" text="${attr(it.text || '')}" url="${attr(it.url)}"]`;
+  B.galleryCode = (keys, cols = 3, group = '') => `[ne_gallery ids="${keys.map((k) => M(k).id).join(',')}" cols="${cols}" group="${group}"]`;
   B.list = (items, cls = 'ne-check') => `<ul class="${cls}">` + items.map((t) => `<li>${t}</li>`).join('') + '</ul>';
   B.ps = (...p) => p.map((t) => `<p>${t}</p>`).join('');
   B.container = (settings, elements, inner = true) => ({ id: NE.uid(), elType: 'container', isInner: inner, settings: Object.assign({ content_width: 'full', flex_gap: { unit: 'px', size: 0, column: '0', row: '0' }, padding: { unit: 'px', top: '0', right: '0', bottom: '0', left: '0', isLinked: true } }, settings), elements });
@@ -144,15 +152,15 @@
 
   // Inner-page / product hero (cloned from the product banner)
   B.hero = ({ pill, kicker, title, text, bg, buttons = [], h = 62, pos = 'center center' }) => {
-    const s = CL(LR, '3e3b505');
+    const s = C(CL(LR, '3e3b505'), 'ne-hero');
     S(s, { background_image: bgVal(bg), background_position: pos, min_height: { unit: 'vh', size: h }, background_slideshow_gallery: [], padding_tablet: { unit: 'px', top: '110', right: '30', bottom: '80', left: '30', isLinked: false } });
     const inner = kid(s, 0), heads = kid(inner, 0), lower = kid(inner, 1);
     const [p, k, t] = heads.elements;
-    S(p, { title: pill, header_size: 'div' });
-    if (kicker) S(k, { title: kicker, header_size: 'p' }); else heads.elements = [p, t];
-    S(t, { title, header_size: 'h1' });
+    S(C(p, 'ne-pill'), { title: pill, header_size: 'div' });
+    if (kicker) S(C(k, 'ne-kicker'), { title: kicker, header_size: 'p' }); else heads.elements = [p, t];
+    S(C(t, 'ne-h1'), { title, header_size: 'h1' });
     const col = kid(lower, 0), [tx, row] = col.elements;
-    S(tx, { editor: `<p>${text}</p>` });
+    S(C(tx, 'ne-hero-text'), { editor: `<p>${text}</p>` });
     // the prototype forces nowrap on mobile, which clips long CTA labels — let buttons wrap on every breakpoint
     S(row, { hide_tablet: '', hide_mobile: '', flex_wrap: 'wrap', flex_wrap_tablet: 'wrap', flex_wrap_mobile: 'wrap', flex_gap: { unit: 'px', size: 12, column: '12', row: '12', isLinked: true } });
     const proto = row.elements[0];
@@ -167,7 +175,7 @@
   // Home hero (cloned from home banner)
   // `slides`: photo keys for a background slideshow with a slow Ken Burns zoom (Elementor's own slideshow, no plugin)
   B.homeHero = ({ pill, line1, line2, text, bg, slides, buttons }) => {
-    const s = CL(H, 'f5c2610');
+    const s = C(CL(H, 'f5c2610'), 'ne-hero ne-hero--home');
     S(s, { background_image: bgVal(bg || slides[0]), padding_tablet: { unit: 'px', top: '110', right: '30', bottom: '80', left: '30', isLinked: false } });
     if (slides) S(s, {
       background_background: 'slideshow',
@@ -179,11 +187,11 @@
     });
     const heads = kid(kid(s, 0), 0), lower = kid(kid(s, 0), 1);
     const [p, l1, l2] = heads.elements;
-    S(p, { title: pill, header_size: 'div' });
-    S(l1, { title: line1, header_size: 'h1' });
-    S(l2, { title: line2, header_size: 'div' });
+    S(C(p, 'ne-pill'), { title: pill, header_size: 'div' });
+    S(C(l1, 'ne-h1'), { title: line1, header_size: 'h1' });
+    S(C(l2, 'ne-hero-line2'), { title: line2, header_size: 'div' });
     const col = kid(lower, 0), [tx, row] = col.elements;
-    S(tx, { editor: `<p>${text}</p>` });
+    S(C(tx, 'ne-hero-text'), { editor: `<p>${text}</p>` });
     S(row, { flex_wrap: 'wrap', flex_wrap_tablet: 'wrap', flex_wrap_mobile: 'wrap' });
     const [b1, b2] = row.elements;
     S(b1, { text: buttons[0].text, link: { url: buttons[0].url } });
@@ -201,11 +209,35 @@
     home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>',
     compass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="m11 7-6 14M13 7l6 14M7.5 15h9"/></svg>',
     pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    drafting: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6M9 10h6"/></svg>',
+    engineer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>',
+    palette: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-1.3-1-1.6-1-2.8 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.3 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>',
+    hotel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4h16v17M2 21h20"/><path d="M8 8h2M14 8h2M8 12h2M14 12h2M10 21v-4h4v4"/></svg>',
+    dining: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8a2 2 0 0 1-2 2v8M7 3v8a2 2 0 0 0 2 2v8M5 3v6M9 3v6"/><path d="M17 21V3c-2 1.5-3 4-3 7v4h3"/></svg>',
+    consult: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M17 9h3a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-4-3h-3"/></svg>',
+    design: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l3.5-1 12-12a2.1 2.1 0 0 0-3-3l-12 12L3 21z"/><path d="M14 6l3 3M3 3h6M3 3v6"/></svg>',
+    build: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18v2H3zM5 17v-3a7 7 0 0 1 14 0v3"/><path d="M10 7.2V5h4v2.2M12 7v5"/></svg>',
+    enjoy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4H2zM5 17v2M19 17v2"/></svg>',
     building: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18"/><path d="M12 8h8v13"/><path d="M2.5 21h19"/><path d="M7 8h2M7 12h2M7 16h2M15 12h2M15 16h2"/></svg>',
   };
 
+  // Light feature grid: eyebrow + heading + white cards (icon, title, text, optional link)
+  B.features = ({ sub, title, intro, items, cols = 3, bg = '#F7F5F0', id, footer }) => {
+    const grid = '<div class="ne-feats ne-feats--' + cols + '">' + items.map((it) => {
+      const inner = `<span class="ne-feat-ic" aria-hidden="true">${B.ICONS[it.icon] || ''}</span><h3 class="ne-feat-title">${it.title}</h3><p class="ne-feat-text">${it.text}</p>`
+        + (it.url ? `<span class="ne-feat-link">${it.link || 'Learn more'}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>` : '');
+      return it.url ? `<a class="ne-feat" href="${it.url}">${inner}</a>` : `<div class="ne-feat">${inner}</div>`;
+    }).join('') + '</div>';
+    const head = B.container({ flex_direction: 'column', flex_align_items: 'center', flex_gap: { unit: 'px', size: 16, column: '16', row: '16', isLinked: true }, css_classes: 'ne-feats-head' },
+      [B.sub(sub, { center: true }), B.h2(title, { center: true }), ...(intro ? [B.text(intro, { center: true, cls: 'ne-body' })] : [])]);
+    return B.container({ css_classes: 'ne-feats-sec', content_width: 'boxed', boxed_width: { unit: 'px', size: 1200 }, flex_direction: 'column', flex_gap: { unit: 'px', size: 48, column: '48', row: '48', isLinked: true },
+      background_background: 'classic', background_color: bg, _element_id: id || '',
+      padding: { unit: 'px', top: '100', right: '20', bottom: '100', left: '20', isLinked: false }, padding_mobile: { unit: 'px', top: '64', right: '15', bottom: '64', left: '15', isLinked: false } },
+      [head, B.html(grid), ...(footer ? [B.container({ flex_direction: 'row', flex_justify_content: 'center' }, footer)] : [])], false);
+  };
+
   B.split = ({ sub, title, html, after = [], images = [], reverse = false, cta, bg, features, bubbles, id }) => {
-    const s = CL(H, '86db9aa');
+    const s = C(CL(H, '86db9aa'), 'ne-split');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
     S(s, { padding: { unit: 'px', top: '100', right: '20', bottom: '100', left: '20', isLinked: false }, padding_tablet: { unit: 'px', top: '80', right: '30', bottom: '80', left: '30', isLinked: false }, padding_mobile: { unit: 'px', top: '60', right: '15', bottom: '60', left: '15', isLinked: false },
@@ -218,8 +250,9 @@
     if (images[1]) { S(small, { image: imgVal(images[1]), image_size: 'large' }); }
     else { imgCol.elements = [S(big, { _element_custom_width: { unit: '%', size: 100 }, height: { unit: 'px', size: 520 }, height_mobile: { unit: 'px', size: 280 } })]; S(imgCol, { flex_justify_content: 'center' }); }
     const [ih, hd, tx, dv, feat, bt] = txtCol.elements;
-    S(ih, { sub }); S(hd, { title, header_size: 'h2' }); delete hd.settings.text_shadow_text_shadow;
-    S(tx, { editor: html, _element_width: '', _element_custom_width: { unit: 'px', size: '' } });
+    S(C(ih, 'ne-eyebrow'), { sub }); S(C(hd, 'ne-h2'), { title, header_size: 'h2' }); delete hd.settings.text_shadow_text_shadow;
+    S(C(tx, 'ne-body'), { editor: html, _element_width: '', _element_custom_width: { unit: 'px', size: '' } });
+    C(imgCol, 'ne-split-media');
     const kids = [ih, hd, tx, ...after];
     if (features) {
       // two icon+label features (reuse the existing feature row)
@@ -240,25 +273,27 @@
   B.intro = ({ sub, title, html, after = [], bg = '#FFFFFF', id, narrow = 860 }) => {
     const col = B.container({ boxed_width: { unit: 'px', size: narrow }, content_width: 'boxed', flex_direction: 'column', flex_align_items: 'center', flex_gap: { unit: 'px', size: 18, column: '18', row: '18', isLinked: true } },
       [B.sub(sub, { center: true }), B.h2(title, { center: true }), B.text(html, { center: true }), ...after]);
-    return B.container({ content_width: 'boxed', boxed_width: { unit: 'px', size: 1200 }, flex_direction: 'column', flex_align_items: 'center', background_background: 'classic', background_color: bg, padding: { unit: 'px', top: '100', right: '20', bottom: '90', left: '20', isLinked: false }, padding_mobile: { unit: 'px', top: '60', right: '15', bottom: '50', left: '15', isLinked: false }, _element_id: id || '' }, [col], false);
+    return B.container({ css_classes: 'ne-intro', content_width: 'boxed', boxed_width: { unit: 'px', size: 1200 }, flex_direction: 'column', flex_align_items: 'center', background_background: 'classic', background_color: bg, padding: { unit: 'px', top: '100', right: '20', bottom: '90', left: '20', isLinked: false }, padding_mobile: { unit: 'px', top: '60', right: '15', bottom: '50', left: '15', isLinked: false }, _element_id: id || '' }, [col], false);
   };
 
   // Dark rounded band with icon cards (cloned from home "benefits")
   B.dark = ({ pill, title, html, cards, cols = 4, id, footer, texture, spaceTop }) => {
-    const s = CL(H, '94d8e6c');
+    const s = C(CL(H, '94d8e6c'), 'ne-dark');
     if (id) S(s, { _element_id: id });
     // directly under a hero the band would touch it — give it room
     if (spaceTop) S(s, { margin: { unit: 'px', top: '90', right: '0', bottom: '0', left: '0', isLinked: false }, margin_mobile: { unit: 'px', top: '50', right: '0', bottom: '0', left: '0', isLinked: false } });
     const box = kid(s, 0), inner = kid(box, 0);
     S(box, { background_overlay_image: bgVal(texture || 'louvered-roofs-17', 'xl'), background_overlay_opacity: { unit: 'px', size: 0.07 } });
     const [pl, tt, tx, row] = inner.elements;
-    S(pl, { title: pill, header_size: 'div' }); S(tt, { title, header_size: 'h2' });
+    S(C(pl, 'ne-pill ne-pill--dark'), { title: pill, header_size: 'div' }); S(C(tt, 'ne-dark-title'), { title, header_size: 'h2' });
+    C(tx, 'ne-dark-text');
     S(tx, { editor: html || '', _element_custom_width: { unit: 'px', size: 760 } });
     const cardProto = kid(row, 0);
     const items = cards.map((c) => {
       const wrap = NE.clone(cardProto);
       const ib = CL(W, '26ffe74');
-      S(ib, { title_text: c.title, description_text: c.text, selected_icon: { value: c.icon || 'fas fa-check', library: 'fa-solid' }, title_size: 'h3' });
+      S(C(ib, 'ne-icard'), { title_text: c.title, description_text: c.text, selected_icon: { value: c.icon || 'fas fa-check', library: 'fa-solid' }, title_size: 'h3' });
+      C(wrap, 'ne-icard-wrap');
       if (c.url) S(ib, { link: { url: c.url } });
       wrap.elements = [ib];
       return wrap;
@@ -275,41 +310,47 @@
     S(c, { link: { url }, background_image: bgVal(img, 'large'), min_height: { unit: 'px', size: minH }, min_height_mobile: { unit: 'px', size: 260 }, width: { unit: '%', size: 100 }, css_classes: 'featured-zoom-section ne-card' });
     const wrapRow = kid(c, 0), txt = kid(wrapRow, 0);
     const [pill, ttl] = txt.elements;
-    S(pill, { title: label, header_size: 'div' }); S(ttl, { title, header_size: 'h3' });
+    S(C(pill, 'ne-card-num'), { title: label, header_size: 'div' }); S(C(ttl, 'ne-card-title'), { title, header_size: 'h3' });
     if (text) {
-      const d = CL(H, '9399458');
+      const d = C(CL(H, '9399458'), 'ne-card-text');
       S(d, { editor: `<p>${text}</p>` });
       txt.elements.push(d);
     }
+    const arrow = NE.find([c], (e) => e.widgetType === 'icon');
+    if (arrow) { C(arrow, 'ne-card-arrow'); C(NE.find([c], (e) => e.elements && e.elements.includes(arrow)), 'ne-card-arrow-wrap'); }
+    C(txt, 'ne-card-body');
     return c;
   };
   B.cards = ({ sub, title, button, items, cols = 3, minH, bg, id, intro }) => {
-    const s = CL(H, 'aa4f9cc');
+    const s = C(CL(H, 'aa4f9cc'), 'ne-cards');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
     const head = kid(s, 0);
     const [left, right] = head.elements;
     const [ih, hd] = left.elements;
-    S(ih, { sub }); S(hd, { title, header_size: 'h2' });
+    S(C(ih, 'ne-eyebrow'), { sub }); S(C(hd, 'ne-h2'), { title, header_size: 'h2' });
+    C(head, 'ne-sec-head');
     if (intro) left.elements.push(B.text(intro));
     if (button) S(kid(right, 0), { text: button.text, link: { url: button.url } }); else head.elements = [left];
     // title column 70% (the prototype's 50% stranded the last word of longer headings on its own line)
     S(left, { width: { unit: '%', size: button ? 70 : 100 }, width_tablet: { unit: '%', size: button ? 65 : 100 } });
     if (button) S(right, { width: { unit: '%', size: 30 }, width_tablet: { unit: '%', size: 35 } });
-    s.elements = [head, B.grid(cols, items.map((it) => B.card({ ...it, minH: minH || it.minH })), { gap: 16, tablet: 2, title: 'cards' })];
+    s.elements = [head, B.shortcode(`<div class="ne-pcards ne-pcards--${cols}">${items.map(B.cardCode).join('')}</div>`, 'ne-pcards-widget')];
     return s;
   };
 
   // Gallery block (cloned from home "Explore Projects")
   B.gallery = ({ sub, title, button, images, cols = 3, bg, id }) => {
-    const s = CL(H, '1aebfab');
+    const s = C(CL(H, '1aebfab'), 'ne-gallery');
     if (bg) S(s, { background_color: bg });
     if (id) S(s, { _element_id: id });
     const head = kid(s, 0), gal = kid(s, 1);
     const [left, right] = head.elements;
-    S(left.elements[0], { sub }); S(left.elements[1], { title, header_size: 'h2' });
+    S(C(left.elements[0], 'ne-eyebrow'), { sub }); S(C(left.elements[1], 'ne-h2'), { title, header_size: 'h2' }); C(head, 'ne-sec-head');
     if (button) S(kid(right, 0), { text: button.text, link: { url: button.url } }); else head.elements = [left];
-    S(gal, { image_gallery: images.map((k) => ({ id: M(k).id, url: M(k).url })), gallery_columns: String(cols), gallery_columns_tablet: '2', gallery_columns_mobile: '1', thumbnail_size: 'medium_large' });
+    // featured galleries show complete rows only (the Projects page shows every photo)
+    const shown = images.length > cols ? images.slice(0, images.length - (images.length % cols)) : images;
+    s.elements[1] = B.shortcode(B.galleryCode(shown, cols, id || NE.uid()), 'ne-gal-widget');
     return s;
   };
 
@@ -336,9 +377,9 @@
 
   // Big dark CTA card with photo background (cloned from home video-library band)
   B.cta = ({ sub, title, html, bg, buttons = [], id, href }) => {
-    const s = CL(H, '974690f');
+    const s = C(CL(H, '974690f'), 'ne-cta');
     if (id) S(s, { _element_id: id });
-    const card = kid(s, 0);
+    const card = C(kid(s, 0), 'ne-cta-card');
     // same technique as the original design: black card + photo as a low-opacity overlay layer
     // a card with buttons must not itself be a link (nested <a> tags break the DOM)
     if (buttons.length) href = '';
@@ -347,7 +388,7 @@
       background_overlay_position: 'center center', background_overlay_size: 'cover', background_overlay_repeat: 'no-repeat', background_overlay_opacity: { unit: 'px', size: 0.42 } });
     const col = kid(kid(card, 0), 0);
     const [ic, ih, hd, tx] = col.elements;
-    S(ih, { sub, text_align: 'center' }); S(hd, { title, header_size: 'h2', align: 'center' }); S(tx, { editor: html || '' });
+    S(C(ih, 'ne-eyebrow ne-eyebrow--light'), { sub, text_align: 'center' }); S(C(hd, 'ne-cta-title'), { title, header_size: 'h2', align: 'center' }); S(C(tx, 'ne-cta-text'), { editor: html || '' });
     const els = [ih, hd];
     if (html) els.push(tx);
     if (buttons.length) {
@@ -361,18 +402,30 @@
 
   // Accordion (theme widget) for FAQs
   B.faq = ({ sub, title, items, image, id }) => {
-    const s = CL(LR, 'a49abb3');
+    const s = C(CL(LR, 'a49abb3'), 'ne-faq');
     if (id) S(s, { _element_id: id });
     const [imgSide, txtSide] = s.elements;
     S(kid(kid(imgSide, 0), 0), { image: imgVal(image), image_size: 'large' });
     const [ih, hd, acc] = txtSide.elements;
-    S(ih, { sub }); S(hd, { title, header_size: 'h2' });
+    S(C(ih, 'ne-eyebrow'), { sub }); S(C(hd, 'ne-h2'), { title, header_size: 'h2' });
     S(acc, { ot_accs: items.map((it, i) => ({ _id: NE.uid(), acc_title: `<div class="hello"><span>${String(i + 1).padStart(2, '0')}. </span>${it[0]}</div>`, acc_content: `<p>${it[1]}</p>` })) });
     return s;
   };
 
   // Shared helper-CSS widget that every page carries (dark-card + highlight styles)
   B.effect = () => CL(H, 'd32d0eb');
+
+  B.processLight = (title = 'Consult. Design. Build. Enjoy.', intro) => B.features({
+    sub: 'The Nashville Enclosures Difference', title, cols: 4, bg: '#FFFFFF',
+    intro: intro || '<p>Our process takes a project from the first conversation through design, construction and final turnover, so every major decision is considered before installation begins.</p>',
+    items: [
+      { title: '01. Consult', text: 'We listen before we design — understanding how you want to use the space before recommending a product.', icon: 'consult', url: U.process + '#consult', link: 'Step 1' },
+      { title: '02. Design', text: 'See the space before we build it, with layouts, models and realistic renderings for appropriate projects.', icon: 'design', url: U.process + '#design', link: 'Step 2' },
+      { title: '03. Build', text: 'Professional construction and efficient installation, with attention to the details that determine performance.', icon: 'build', url: U.process + '#build', link: 'Step 3' },
+      { title: '04. Enjoy', text: 'A full walkthrough, product education and ongoing support. If you need us later, we’re still here.', icon: 'enjoy', url: U.process + '#enjoy', link: 'Step 4' },
+    ],
+    footer: [B.btn('Explore Our Process', U.process)],
+  });
 
   B.processCards = (dark = true) => [
     { title: '01. Consult', text: 'We listen before we design — understanding how you want to use the space before recommending a product.', icon: 'fas fa-comments', url: U.process },

@@ -25,7 +25,7 @@ from the client's *Nash Enclosures website Page Layouts.docx* and photo folders.
 - Not used: 4 commercial photos showing other businesses’ signage (Cactus Club, First Watch).
 
 **Fixes**
-- Sticky header rewritten (`scripts/sticky-header.html` + `css/custom.css`): no layout jump, compact state,
+- Sticky header rewritten (`scripts/sticky-header.html` + site CSS): no layout jump, compact state,
   respects the WP admin bar, no flicker; tablet (768–1024px) header is now sticky too.
 - Theme page-title banner switched off on pages that now have their own hero (`pheader_switch = 0`).
 - Footer: wrong `mailto:theratio_interior@mail.com`, product links to the theme demo site, copyright link.
@@ -35,7 +35,7 @@ from the client's *Nash Enclosures website Page Layouts.docx* and photo folders.
   #EEB75D, #998560, #FDB843, incl. 8-digit alpha variants and rgba forms) maps to it via `NE.recolor` (`ne-run.js`),
   applied to live documents and to every build (the design prototypes still contain the old golds). The pale hero
   line colour #FCE2B4 maps to a light tint, #E1D5C1, so it stays readable on dark photos. Also: Elementor kit global
-  "Accent Color", Customizer preloader bar, `css/custom.css`; the uploaded arrow icon `Frame-73.svg` has the old gold
+  "Accent Color", Customizer preloader bar, site CSS; the uploaded arrow icon `Frame-73.svg` has the old gold
   in the file, so CSS recolours its strokes. The logo image keeps its own gold.
 - Forms: product lists updated, warranty photo upload made optional, clearer email subjects.
 - Menus (desktop + mobile) restructured; Patio Covers menu items repointed to the new pages.
@@ -48,7 +48,7 @@ Automated audit of all 18 pages + the blog article at 1440px, 820px and 390px (p
 - Sticky header: pins when the nav reaches the top with no content jump; tablet and phone headers stick.
 - Mobile/tablet menu: every link, submenu, call and email item is tappable; closing keeps scroll position.
   (Bug found on a real phone: Elementor's sticky "spacer" copy of the mobile header carried a second
-  dark overlay that the theme force-showed above the menu. Fixed in custom.css; the close arrow's
+  dark overlay that the theme force-showed above the menu. Fixed in the site CSS; the close arrow's
   `href="#"` jump is cancelled in scripts/sticky-header.html.)
 - Pages open cleanly in the Elementor editor; gallery filters, lightboxes, YouTube embeds, Google Map and
   the mobile menu all work.
@@ -66,13 +66,27 @@ and site clutter; 11 photos removed from the site (Vancouver street/skyline, Can
 glass, an AI-looking render, unfinished-site shots). `B.SWAP` / `B.DROP` in `scripts/ne-build.js` enforce this,
 and the builder throws if a dropped photo is referenced.
 
-## Recommendation (not changed)
-The theme's Royal Preloader keeps the page hidden ~1.5–2.4 s even when it has already loaded
-(longer on first visit). Turning it off (Customizer › theme options) would noticeably improve
-perceived speed and LCP.
+## Revision 2 (2026-10-15) — client changes + design system
+Client list: new phone/email (forms → info@ + brian@), "Nashville Enclosures" wordmark (rebuilt in the
+original Montserrat + Titillium, `assets/nashville-enclosures-logo*.png`), Ken Burns hero slideshow from the
+client's carousel photos, lifestyle copy (Home/About), Our Story rewrite, "Commitment to Excellence",
+Solid Roof Systems page, Commercial as its own page (`/commercial/`, old URL 301s), bigger Projects filters,
+Suncoast video notice, Middle TN service-area map.
+
+**Plugin `plugin/ne-site-tools`** (installed + active; upload the zip via Plugins › Add New › Upload, "Replace current"):
+- `assets/site.css` — the whole site stylesheet (replaces Customizer Additional CSS, which is now just a pointer).
+  Part 1 fixes/helpers, Part 2 design system: Poppins everywhere (theme mixed 4 families), one eyebrow,
+  heading scale, button, hero, cards; components; blog typography.
+- `[ne_card]` product cards (full-width text, top-right arrow, multi-line title underline, responsive images),
+  `[ne_gallery]` photo grids (Elementor lightbox), `[ne_footer]` site footer, `[ne_service_map]` Leaflet map,
+  curtain preloader (first page view per session, ≤1.4 s; theme Royal Preloader switched off + dequeued),
+  301 redirects for moved pages.
+- Builders add semantic classes (`ne-hero`, `ne-eyebrow`, `ne-h2`, `ne-split`, `ne-dark`, `ne-cta`, …) that
+  site.css styles; `B.features` = light card grid (Commercial "Who we work with", process steps).
+- Desktop menu: stepped spacing verified at every width 1025–1920px (≥ 20px clear of Request Quote).
 
 ## Cache
-After Customizer CSS or header/footer template changes, clear WP Engine's cache (WP Engine › Caching ›
+After plugin CSS, Customizer or header/footer template changes, clear WP Engine's cache (WP Engine › Caching ›
 Clear all caches) and confirm `x-cache: MISS` or the new markup with `curl`; the button doesn't always
 register on the first click.
 
@@ -89,7 +103,7 @@ Before any change, every touched page/template was saved as an Elementor templat
 | `scripts/ne-run.js` | Create/rename pages and publish |
 | `scripts/ne-globals.js` | Header, mobile header, footer, side panel, menus |
 | `scripts/sticky-header.html` | Sticky header script (lives in the header template's HTML widget) |
-| `css/custom.css` | Appearance › Customize › Additional CSS |
+| `plugin/ne-site-tools/` | Site plugin: stylesheet, components, footer, preloader, map, redirects |
 | `docs/media-map.json` | Photo key → WordPress attachment ID |
 
 ## Open items for the client
