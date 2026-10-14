@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Nashville Enclosures Site Tools
  * Description: Site design system stylesheet, footer ([ne_footer]), curtain preloader, service-area map ([ne_service_map]) and permanent redirects.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Nashville Enclosures web team
  * License: GPL-2.0-or-later
  * Requires at least: 6.0
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NE_SITE_TOOLS_VERSION', '1.3.1' );
+define( 'NE_SITE_TOOLS_VERSION', '1.3.2' );
 define( 'NE_SITE_TOOLS_URL', plugin_dir_url( __FILE__ ) );
 
 /**
@@ -43,6 +43,9 @@ add_action(
 	},
 	1
 );
+
+// marks that JavaScript runs, so scroll-reveal styles never hide content when it doesn't
+add_action( 'wp_head', function () { echo "<script>document.documentElement.classList.add('ne-js');</script>\n"; }, 0 );
 
 require_once __DIR__ . '/includes-footer.php';
 require_once __DIR__ . '/includes-preloader.php';

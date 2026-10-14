@@ -635,23 +635,44 @@ a.ne-feat:hover .ne-feat-link svg { transform: translateX(4px); }
 .ne-steps-head h2 { margin: 16px 0 16px !important; font: 600 clamp(30px, 2.8vw, 44px)/1.16 var(--ne-font) !important; letter-spacing: -.018em !important; color: #fff !important; }
 .ne-steps-head .highlight { color: #D8CBB2 !important; }
 .ne-steps-head p { margin: 0 auto !important; max-width: 560px; font-size: 16px; line-height: 1.75; color: rgba(255,255,255,.68) !important; }
-.ne-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; list-style: none; margin: 0 !important; padding: 0 !important; }
-/* connecting line runs from the first circle's centre to the last */
-.ne-steps::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 23px; height: 1px; background: rgba(255,255,255,.16); }
+.ne-steps { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; list-style: none; margin: 0 !important; padding: 0 !important; --ne-step-dur: 1.8s; }
+/* track + animated progress line, from the first circle's centre to the last */
+.ne-steps::before, .ne-steps::after { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 32px; height: 1px; }
+.ne-steps::before { background: rgba(255,255,255,.14); }
+.ne-steps::after { height: 2px; top: 31.5px; background: linear-gradient(90deg, var(--ne-accent), #C9B58F); transform: scaleX(0); transform-origin: left center; transition: transform var(--ne-step-dur) cubic-bezier(.45, 0, .2, 1); }
+.ne-steps.is-in::after { transform: scaleX(1); }
 .ne-step { position: relative; text-align: center; padding: 0 6px; }
-.ne-step-n { position: relative; z-index: 1; width: 46px; height: 46px; display: grid; place-items: center; margin: 0 auto 22px; border-radius: 50%; background: #151515; border: 1px solid var(--ne-accent); color: #fff; font: 600 13px/1 var(--ne-font); letter-spacing: .04em; }
+.ne-step-ic { position: relative; z-index: 1; width: 64px; height: 64px; display: grid; place-items: center; margin: 0 auto 22px; border-radius: 50%; background: #151515; border: 1px solid rgba(255,255,255,.18); color: #D8CBB2;
+  transition: background-color .5s ease, border-color .5s ease, color .5s ease, transform .5s var(--ne-ease), box-shadow .5s ease; transition-delay: calc(var(--i) * (var(--ne-step-dur) / 3) + .05s); }
+.ne-step-ic svg { width: 26px; height: 26px; }
+.ne-steps.is-in .ne-step-ic { background: var(--ne-accent); border-color: var(--ne-accent); color: #fff; box-shadow: 0 0 0 6px rgba(149,126,86,.16); }
+.ne-step-k { display: block; margin-bottom: 8px; font: 600 11px/1.2 var(--ne-font); letter-spacing: .16em; text-transform: uppercase; color: #D8CBB2; opacity: .85; }
 .ne-step h3 { margin: 0 0 10px !important; font: 600 19px/1.3 var(--ne-font) !important; color: #fff !important; }
 .ne-step p { margin: 0 auto !important; max-width: 250px; font-size: 14.5px; line-height: 1.7; color: rgba(255,255,255,.64) !important; }
+.ne-step:hover .ne-step-ic { transform: translateY(-4px); transition-delay: 0s; }
+/* content fades up in step order */
+.ne-js .ne-steps[data-ne-steps] .ne-step > :not(.ne-step-ic) { opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s var(--ne-ease); transition-delay: calc(var(--i) * (var(--ne-step-dur) / 3) + .15s); }
+.ne-js .ne-steps.is-in[data-ne-steps] .ne-step > :not(.ne-step-ic) { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ne-steps::after, .ne-step-ic, .ne-steps[data-ne-steps] .ne-step > * { transition: none !important; }
+}
 .ne-steps-foot { margin-top: 56px; display: flex; justify-content: center; }
 .ne-steps-foot a.ne-link-btn { display: inline-block; padding: 18px 30px; border-radius: 4px; background: var(--ne-accent); color: #fff !important; text-decoration: none !important; font: 600 13px/1.2 var(--ne-font); letter-spacing: .1em; text-transform: uppercase; transition: background-color .3s ease, color .3s ease; }
 .ne-steps-foot a.ne-link-btn:hover { background: #fff; color: var(--ne-ink) !important; }
 @media (max-width: 1024px) {
   .ne-steps-head { margin-bottom: 48px; }
-  .ne-steps { grid-template-columns: 1fr 1fr; gap: 40px 28px; }
-  .ne-steps::before { display: none; }
+  .ne-steps { grid-template-columns: 1fr 1fr; gap: 44px 28px; }
+  .ne-steps::before, .ne-steps::after { display: none; }
 }
 @media (max-width: 600px) {
+  /* vertical timeline: line runs down the icon column */
   .ne-steps { grid-template-columns: 1fr; gap: 34px; }
+  .ne-steps::before, .ne-steps::after { display: block; left: 31.5px; right: auto; top: 32px; bottom: 32px; width: 1px; height: auto; }
+  .ne-steps::after { width: 2px; left: 31px; transform: scaleY(0); transform-origin: center top; }
+  .ne-steps.is-in::after { transform: scaleY(1); }
+  .ne-step { display: grid; grid-template-columns: 64px 1fr; column-gap: 20px; text-align: left; padding: 0; }
+  .ne-step-ic { grid-row: span 3; margin: 0; }
+  .ne-step p { margin: 0 !important; max-width: none; }
   .ne-steps-foot { margin-top: 44px; }
 }
 

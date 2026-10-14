@@ -1,4 +1,4 @@
-/* Nashville Enclosures — home hero slideshow (crossfade + slow Ken Burns zoom, progress, arrows, swipe). */
+/* Nashville Enclosures — home: hero slideshow (crossfade + slow zoom, progress, arrows, swipe) + animated process steps. */
 (function () {
   function init(h) {
     var slides = [].slice.call(h.querySelectorAll('.nh-slide'));
@@ -43,6 +43,16 @@
     h.classList.add('nh-ready');
     schedule();
   }
-  function boot() { [].forEach.call(document.querySelectorAll('.ne-hero2'), init); }
+  // process steps: draw the line and light each step once the list scrolls into view
+  function steps() {
+    var lists = document.querySelectorAll('[data-ne-steps]');
+    if (!lists.length) return;
+    if (!('IntersectionObserver' in window)) { [].forEach.call(lists, function (l) { l.classList.add('is-in'); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.35 });
+    [].forEach.call(lists, function (l) { io.observe(l); });
+  }
+  function boot() { [].forEach.call(document.querySelectorAll('.ne-hero2'), init); steps(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

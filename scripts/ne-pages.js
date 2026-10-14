@@ -41,16 +41,17 @@
         const slides = ['louvered-roofs-01', 'hero-03', 'louvered-roofs-08', 'glide-glass-18', 'hero-06', 'louvered-roofs-19', 'hero-04', 'hero-02', 'louvered-roofs-16', 'hero-05', 'hero-01', 'hero-07'];
         const hero = B.wrap(B.shortcode(`[ne_hero ids="${B.ids(slides)}" pill="Nashville’s Premier Custom Outdoor Structure &amp; Enclosure Professionals" title="Designed for the Way You Live." accent="Built for the outdoors." text="Elevating outdoor living through luxury architectural structures and premium enclosure systems, thoughtfully designed and expertly built for residential and commercial spaces throughout Tennessee." cta1="View Products|${U.products}" cta2="Start Your Project|${U.contact}"]`), { cls: 'ne-home-hero ne-fullbleed' });
         const steps = [
-          ['Consult', 'We listen before we design and help determine the right combination of products for your goals.'],
-          ['Design', 'Layouts, models and realistic renderings help you see the space before we build it.'],
-          ['Build', 'Organized, efficient construction with attention to the details that determine performance.'],
-          ['Live', 'We walk you through every system, then stay available for service and support.'],
+          ['Consult', 'We listen before we design and help determine the right combination of products for your goals.', 'consult'],
+          ['Design', 'Layouts, models and realistic renderings help you see the space before we build it.', 'design'],
+          ['Build', 'Organized, efficient construction with attention to the details that determine performance.', 'build'],
+          ['Live', 'We walk you through every system, then stay available for service and support.', 'enjoy'],
         ];
         const process = B.wrap(B.container({ css_classes: 'ne-steps-sec', flex_direction: 'column',
           padding: { unit: 'px', top: '90', right: '64', bottom: '84', left: '64', isLinked: false }, padding_mobile: { unit: 'px', top: '56', right: '24', bottom: '52', left: '24', isLinked: false } }, [B.html(
           '<div class="ne-steps-head"><span class="ne-eyebrow-txt">Consult. Design. Build. Live.</span><h2>Custom outdoor living, <span class="highlight">designed around you</span></h2>'
           + '<p>Every property is different. We start by understanding how you want to use the space, then design a complete solution around your home and lifestyle.</p></div>'
-          + '<ol class="ne-steps">' + steps.map(([t, d], n) => `<li class="ne-step"><span class="ne-step-n">0${n + 1}</span><h3>${t}</h3><p>${d}</p></li>`).join('') + '</ol>'
+          // icons in circles; a gold line draws across when the section scrolls into view (plugin home.js) and lights each step in turn
+          + '<ol class="ne-steps" data-ne-steps>' + steps.map(([t, d, ic], n) => `<li class="ne-step" style="--i:${n}"><span class="ne-step-ic" aria-hidden="true">${B.ICONS[ic]}</span><span class="ne-step-k">Step 0${n + 1}</span><h3>${t}</h3><p>${d}</p></li>`).join('') + '</ol>'
           + `<div class="ne-steps-foot"><a class="ne-link-btn" href="${U.process}">Explore Our Process</a></div>`)]),
           { boxed: 1240, pt: 30, pb: 110, px: 20, ptm: 10, pbm: 70, pxm: 10 });
         const band = B.wrap(B.shortcode(`[ne_band id="${B.M('architectural-metal-05').id}" side="left"]`
